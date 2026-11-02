@@ -8,12 +8,12 @@ export const projects: Project[] = [
     type: 'AI',
     description: {
       pt: [
-        'Conta pessoas dentro de uma zona demarcada em vídeo ou webcam, com YOLOv8 pra detecção e uma máquina de estados com debounce que transforma contagens instáveis em eventos de violação',
-        'Vista de profundidade com Depth Anything V2 destaca a pessoa mais próxima, cada violação vira um clipe anotado e um gráfico acompanha a ocupação da zona — tudo rodando em CPU, sem GPU',
+        'Conta pessoas numa zona demarcada em vídeo ou webcam, usando YOLOv8 e debounce',
+        'Vista de profundidade destaca a pessoa mais próxima, cada violação vira um clipe anotado',
       ],
       en: [
-        'Counts people inside a user-defined zone in video or webcam feed, using YOLOv8 for detection and a debounced state machine that turns flickering counts into discrete violation events',
-        'Depth view with Depth Anything V2 highlights the closest person, each violation is saved as an annotated clip, and a chart tracks zone occupancy over time — all running on CPU, no GPU needed',
+        'Counts people inside a user-defined zone in video or webcam feed, using YOLOv8 and debounce',
+        'Depth view highlights the closest person, each violation is saved as an annotated clip',
       ],
     },
     year: '2026',
@@ -38,42 +38,6 @@ export const projects: Project[] = [
     year: '2026',
     link: 'https://github.com/Hugolelis/qrcode-lib',
     image: '/projects/qrcode.png',
-  },
-  {
-    id: 5,
-    title: { pt: 'LeetCodes Study', en: 'LeetCodes Study' },
-    tag: 'Python · DSA · Zero Deps',
-    type: 'STUDY',
-    description: {
-      pt: [
-        'Resoluções pessoais de problemas do LeetCode em Python, com foco em prática deliberada de padrões como two pointers, sliding window, hashing, DP e grafos',
-        'Cada problema isolado em seu próprio arquivo, testável individualmente, usando apenas a biblioteca padrão do Python',
-      ],
-      en: [
-        'Personal LeetCode solutions in Python, focused on deliberate practice of patterns like two pointers, sliding window, hashing, DP, and graph traversal',
-        'Each problem lives in its own file, runnable in isolation, with zero external dependencies — pure Python standard library',
-      ],
-    },
-    year: '2026',
-    link: 'https://github.com/Hugolelis/leetcodes-study',
-  },
-  {
-    id: 1,
-    title: { pt: 'Generator', en: 'Generator' },
-    tag: 'Fastify · TypeScript · Prisma',
-    type: 'API',
-    description: {
-      pt: [
-        'Geração de CPF, UUID, senha e números sorteados, além de encurtador de URL com PostgreSQL/Prisma',
-        'Fastify + TypeScript com rate limiting, CORS e documentação Swagger interativa em /docs',
-      ],
-      en: [
-        'CPF, UUID, password, and sorted-number generation, plus a URL shortener backed by PostgreSQL/Prisma',
-        'Fastify + TypeScript with rate limiting, CORS, and interactive Swagger docs at /docs',
-      ],
-    },
-    year: '2026',
-    link: 'https://github.com/Hugolelis/generator-api',
   },
   {
     id: 3,
@@ -112,5 +76,23 @@ export const projects: Project[] = [
     year: '2026',
     link: 'https://github.com/Hugolelis/yt_downloader-cli',
     image: '/projects/yt-downloader.png',
+  },
+  {
+    id: 1,
+    title: { pt: 'Generator', en: 'Generator' },
+    tag: 'Fastify · TypeScript · Prisma',
+    type: 'API',
+    description: {
+      pt: [
+        'Geração de CPF, UUID, senha e números sorteados, além de encurtador de URL com PostgreSQL/Prisma',
+        'Fastify + TypeScript com rate limiting, CORS e documentação Swagger interativa em /docs',
+      ],
+      en: [
+        'CPF, UUID, password, and sorted-number generation, plus a URL shortener backed by PostgreSQL/Prisma',
+        'Fastify + TypeScript with rate limiting, CORS, and interactive Swagger docs at /docs',
+      ],
+    },
+    year: '2026',
+    link: 'https://github.com/Hugolelis/generator-api',
   },
 ]

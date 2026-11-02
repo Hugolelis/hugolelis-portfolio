@@ -11,6 +11,16 @@ const interestsEn = [
   'System Architecture', 'Performance', 'Backend', 'Computer Vision', 'AI',
 ]
 
+// cycled by position (pt/en stay aligned index-for-index) — same accent
+// colors already used for the project type badges, just text, no fill
+const interestColors = [
+  'var(--tag-api-color)',
+  'var(--tag-cli-color)',
+  'var(--tag-ai-color)',
+  'var(--accent-term)',
+  'var(--tag-red-color)',
+]
+
 export function About() {
   const { t, lang, theme } = useApp()
   const interestTags = lang === 'pt' ? interests : interestsEn
@@ -41,8 +51,14 @@ export function About() {
         <div className={styles.subsection}>
           <p className={styles.interestsLabel}>{lang === 'pt' ? 'Áreas de interesse' : 'Areas of interest'}</p>
           <div className={styles.interests}>
-            {interestTags.map(tag => (
-              <span key={tag} className={styles.interest}>{tag}</span>
+            {interestTags.map((tag, i) => (
+              <span
+                key={tag}
+                className={styles.interest}
+                style={{ color: interestColors[i % interestColors.length] }}
+              >
+                {tag}
+              </span>
             ))}
           </div>
         </div>

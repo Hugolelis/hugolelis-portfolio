@@ -14,12 +14,21 @@ function getInitials(org: string): string {
   return words.slice(0, 2).map(word => word[0]).join('').toUpperCase()
 }
 
+// orgs without a brand icon still get a color, so the badge text isn't
+// stuck at the neutral default — picked to fit the site's existing tag
+// palette rather than each org's real brand color
+const ORG_COLOR: Record<string, string> = {
+  IBM: 'var(--tag-api-color)',
+  'University of Illinois': 'var(--tag-red-color)',
+}
+
 export interface IssuerBadge {
   org: string
   initials: string
+  color: string
 }
 
 export function getIssuerBadge(issuer: string): IssuerBadge {
   const org = primaryOrg(issuer)
-  return { org, initials: getInitials(org) }
+  return { org, initials: getInitials(org), color: ORG_COLOR[org] ?? 'var(--accent)' }
 }

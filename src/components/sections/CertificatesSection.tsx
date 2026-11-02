@@ -40,7 +40,12 @@ export function CertificatesSection() {
                 style={isInitial ? { animation: `fadeUp 0.4s ease ${i * 0.06}s both` } : undefined}
                 onClick={() => setSelected(cert)}
               >
-                <div className={styles.icon} aria-hidden="true" title={badge.org}>
+                <div
+                  className={styles.icon}
+                  style={Icon ? undefined : { color: badge.color }}
+                  aria-hidden="true"
+                  title={badge.org}
+                >
                   {Icon ? <Icon size={18} /> : badge.initials}
                 </div>
                 <div className={styles.info}>

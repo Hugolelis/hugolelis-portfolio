@@ -3,6 +3,7 @@ import type { Project } from '../../types'
 import type { Lang } from '../../types'
 import type { Translations } from '../../i18n'
 import { ProjectModal } from '../modals/ProjectModal'
+import { projectTypeBadgeStyle } from '../../utils/projectTypeColor'
 import styles from './ProjectCard.module.css'
 
 interface Props {
@@ -28,16 +29,12 @@ export function ProjectCard({ project, lang, translations }: Props) {
 
       <div className={styles.content}>
         <div className={styles.top}>
-          <span className={styles.typeBadge}>{project.type}</span>
+          <span className={styles.typeBadge} style={projectTypeBadgeStyle(project.type)}>{project.type}</span>
           <span className={styles.year}>{project.year}</span>
         </div>
         <h3 className={styles.title}>{title}</h3>
         <span className={styles.tag}>{project.tag}</span>
         <p className={styles.description}>{description}</p>
-        <button type="button" className={styles.viewMore} onClick={(e) => { e.stopPropagation(); setOpen(true) }}>
-          {lang === 'pt' ? 'Ver mais' : 'View more'}
-          <span aria-hidden="true">→</span>
-        </button>
       </div>
 
       {open && (

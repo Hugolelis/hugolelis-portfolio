@@ -52,6 +52,11 @@ select { font: inherit; }
   --tag-ai-bg: rgba(244,114,182,0.12);
   --tag-ai-color: #f472b6;
   --tag-ai-border: rgba(244,114,182,0.3);
+  --tag-tool-bg: rgba(74,222,128,0.12);
+  --tag-tool-border: rgba(74,222,128,0.3);
+  --tag-red-bg: rgba(248,113,113,0.12);
+  --tag-red-color: #f87171;
+  --tag-red-border: rgba(248,113,113,0.3);
   --tag-default-bg: rgba(255,255,255,0.06);
   --tag-default-color: #aaa;
   --tag-default-border: rgba(255,255,255,0.1);
@@ -92,6 +97,11 @@ select { font: inherit; }
   --tag-ai-bg: rgba(190,60,122,0.07);
   --tag-ai-color: #be3c7a;
   --tag-ai-border: rgba(190,60,122,0.16);
+  --tag-tool-bg: rgba(64,122,80,0.07);
+  --tag-tool-border: rgba(64,122,80,0.16);
+  --tag-red-bg: rgba(181,75,75,0.07);
+  --tag-red-color: #b54b4b;
+  --tag-red-border: rgba(181,75,75,0.16);
   --tag-default-bg: rgba(0,0,0,0.025);
   --tag-default-color: #858582;
   --tag-default-border: rgba(0,0,0,0.07);

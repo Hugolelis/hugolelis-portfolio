@@ -80,6 +80,10 @@
   display: grid;
   grid-template-columns: repeat(var(--weeks), var(--step));
   height: 0.95rem;
+  /* the last month label's 3-column span can run past the grid's final
+     week column when the data doesn't end on a month boundary — clip it
+     instead of letting it poke out and trip the scroller below */
+  overflow: hidden;
 }
 
 .month {

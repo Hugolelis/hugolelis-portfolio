@@ -2,6 +2,7 @@ import { useEffect } from 'react'
 import { createPortal } from 'react-dom'
 import type { Project, Lang } from '../../types'
 import type { Translations } from '../../i18n'
+import { projectTypeBadgeStyle } from '../../utils/projectTypeColor'
 import styles from './ProjectModal.module.css'
 
 interface Props {
@@ -58,7 +59,7 @@ export function ProjectModal({ project, lang, translations, onClose }: Props) {
 
         <div className={styles.body}>
           <div className={styles.meta}>
-            <span className={styles.typeBadge}>{typeLabel}</span>
+            <span className={styles.typeBadge} style={projectTypeBadgeStyle(project.type)}>{typeLabel}</span>
             <span className={styles.tag}>{project.tag}</span>
             <span className={styles.year}>{project.year}</span>
           </div>
