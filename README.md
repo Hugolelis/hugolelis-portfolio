@@ -36,13 +36,6 @@ Most portfolio sites are static one-pagers with a resume bolted on. This one is 
 
 ---
 
-## Demo
-
-<!-- Add the live link and, ideally, a screenshot or short GIF of the terminal hero animation. This is a web project, so Demo isn't optional the way it is for an API. -->
-**Live:** [your-portfolio-url](#)
-
----
-
 ## Features
 
 | Capability | Description |
