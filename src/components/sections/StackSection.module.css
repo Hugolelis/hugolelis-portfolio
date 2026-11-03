@@ -67,6 +67,27 @@
   font-size: 0.85rem;
   color: var(--text);
   overflow-wrap: anywhere;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.25rem 0.9rem;
+}
+
+/* group color is blended with the theme text color so dark hues
+   stay legible on the dark theme and light ones
+   on the light theme */
+.tech {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  color: color-mix(in srgb, var(--tech-color) 65%, var(--text));
+}
+
+.tech::before {
+  content: '';
+  width: 0.5rem;
+  height: 0.5rem;
+  border-radius: 50%;
+  background: var(--tech-color);
 }
 
 /* ── heatmap card ── */

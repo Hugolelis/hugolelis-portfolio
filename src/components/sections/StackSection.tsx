@@ -10,9 +10,9 @@ export function StackSection() {
   const { days, loading, error } = useGithubContributions(GITHUB_USERNAME)
 
   const groups = [
-    { label: t.stack.languages, value: 'C++, Python, Node.js/TypeScript' },
-    { label: t.stack.databases, value: 'MySQL, PostgreSQL' },
-    { label: t.stack.infra, value: 'Docker, Git, Linux, Nginx' },
+    { label: t.stack.languages, color: '#3B82F6', values: ['C++', 'Python', 'Node.js', 'TypeScript'] },
+    { label: t.stack.databases, color: '#F59E0B', values: ['MySQL', 'PostgreSQL'] },
+    { label: t.stack.infra, color: '#10B981', values: ['Docker', 'Git', 'Linux', 'Nginx'] },
   ]
 
   return (
@@ -29,7 +29,17 @@ export function StackSection() {
               {groups.map((group) => (
                 <li key={group.label} className={styles.item}>
                   <span className={styles.itemLabel}>{group.label}</span>
-                  <span className={styles.itemValue}>{group.value}</span>
+                  <span className={styles.itemValue}>
+                    {group.values.map((tech) => (
+                      <span
+                        key={tech}
+                        className={styles.tech}
+                        style={{ '--tech-color': group.color } as React.CSSProperties}
+                      >
+                        {tech}
+                      </span>
+                    ))}
+                  </span>
                 </li>
               ))}
             </ul>
