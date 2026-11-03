@@ -23,7 +23,8 @@ export const en: Translations = {
   projects: {
     title: 'Projects',
     count: '{n} projects',
-    summary: 'Tools, APIs, and studies I\'ve built to solve real problems, from scratch to deploy.',
+    summary: 'Tools I\'ve built to solve real problems, from scratch to deploy.',
+    clickToView: 'Click to view',
     viewCode: 'View code',
     viewDeploy: 'View deploy',
     deployUnavailable: 'No live deploy available',
@@ -35,7 +36,7 @@ export const en: Translations = {
   timeline: {
     title: 'Timeline',
     count: '{n} experiences',
-    summary: 'Experience, education, and milestones that got me here. Scroll to see the full trajectory.',
+    summary: 'Experience, education, and milestones that got me here. See the full trajectory.',
     present: 'Present',
   },
   stack: {

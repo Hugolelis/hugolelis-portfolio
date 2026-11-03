@@ -35,6 +35,7 @@ export function ProjectCard({ project, lang, translations }: Props) {
         <h3 className={styles.title}>{title}</h3>
         <span className={styles.tag}>{project.tag}</span>
         <p className={styles.description}>{description}</p>
+        <span className={styles.hint}>{translations.clickToView} →</span>
       </div>
 
       {open && (

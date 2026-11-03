@@ -21,7 +21,8 @@ export const pt = {
   projects: {
     title: 'Projetos',
     count: '{n} projetos',
-    summary: 'Ferramentas, APIs e estudos que construí pra resolver problemas reais, do zero ao deploy.',
+    summary: 'Ferramentas que construí pra resolver problemas reais, do zero ao deploy.',
+    clickToView: 'Clique para ver',
     viewCode: 'Ver código',
     viewDeploy: 'Ver deploy',
     deployUnavailable: 'Sem deploy disponível',
@@ -33,7 +34,7 @@ export const pt = {
   timeline: {
     title: 'Timeline',
     count: '{n} experiências',
-    summary: 'Experiências, formação e marcos que me trouxeram até aqui. Role para o lado para ver a trajetória completa.',
+    summary: 'Experiências, formação e marcos que me trouxeram até aqui. Veja a trajetória completa.',
     present: 'Presente',
   },
   stack: {

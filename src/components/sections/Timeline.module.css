@@ -116,6 +116,7 @@
   z-index: 1;
   width: 26px;
   height: 26px;
+  flex-shrink: 0;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -204,15 +205,60 @@
   .track { padding-left: 1.5rem; }
 }
 
+/* ── mobile: a plain stacked list instead of the horizontal scroll-jack
+   (see useMediaQuery in Timeline.tsx — below 760px .track never mounts,
+   this renders instead) ── */
+
+.mobileWrap {
+  padding: 4.5rem 0 3rem;
+}
+
+.mobileIntro {
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+  margin-bottom: 2.5rem;
+}
+
+.stackedList {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  position: relative;
+}
+
+/* same track + accent fill as the desktop .line/.lineFill, just scaling
+   vertically (transform-origin: top) instead of horizontally — their top
+   and height are measured in JS (see useStackedLineRect in Timeline.tsx)
+   so the line spans exactly from the first dot's center to the last's */
+.stackedLine {
+  position: absolute;
+  left: 12px;
+  width: 2px;
+  background: var(--border);
+}
+
+.stackedLineFill {
+  position: absolute;
+  left: 12px;
+  width: 2px;
+  background: var(--accent);
+  transform-origin: top;
+  transform: scaleY(0);
+}
+
+.stackedItem {
+  display: flex;
+  align-items: flex-start;
+  gap: 1rem;
+  position: relative;
+}
+
+.stackedText {
+  flex: 1 1 auto;
+  min-width: 0;
+}
+
 @media (max-width: 760px) {
-  /* same pin + horizontal-scroll-jack mechanism as desktop (see
-     useHorizontalPin) — just narrower columns and tighter spacing so it
-     still reads well on a phone-width track */
-  .track {
-    grid-auto-columns: min(80vw, 300px);
-    column-gap: 2.5rem;
-    padding: 1rem 1.5rem;
-  }
-  .intro { padding-right: 1rem; }
   .org { font-size: 1.05rem; }
 }

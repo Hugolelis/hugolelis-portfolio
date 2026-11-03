@@ -20,7 +20,7 @@ const SCROLL_EASE = 1.6
 // section's bottom passes, natively and unconditionally. This hook only
 // has to compute how far across that range the scroll currently is, and
 // turn that into a horizontal offset.
-export function useHorizontalPin<TSection extends HTMLElement, TTrack extends HTMLElement>() {
+export function useHorizontalPin<TSection extends HTMLElement, TTrack extends HTMLElement>(enabled = true) {
   const sectionRef = useRef<TSection>(null)
   const trackRef = useRef<TTrack>(null)
   const [state, setState] = useState<PinState>({ progress: 0, offset: 0, active: false })
@@ -29,6 +29,11 @@ export function useHorizontalPin<TSection extends HTMLElement, TTrack extends HT
     const section = sectionRef.current
     const track = trackRef.current
     if (!section || !track) return
+
+    if (!enabled) {
+      section.style.height = ''
+      return
+    }
 
     let maxTranslate = 0
     let ticking = false
@@ -81,7 +86,7 @@ export function useHorizontalPin<TSection extends HTMLElement, TTrack extends HT
       window.removeEventListener('resize', measure)
       section.style.height = ''
     }
-  }, [])
+  }, [enabled])
 
-  return { sectionRef, trackRef, ...state }
+  return { sectionRef, trackRef, ...(enabled ? state : { progress: 0, offset: 0, active: false }) }
 }

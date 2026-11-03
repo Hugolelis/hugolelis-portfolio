@@ -103,6 +103,18 @@
   margin: 0.15rem 0 0;
 }
 
+.hint {
+  margin-top: 0.25rem;
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  color: var(--muted);
+  transition: color 0.2s;
+}
+
+.card:hover .hint {
+  color: var(--accent);
+}
+
 @media (max-width: 680px) {
   .card {
     flex-direction: column;
