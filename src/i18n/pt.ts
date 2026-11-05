@@ -15,7 +15,6 @@ export const pt = {
   about: {
     title: 'Sobre mim',
     p1: 'Desenvolvedor de software, com foco em arquitetura de sistemas e experiência prática também em visão computacional e IA. Estou no mercado desde 2024, projetando APIs, integrando sistemas e cuidando do ciclo completo de aplicações web, do planejamento ao deploy.',
-    p2: 'Gosto de entender problemas até a raiz, não só resolvê-los na superfície. Isso me leva a construir coisas do zero em vez de só integrar bibliotecas prontas.',
     p3: 'Tive meu primeiro contato com programação em 2023, classificado numa competição de programação em Python no Inatel. Hoje curso Sistemas de Informação na UniFoa e busco projetos que me exijam pensar em arquitetura, performance e decisão real, não só entregar funcionalidade.',
   },
   projects: {

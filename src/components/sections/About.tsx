@@ -42,7 +42,6 @@ export function About() {
             <h2 className={`section-title ${styles.title}`}>{t.about.title}</h2>
             <div className={styles.body}>
               <p>{t.about.p1}</p>
-              <p>{t.about.p2}</p>
               <p>{t.about.p3}</p>
             </div>
           </div>

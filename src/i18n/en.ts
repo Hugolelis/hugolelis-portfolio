@@ -17,7 +17,6 @@ export const en: Translations = {
   about: {
     title: 'About me',
     p1: 'Software developer, focused on system architecture with hands-on experience in computer vision and AI as well. I\'ve been in the field since 2024, designing APIs, integrating systems, and handling the full lifecycle of web applications, from planning to deploy.',
-    p2: 'I like understanding problems down to the root, not just solving them on the surface. That\'s what leads me to build things from scratch instead of just wiring up existing libraries.',
     p3: 'I had my first contact with programming in 2023, qualifying in a Python programming competition at Inatel. Today I\'m completing a degree in Information Systems at UniFoa, looking for projects that push me to think about architecture, performance, and real decisions, not just shipping features.',
   },
   projects: {
