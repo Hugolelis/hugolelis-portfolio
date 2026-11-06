@@ -2,9 +2,9 @@
 
 <div align="left">
 
-[![Status](https://img.shields.io/badge/Status-Live-1a1a2e?style=for-the-badge&logoColor=white)]()
-[![Version](https://img.shields.io/badge/Version-1.0.0-1a1a2e?style=for-the-badge&logoColor=white)]()
-[![License](https://img.shields.io/badge/License-MIT-1a1a2e?style=for-the-badge&logoColor=white)](LICENSE)
+[![Status](https://img.shields.io/badge/Status-Live-407a50?style=for-the-badge&labelColor=1a1a1a&logoColor=white)]()
+[![Version](https://img.shields.io/badge/Version-1.0.0-2a2a2a?style=for-the-badge&labelColor=1a1a1a&logoColor=white)]()
+[![License](https://img.shields.io/badge/License-MIT-2a2a2a?style=for-the-badge&labelColor=1a1a1a&logoColor=white)](LICENSE)
 
 </div>
 
@@ -54,10 +54,10 @@ Most portfolio sites are static one-pagers with a resume bolted on. This one is 
 
 ## Tech Stack
 
-![React](https://img.shields.io/badge/React-1a1a2e?style=for-the-badge&logo=react&logoColor=white)
-![TypeScript](https://img.shields.io/badge/TypeScript-1a1a2e?style=for-the-badge&logo=typescript&logoColor=white)
-![Vite](https://img.shields.io/badge/Vite-1a1a2e?style=for-the-badge&logo=vite&logoColor=white)
-![CSS Modules](https://img.shields.io/badge/CSS_Modules-1a1a2e?style=for-the-badge&logo=cssmodules&logoColor=white)
+![React](https://img.shields.io/badge/React-52719d?style=for-the-badge&logo=react&logoColor=white)
+![TypeScript](https://img.shields.io/badge/TypeScript-52719d?style=for-the-badge&logo=typescript&logoColor=white)
+![Vite](https://img.shields.io/badge/Vite-52719d?style=for-the-badge&logo=vite&logoColor=white)
+![CSS Modules](https://img.shields.io/badge/CSS_Modules-52719d?style=for-the-badge&logo=cssmodules&logoColor=white)
 
 | | |
 |---|---|
