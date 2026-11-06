@@ -3,8 +3,8 @@
 <div align="left">
 
 [![Status](https://img.shields.io/badge/Status-Live-407a50?style=for-the-badge&labelColor=1a1a1a&logoColor=white)]()
-[![Version](https://img.shields.io/badge/Version-1.0.0-2a2a2a?style=for-the-badge&labelColor=1a1a1a&logoColor=white)]()
-[![License](https://img.shields.io/badge/License-MIT-2a2a2a?style=for-the-badge&labelColor=1a1a1a&logoColor=white)](LICENSE)
+[![Version](https://img.shields.io/badge/Version-1.0.0-ea580c?style=for-the-badge&labelColor=1a1a1a&logoColor=white)]()
+[![License](https://img.shields.io/badge/License-MIT-facc15?style=for-the-badge&labelColor=1a1a1a&logoColor=white)](LICENSE)
 
 </div>
 
