@@ -21,8 +21,8 @@
 - [Getting Started](#getting-started)
 - [Scripts](#scripts)
 - [Deployment](#deployment)
-- [License](#license)
 - [Author](#author)
+- [License](#license)
 
 </details>
 
@@ -155,14 +155,14 @@ The project is configured for **Vercel** deployment with SPA rewrites via `verce
 
 ---
 
+## Author
+
+[Hugolelis](https://github.com/Hugolelis)
+
+---
+
 ## License
 
 Distributed under the **MIT License**. See [LICENSE](LICENSE) for more information.
 
 <!-- Confirm this repo actually has a LICENSE file with MIT. Added to match your other repos, remove/adjust if it's not really open-sourced under MIT. -->
-
----
-
-## Author
-
-[Hugolelis](https://github.com/Hugolelis)
