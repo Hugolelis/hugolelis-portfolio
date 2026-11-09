@@ -18,6 +18,14 @@ export interface Project {
   link?: string
   deploy?: string
   image?: string
+  /** shown instead of a screenshot when the project has none */
+  banner?: LocalizedText
+  features: LocalizedList
+  caseStudy: {
+    problem: LocalizedText
+    decision: LocalizedText
+    facts: string[]
+  }
 }
 
 export type CertificateIcon = 'google' | 'udemy'

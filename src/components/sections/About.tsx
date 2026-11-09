@@ -3,12 +3,12 @@ import { asciiPortraitDark, asciiPortraitLight } from '../../data'
 import styles from './About.module.css'
 
 const interests = [
-  'Engenharia de Software', 'Algoritmos', 'Estruturas de Dados',
-  'Arquitetura de Sistemas', 'Performance', 'Backend', 'Visão Computacional', 'IA',
+  'Arquitetura de Sistemas', 'Sistemas Distribuídos', 'Backend e APIs', 'Visão Computacional',
+  'Bancos Relacionais', 'Performance', 'Testes', 'IA',
 ]
 const interestsEn = [
-  'Software Engineering', 'Algorithms', 'Data Structures',
-  'System Architecture', 'Performance', 'Backend', 'Computer Vision', 'AI',
+  'System Architecture', 'Distributed Systems', 'Backend & APIs', 'Computer Vision',
+  'Relational Databases', 'Performance', 'Testing', 'AI',
 ]
 
 // cycled by position (pt/en stay aligned index-for-index) — same accent

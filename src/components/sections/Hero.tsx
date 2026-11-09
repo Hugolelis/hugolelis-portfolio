@@ -27,7 +27,7 @@ function useTypewriter(text: string, speed = 28) {
 }
 
 export function Hero() {
-  const { t, lang, theme } = useApp()
+  const { t, theme } = useApp()
   const [cvOpen, setCvOpen] = useState(false)
 
   const displayedTitle = useTypewriter('Hugo de Lelis', 30)
@@ -51,7 +51,7 @@ export function Hero() {
             <span className={styles.accent}>{displayedTitle}</span>
             <span className={styles.cursor}>_</span>
           </h1>
-          <p className={styles.role}>{lang === 'pt' ? 'Desenvolvedor de software' : 'Software developer'}</p>
+          <p className={styles.role}>{t.hero.role}</p>
 
           <div className={styles.cta}>
             <a href="#projetos" className="btn btn--primary">{t.hero.cta_projects}</a>
@@ -70,6 +70,7 @@ export function Hero() {
               <span className={styles.emailArrow} aria-hidden="true">↗</span>
             </a>
           </div>
+          <p className={styles.meta}>{t.hero.meta}</p>
         </div>
       </div>
 

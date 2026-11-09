@@ -1,8 +1,7 @@
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 import { createPortal } from 'react-dom'
 import type { Project, Lang } from '../../types'
 import type { Translations } from '../../i18n'
-import { projectTypeBadgeStyle } from '../../utils/projectTypeColor'
 import styles from './ProjectModal.module.css'
 
 interface Props {
@@ -14,8 +13,8 @@ interface Props {
 
 export function ProjectModal({ project, lang, translations, onClose }: Props) {
   const title = project.title[lang]
-  const description = project.description[lang]
   const typeLabel = project.type
+  const [tab, setTab] = useState<'overview' | 'features'>('overview')
 
   useEffect(() => {
     document.body.style.overflow = 'hidden'
@@ -53,24 +52,53 @@ export function ProjectModal({ project, lang, translations, onClose }: Props) {
           <img src={project.image} alt="" className={styles.image} />
         ) : (
           <div className={styles.imageFallback} aria-hidden="true">
-            <span>{typeLabel}</span>
+            <span className={styles.bannerBox}>{project.banner?.[lang] ?? typeLabel}</span>
           </div>
         )}
 
         <div className={styles.body}>
-          <div className={styles.meta}>
-            <span className={styles.typeBadge} style={projectTypeBadgeStyle(project.type)}>{typeLabel}</span>
-            <span className={styles.tag}>{project.tag}</span>
-            <span className={styles.year}>{project.year}</span>
+          <div className={styles.tabs} role="tablist">
+            {(['overview', 'features'] as const).map(id => (
+              <button
+                key={id}
+                type="button"
+                role="tab"
+                aria-selected={tab === id}
+                className={`${styles.tab} ${tab === id ? styles.tabActive : ''}`}
+                onClick={() => setTab(id)}
+              >
+                {id === 'overview' ? translations.tabOverview : translations.tabFeatures}
+              </button>
+            ))}
           </div>
 
-          <h3 className={styles.title}>{title}</h3>
-
-          <ul className={styles.desc}>
-            {description.map((line, i) => (
-              <li key={i}>{line}</li>
-            ))}
-          </ul>
+          <div className={styles.scroll} role="tabpanel" key={tab}>
+            {tab === 'overview' ? (
+              <>
+                <dl className={styles.story}>
+                  <dt>{translations.problem}</dt>
+                  <dd>{project.caseStudy.problem[lang]}</dd>
+                  <dt>{translations.decision}</dt>
+                  <dd className={styles.decision}>{project.caseStudy.decision[lang]}</dd>
+                </dl>
+                <ul className={styles.facts}>
+                  {project.caseStudy.facts.map(f => <li key={f}>{f}</li>)}
+                </ul>
+              </>
+            ) : (
+              <ul className={styles.features}>
+                {project.features[lang].map(item => {
+                  const [lead, ...rest] = item.split(': ')
+                  return (
+                    <li key={item}>
+                      <strong>{lead}</strong>
+                      <span>{rest.join(': ')}</span>
+                    </li>
+                  )
+                })}
+              </ul>
+            )}
+          </div>
 
           <div className={styles.footer}>
             {project.link && (

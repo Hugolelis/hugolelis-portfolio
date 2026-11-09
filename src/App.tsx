@@ -112,9 +112,9 @@ export default function App() {
     <>
       <Helmet>
         <title>{'Hugo | Software Developer'}</title>
-        <meta name="description" content="Portfolio de Hugo de Lelis | Software Developer especializado em APIs, bancos de dados relacionais e sistemas distribuídos." />
+        <meta name="description" content="Portfolio de Hugo de Lelis | Software Developer com foco em backend, APIs, bancos de dados relacionais e aplicações com IA." />
         <meta property="og:title" content="Hugo | Software Developer" />
-        <meta property="og:description" content="Portfolio de Hugo de Lelis | Software Developer especializado em APIs, bancos de dados relacionais e sistemas distribuídos." />
+        <meta property="og:description" content="Portfolio de Hugo de Lelis | Software Developer com foco em backend, APIs, bancos de dados relacionais e aplicações com IA." />
         <meta property="og:type" content="website" />
         <meta property="og:url" content="https://hugolelis.dev" />
         <script type="application/ld+json">{JSON.stringify(schema)}</script>
