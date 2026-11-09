@@ -70,7 +70,6 @@ export function Hero() {
               <span className={styles.emailArrow} aria-hidden="true">↗</span>
             </a>
           </div>
-          <p className={styles.meta}>{t.hero.meta}</p>
         </div>
       </div>
 

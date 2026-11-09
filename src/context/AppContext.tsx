@@ -17,13 +17,13 @@ export function AppProvider({ children }: { children: ReactNode }) {
   const [theme, setTheme] = useState<Theme>(() => {
     const saved = localStorage.getItem('theme')
     if (saved === 'light' || saved === 'dark') return saved
-    return 'light'
+    return window.matchMedia?.('(prefers-color-scheme: dark)').matches ? 'dark' : 'light'
   })
 
   const [lang, setLang] = useState<Lang>(() => {
     const saved = localStorage.getItem('lang')
     if (saved === 'pt' || saved === 'en') return saved
-    return 'en'
+    return navigator.language?.toLowerCase().startsWith('pt') ? 'pt' : 'en'
   })
 
   useEffect(() => {
@@ -33,9 +33,16 @@ export function AppProvider({ children }: { children: ReactNode }) {
 
   useEffect(() => {
     localStorage.setItem('lang', lang)
+    document.documentElement.lang = lang === 'pt' ? 'pt-BR' : 'en'
   }, [lang])
 
-  const toggleTheme = () => setTheme(t => t === 'dark' ? 'light' : 'dark')
+  const toggleTheme = () => {
+    // fade colors for a moment instead of snapping (see .theme-fade in index.css)
+    const root = document.documentElement
+    root.classList.add('theme-fade')
+    window.setTimeout(() => root.classList.remove('theme-fade'), 400)
+    setTheme(t => t === 'dark' ? 'light' : 'dark')
+  }
   const toggleLang = () => setLang(l => l === 'pt' ? 'en' : 'pt')
 
   const t = lang === 'pt' ? pt : en

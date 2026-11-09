@@ -2,7 +2,6 @@ import { useState, useEffect, lazy, Suspense } from 'react'
 import { Helmet } from 'react-helmet-async'
 import { Footer, Loading, Nav, Hero, About, CertificatesSection, StackSection, ProjectsSection, Timeline, Reveal } from './components'
 import { useApp } from './context/AppContext'
-import { useAppReady } from './hooks/useAppReady'
 import styles from './components/ui/BackToTop.module.css'
 import notFoundStyles from './components/ui/NotFound.module.css'
 
@@ -13,16 +12,10 @@ export default function App() {
   const path = window.location.pathname
   const isProjectsPage = path === '/projetos'
   const isUnknown = !isProjectsPage && path !== '/'
-  const homeReady = useAppReady()
 
   const [showBackToTop, setShowBackToTop] = useState(false)
 
   useEffect(() => {
-    // On the home route this content doesn't exist until the loading
-    // screen clears — wait for that before chasing a hash target.
-    const isHomePath = !isProjectsPage && !isUnknown
-    if (isHomePath && !homeReady) return
-
     const hash = window.location.hash
     const target = hash ? document.getElementById(hash.slice(1)) : null
     if (!target) {
@@ -51,7 +44,7 @@ export default function App() {
       window.removeEventListener('touchstart', markScrolled)
       window.removeEventListener('keydown', markScrolled)
     }
-  }, [homeReady, isProjectsPage, isUnknown])
+  }, [isProjectsPage, isUnknown])
 
   useEffect(() => {
     const onScroll = () => setShowBackToTop(window.scrollY > 400)
@@ -119,31 +112,27 @@ export default function App() {
         <meta property="og:url" content="https://hugolelis.dev" />
         <script type="application/ld+json">{JSON.stringify(schema)}</script>
       </Helmet>
-      {!homeReady ? (
-        <Loading fullScreen />
-      ) : (
-        <div style={{ overflowX: 'clip' }}>
-          <Nav />
-          <main id="main-content">
-            <Hero />
-            <Reveal><StackSection /></Reveal>
-            <Reveal><About /></Reveal>
-            <Reveal><ProjectsSection /></Reveal>
-            <Timeline />
-            <Reveal><CertificatesSection /></Reveal>
-          </main>
-          <button
-            className={`${styles.backToTop} ${showBackToTop ? styles.backToTopVisible : ''}`}
-            onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
-            aria-label={lang === 'pt' ? 'Voltar ao topo' : 'Back to top'}
-            tabIndex={showBackToTop ? 0 : -1}
-            inert={!showBackToTop}
-          >
-            ↑
-          </button>
-          <Footer />
-        </div>
-      )}
+      <div style={{ overflowX: 'clip' }}>
+        <Nav />
+        <main id="main-content">
+          <Hero />
+          <Reveal><StackSection /></Reveal>
+          <Reveal><About /></Reveal>
+          <Reveal><ProjectsSection /></Reveal>
+          <Timeline />
+          <Reveal><CertificatesSection /></Reveal>
+        </main>
+        <button
+          className={`${styles.backToTop} ${showBackToTop ? styles.backToTopVisible : ''}`}
+          onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
+          aria-label={lang === 'pt' ? 'Voltar ao topo' : 'Back to top'}
+          tabIndex={showBackToTop ? 0 : -1}
+          inert={!showBackToTop}
+        >
+          ↑
+        </button>
+        <Footer />
+      </div>
     </>
   )
 }

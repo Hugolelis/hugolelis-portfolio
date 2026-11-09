@@ -292,6 +292,31 @@
   color: var(--text);
 }
 
+.emailRow {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.emailRow a { flex: 1; }
+
+.copyBtn {
+  min-width: 5.5rem;
+  padding: 0 0.8rem;
+  border: 1px solid var(--border);
+  border-radius: 5px;
+  background: transparent;
+  color: var(--muted);
+  font-family: var(--font-mono);
+  font-size: 0.74rem;
+  cursor: pointer;
+  transition: border-color 0.2s, color 0.2s;
+}
+
+.copyBtn:hover {
+  border-color: var(--accent);
+  color: var(--text);
+}
+
 .socialName {
   display: inline-flex;
   align-items: center;

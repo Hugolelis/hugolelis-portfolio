@@ -1,7 +1,8 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { createPortal } from 'react-dom'
 import type { Project, Lang } from '../../types'
 import type { Translations } from '../../i18n'
+import { useDialog } from '../../hooks/useDialog'
 import styles from './ProjectModal.module.css'
 
 interface Props {
@@ -16,17 +17,33 @@ export function ProjectModal({ project, lang, translations, onClose }: Props) {
   const typeLabel = project.type
   const [tab, setTab] = useState<'overview' | 'features'>('overview')
 
+  const modalRef = useRef<HTMLDivElement>(null)
+  const touchStart = useRef<number | null>(null)
+  useDialog(modalRef, onClose)
+
   useEffect(() => {
     document.body.style.overflow = 'hidden'
-    const handleKey = (e: KeyboardEvent) => {
-      if (e.key === 'Escape') onClose()
-    }
-    document.addEventListener('keydown', handleKey)
     return () => {
       document.body.style.overflow = ''
-      document.removeEventListener('keydown', handleKey)
     }
-  }, [onClose])
+  }, [])
+
+  // swipe down on the top of the sheet (image / tabs) closes it on touch screens
+  const swipe = {
+    onTouchStart: (e: React.TouchEvent) => { touchStart.current = e.touches[0].clientY },
+    onTouchEnd: (e: React.TouchEvent) => {
+      if (touchStart.current !== null && e.changedTouches[0].clientY - touchStart.current > 70) onClose()
+      touchStart.current = null
+    },
+  }
+
+  const switchTab = (e: React.KeyboardEvent<HTMLDivElement>) => {
+    if (e.key !== 'ArrowRight' && e.key !== 'ArrowLeft') return
+    e.preventDefault()
+    const next = tab === 'overview' ? 'features' : 'overview'
+    setTab(next)
+    e.currentTarget.querySelector<HTMLElement>(`#tab-${next}`)?.focus()
+  }
 
   return createPortal(
     <div
@@ -38,6 +55,8 @@ export function ProjectModal({ project, lang, translations, onClose }: Props) {
       role="presentation"
     >
       <div
+        ref={modalRef}
+        tabIndex={-1}
         className={styles.modal}
         onClick={(e) => e.stopPropagation()}
         role="dialog"
@@ -49,21 +68,24 @@ export function ProjectModal({ project, lang, translations, onClose }: Props) {
         </button>
 
         {project.image ? (
-          <img src={project.image} alt="" className={styles.image} />
+          <img src={project.image} alt="" className={styles.image} {...swipe} />
         ) : (
-          <div className={styles.imageFallback} aria-hidden="true">
+          <div className={styles.imageFallback} aria-hidden="true" {...swipe}>
             <span className={styles.bannerBox}>{project.banner?.[lang] ?? typeLabel}</span>
           </div>
         )}
 
         <div className={styles.body}>
-          <div className={styles.tabs} role="tablist">
+          <div className={styles.tabs} role="tablist" onKeyDown={switchTab} {...swipe}>
             {(['overview', 'features'] as const).map(id => (
               <button
                 key={id}
+                id={`tab-${id}`}
                 type="button"
                 role="tab"
                 aria-selected={tab === id}
+                aria-controls="project-panel"
+                tabIndex={tab === id ? 0 : -1}
                 className={`${styles.tab} ${tab === id ? styles.tabActive : ''}`}
                 onClick={() => setTab(id)}
               >
@@ -72,7 +94,7 @@ export function ProjectModal({ project, lang, translations, onClose }: Props) {
             ))}
           </div>
 
-          <div className={styles.scroll} role="tabpanel" key={tab}>
+          <div className={styles.scroll} role="tabpanel" id="project-panel" aria-labelledby={`tab-${tab}`} key={tab}>
             {tab === 'overview' ? (
               <>
                 <dl className={styles.story}>

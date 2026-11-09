@@ -23,6 +23,8 @@
   overflow: hidden;
 }
 
+.modal:focus { outline: none; }
+
 .closeBtn {
   position: absolute;
   top: 0.75rem;

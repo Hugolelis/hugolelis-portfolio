@@ -1,0 +1,194 @@
+/* desktop only: same rule as "no hover, or a narrow screen" hides everything */
+
+.fab {
+  position: fixed;
+  bottom: 2rem;
+  right: 2rem;
+  z-index: 50;
+  width: 44px;
+  height: 44px;
+  border: 1px solid var(--text);
+  border-radius: 50%;
+  background: var(--text);
+  color: var(--bg);
+  font-family: var(--font-mono);
+  font-size: 0.8rem;
+  font-weight: 600;
+  cursor: pointer;
+  box-shadow: 0 2px 12px var(--term-shadow);
+  transition: transform 0.2s, background 0.2s, color 0.2s;
+}
+
+.fab:hover { transform: scale(1.06); }
+
+/* open: inverted, so it reads as "pressed" */
+.fabOpen {
+  background: var(--bg);
+  color: var(--text);
+}
+
+.window {
+  --t-blue: var(--tag-api-color);
+  --t-purple: var(--tag-cli-color);
+  --t-pink: var(--tag-ai-color);
+  --t-red: var(--tag-red-color);
+  --t-amber: #f59e0b;
+  --t-green: var(--accent-term);
+  position: fixed;
+  z-index: 90;
+  display: flex;
+  flex-direction: column;
+  width: 620px;
+  height: 420px;
+  border: 1px solid color-mix(in srgb, var(--text) 30%, transparent);
+  border-radius: 10px;
+  background: var(--term-bg);
+  box-shadow: 0 24px 60px rgba(0, 0, 0, 0.45), 0 0 0 1px var(--bg);
+  font-family: var(--font-mono);
+  font-size: 0.82rem;
+  overflow: hidden;
+  animation: pop 0.15s ease both;
+}
+
+:global([data-theme='light']) .window { --t-amber: #a8650a; }
+
+.minimized {
+  height: auto;
+  width: 320px;
+}
+
+.maximized {
+  inset: 6.5rem 3vw 3vw;
+  width: auto;
+  height: auto;
+}
+
+.bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-left: 1.15rem;
+  border-bottom: 1px solid color-mix(in srgb, var(--text) 18%, transparent);
+  background: var(--term-bar);
+  cursor: grab;
+  user-select: none;
+  touch-action: none;
+}
+
+.maximized .bar { cursor: default; }
+.bar:active { cursor: grabbing; }
+.maximized .bar:active { cursor: default; }
+.minimized .bar { border-bottom: 0; }
+
+.title {
+  color: var(--accent-dim);
+  font-size: 0.72rem;
+}
+
+.controls { display: flex; }
+
+.controls button {
+  display: grid;
+  width: 42px;
+  height: 36px;
+  place-items: center;
+  border: 0;
+  background: transparent;
+  color: var(--accent-dim);
+  cursor: pointer;
+  transition: background 0.15s, color 0.15s;
+}
+
+.controls button:hover {
+  background: var(--term-hover);
+  color: var(--text);
+}
+
+.controls .closeBtn:hover {
+  background: var(--tag-red-color);
+  color: #fff;
+}
+
+.output {
+  position: relative;
+  flex: 1;
+  min-height: 0;
+  padding: 1rem 1.25rem 1.25rem;
+  overflow-y: auto;
+  scrollbar-width: thin;
+  scrollbar-color: var(--term-border) transparent;
+}
+
+.line {
+  margin: 0;
+  color: var(--text);
+  line-height: 1.75;
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+}
+
+.head { margin-top: 0.4rem; }
+.err { color: var(--t-red); }
+.prompt { color: var(--t-blue); font-weight: 700; }
+
+.blue   { color: var(--t-blue); }
+.purple { color: var(--t-purple); }
+.pink   { color: var(--t-pink); }
+.red    { color: var(--t-red); }
+.amber  { color: var(--t-amber); }
+.green  { color: var(--t-green); }
+.muted  { color: color-mix(in srgb, var(--text) 60%, transparent); }
+.bold   { font-weight: 700; }
+
+/* clickable pieces of output: look like text, underline on hover */
+.action {
+  padding: 0;
+  border: 0;
+  background: none;
+  font: inherit;
+  cursor: pointer;
+}
+
+.action:hover { text-decoration: underline; text-underline-offset: 3px; }
+
+.line a {
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+.line a:hover { color: var(--text); }
+
+.form {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  margin-top: 0.25rem;
+  line-height: 1.75;
+}
+
+.form input {
+  flex: 1;
+  min-width: 0;
+  border: 0;
+  background: transparent;
+  color: var(--text);
+  font-family: inherit;
+  font-size: inherit;
+  outline: none;
+}
+
+.form input::placeholder { color: var(--muted); }
+
+@keyframes pop {
+  from { opacity: 0; transform: scale(0.97); }
+  to   { opacity: 1; transform: scale(1); }
+}
+
+@media (max-width: 900px), (hover: none) {
+  .fab,
+  .window { display: none; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .window { animation: none; }
+}

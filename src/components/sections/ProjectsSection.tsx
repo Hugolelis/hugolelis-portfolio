@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useCallback, useState } from 'react'
 import { useApp } from '../../context/AppContext'
 import { projects } from '../../data'
 import { ProjectModal } from '../modals/ProjectModal'
@@ -10,6 +10,7 @@ export function ProjectsSection() {
   const p = t.projects
   const [openId, setOpenId] = useState<number | null>(null)
   const open = projects.find(x => x.id === openId)
+  const close = useCallback(() => setOpenId(null), [])
 
   return (
     <section id="projetos" className={styles.projects}>
@@ -49,7 +50,7 @@ export function ProjectsSection() {
       </div>
 
       {open && (
-        <ProjectModal project={open} lang={lang} translations={p} onClose={() => setOpenId(null)} />
+        <ProjectModal project={open} lang={lang} translations={p} onClose={close} />
       )}
     </section>
   )

@@ -56,6 +56,17 @@
   font-weight: 500;
 }
 
+.location {
+  display: flex;
+  width: fit-content;
+  align-items: center;
+  gap: 0.5rem;
+  margin-top: -1.25rem;
+  color: var(--muted);
+  font-family: var(--font-mono);
+  font-size: 0.78rem;
+}
+
 .interestsLabel {
   margin-bottom: 0.85rem;
   color: var(--muted);

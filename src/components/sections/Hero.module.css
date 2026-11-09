@@ -1,6 +1,5 @@
 .hero {
-  min-height: 100vh;
-  min-height: 100svh;
+  min-height: 80vh;
   box-sizing: border-box;
   display: flex;
   flex-direction: column;
@@ -57,14 +56,6 @@
 
 .accent { color: var(--accent); }
 
-.meta {
-  margin-top: 2rem;
-  color: var(--muted);
-  font-family: var(--font-mono);
-  font-size: 0.72rem;
-  letter-spacing: 0.04em;
-  animation: fadeUp 0.6s 0.5s ease both;
-}
 
 .cursor {
   animation: pulseCursor 1.4s ease-in-out infinite;
@@ -144,7 +135,7 @@
      empty above the title on phones — a shorter min-height keeps the
      section reading as a proper hero (not cramped) while leaving much
      less room for centering to push the content down into. */
-  .hero { padding: 6rem 0 4.5rem; }
+  .hero { padding: 6rem 0 2.5rem; min-height: 70vh; }
   .sub { max-width: 100%; }
   .title { min-height: unset; font-size: clamp(1.9rem, 8vw, 2.4rem); }
   .cta {

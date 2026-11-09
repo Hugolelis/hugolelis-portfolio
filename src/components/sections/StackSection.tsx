@@ -1,6 +1,7 @@
 import { useApp } from '../../context/AppContext'
 import { ActivityHeatmap } from './ActivityHeatmap'
 import { useGithubContributions } from '../../hooks/useGithubContributions'
+import { stack } from '../../data'
 import styles from './StackSection.module.css'
 
 const GITHUB_USERNAME = 'Hugolelis'
@@ -10,9 +11,9 @@ export function StackSection() {
   const { days, loading, error } = useGithubContributions(GITHUB_USERNAME)
 
   const groups = [
-    { label: t.stack.languages, color: '#3B82F6', values: ['C++', 'Python', 'Node.js', 'TypeScript'] },
-    { label: t.stack.databases, color: '#F59E0B', values: ['MySQL', 'PostgreSQL'] },
-    { label: t.stack.infra, color: '#10B981', values: ['Docker', 'Git', 'Linux', 'Nginx'] },
+    { label: t.stack.languages, color: '#3B82F6', values: stack.languages },
+    { label: t.stack.databases, color: '#F59E0B', values: stack.databases },
+    { label: t.stack.infra, color: '#10B981', values: stack.infra },
   ]
 
   return (
