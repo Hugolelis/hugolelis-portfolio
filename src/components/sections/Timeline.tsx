@@ -4,7 +4,6 @@ import { timeline } from '../../data'
 import { TimelineItem } from './TimelineItem'
 import { useHorizontalPin } from '../../hooks/useHorizontalPin'
 import { useMediaQuery } from '../../hooks/useMediaQuery'
-import { useScrollProgress } from '../../hooks/useScrollProgress'
 import styles from './Timeline.module.css'
 
 // Data is stored newest -> oldest; the horizontal track reads left to right
@@ -58,13 +57,51 @@ function useStackedLineRect(listRef: RefObject<HTMLDivElement | null>, active: b
   return rect
 }
 
+// The fill follows a reading line 60% down the screen: it reaches each dot
+// exactly when the line passes it, so the filled part always ends at the
+// entry the reader is on. (Progress through the whole list, as before,
+// ignored where the dots actually sit, so it looked early or late.)
+const READING_LINE = 0.6
+
+function useReadingProgress(listRef: RefObject<HTMLDivElement | null>, active: boolean) {
+  const [progress, setProgress] = useState(0)
+
+  useEffect(() => {
+    const list = listRef.current
+    if (!active || !list) return
+
+    const center = (el: HTMLElement) => {
+      const r = el.getBoundingClientRect()
+      return r.top + r.height / 2
+    }
+    const update = () => {
+      const dots = list.querySelectorAll<HTMLElement>('[data-timeline-dot]')
+      if (dots.length < 2) return
+      const first = center(dots[0])
+      const span = center(dots[dots.length - 1]) - first
+      const value = (window.innerHeight * READING_LINE - first) / span
+      setProgress(Math.round(Math.min(1, Math.max(0, value)) * 1000) / 1000)
+    }
+
+    update()
+    window.addEventListener('scroll', update, { passive: true })
+    window.addEventListener('resize', update)
+    return () => {
+      window.removeEventListener('scroll', update)
+      window.removeEventListener('resize', update)
+    }
+  }, [listRef, active])
+
+  return progress
+}
+
 export function Timeline() {
   const { t, lang } = useApp()
   const isMobile = useMediaQuery(MOBILE_QUERY)
   const { sectionRef, trackRef, progress, offset } = useHorizontalPin<HTMLElement, HTMLDivElement>(!isMobile)
-  const { ref: progressRef, progress: scrollProgress } = useScrollProgress<HTMLDivElement>()
   const listRef = useRef<HTMLDivElement>(null)
   const lineRect = useStackedLineRect(listRef, isMobile)
+  const scrollProgress = useReadingProgress(listRef, isMobile)
 
   const intro = (
     <>
@@ -79,13 +116,7 @@ export function Timeline() {
       <section id="timeline" ref={sectionRef} className={`${styles.timeline} ${styles.mobileWrap}`}>
         <div className="container">
           <div className={styles.mobileIntro}>{intro}</div>
-          <div
-            ref={(el) => {
-              listRef.current = el
-              progressRef(el)
-            }}
-            className={styles.stackedList}
-          >
+          <div ref={listRef} className={styles.stackedList}>
             <span className={styles.stackedLine} style={{ top: lineRect.top, height: lineRect.height }} />
             <span
               className={styles.stackedLineFill}
