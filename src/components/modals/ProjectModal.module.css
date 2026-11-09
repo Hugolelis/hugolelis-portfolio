@@ -270,34 +270,39 @@
   border-color: var(--border);
 }
 
-@media (max-width: 680px) {
-  .overlay { padding: 1rem; }
+/* stacked layout (image on top) as soon as the side-by-side one gets cramped */
+@media (max-width: 900px) {
+  .overlay { padding: 0.75rem; }
 
   .modal {
     flex-direction: column;
-    height: auto;
-    max-height: calc(100vh - 2rem);
-    overflow-y: auto;
+    width: min(640px, 100%);
+    height: min(640px, calc(100vh - 1.5rem));
+    height: min(640px, calc(100dvh - 1.5rem));
   }
 
   .image,
   .imageFallback {
-    flex: 0 0 auto;
+    flex: none;
     width: 100%;
-    height: auto;
-    aspect-ratio: 16 / 9;
+    height: 150px;
+    padding: 0.75rem;
     border-right: none;
     border-bottom: 1px solid var(--border);
   }
 
-  .body { overflow: visible; }
-
-  .scroll {
-    overflow: visible;
-    padding: 1.25rem 1.25rem 0.5rem;
-    background: none;
+  .bannerBox {
+    height: 100%;
+    aspect-ratio: auto;
   }
 
-  .footer { padding: 1rem 1.25rem; }
+  .tabs { gap: 1.25rem; padding: 0 3rem 0 1rem; }
+  .scroll { padding: 1rem 1rem 0.5rem; }
+  .footer { padding: 0.75rem 1rem; }
+}
 
+/* landscape phones: no room for the visual, give the text the height */
+@media (max-width: 900px) and (max-height: 520px) {
+  .image,
+  .imageFallback { display: none; }
 }

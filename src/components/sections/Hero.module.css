@@ -1,5 +1,6 @@
 .hero {
-  min-height: 80vh;
+  min-height: 100vh;
+  min-height: 100svh;
   box-sizing: border-box;
   display: flex;
   flex-direction: column;
@@ -143,7 +144,7 @@
      empty above the title on phones — a shorter min-height keeps the
      section reading as a proper hero (not cramped) while leaving much
      less room for centering to push the content down into. */
-  .hero { padding: 6rem 0 2.5rem; min-height: 70vh; }
+  .hero { padding: 6rem 0 4.5rem; }
   .sub { max-width: 100%; }
   .title { min-height: unset; font-size: clamp(1.9rem, 8vw, 2.4rem); }
   .cta {
