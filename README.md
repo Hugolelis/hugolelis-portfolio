@@ -2,24 +2,24 @@
 
 <div align="left">
 
-[![Status](https://img.shields.io/badge/Status-Live-407a50?style=for-the-badge&labelColor=1a1a1a&logoColor=white)]()
+[![Status](https://img.shields.io/badge/Status-Live-407a50?style=for-the-badge&labelColor=1a1a1a&logoColor=white)](https://hugolelis-dev.vercel.app/)
 [![Version](https://img.shields.io/badge/Version-1.0.0-0f766e?style=for-the-badge&labelColor=1a1a1a&logoColor=white)]()
 [![License](https://img.shields.io/badge/License-MIT-0f766e?style=for-the-badge&labelColor=1a1a1a&logoColor=white)](LICENSE)
 
 </div>
 
-> **Portfolio** is a personal portfolio website built with React and TypeScript. It showcases professional experience, projects and certificates, with bilingual support (Portuguese and English), dark/light themes and a terminal-inspired design.
+> **Portfolio** is a personal portfolio website built with React and TypeScript, live at [hugolelis-dev.vercel.app](https://hugolelis-dev.vercel.app/). It showcases professional experience, projects, certificates and GitHub activity, with bilingual support (Portuguese and English), light and dark themes and a terminal-inspired design.
 
 <details>
 <summary><strong>Table of Contents</strong></summary>
 
 - [About](#about)
-- [Demo](#demo)
 - [Features](#features)
 - [Tech Stack](#tech-stack)
 - [Architecture & Design Decisions](#architecture--design-decisions)
 - [Getting Started](#getting-started)
 - [Scripts](#scripts)
+- [Editing the Content](#editing-the-content)
 - [Deployment](#deployment)
 - [Author](#author)
 - [License](#license)
@@ -30,9 +30,7 @@
 
 ## About
 
-Most portfolio sites are static one-pagers with a resume bolted on. This one is built as a small React application on purpose: full bilingual support (PT/EN) with auto-detection, persisted theme preference, and a terminal-inspired hero meant to signal the kind of engineer behind it before a recruiter reads a single word.
-
-<!-- Adjust this paragraph to your actual motivation. This is a draft based on the feature list, not your own words. -->
+Most portfolio sites are static one-pagers with a resume bolted on. This one is built as a small React application on purpose: full bilingual support (PT/EN), a persisted theme preference, a live GitHub activity heatmap and a terminal-inspired hero, meant to signal the kind of engineer behind it before a recruiter reads a single word.
 
 ---
 
@@ -40,15 +38,16 @@ Most portfolio sites are static one-pagers with a resume bolted on. This one is 
 
 | Capability | Description |
 |---|---|
-| **Bilingual** | Full Portuguese and English support with browser auto-detection and manual toggle |
-| **Dark/Light theme** | Persists preference via `localStorage` and respects `prefers-color-scheme` |
-| **Terminal hero** | Animated code editor display with typewriter effect |
-| **Interactive timeline** | Career and education history with dark mode support |
-| **Project showcase** | Cards with type badges (API, CLI), tech tags, and GitHub links |
-| **Certificate viewer** | Inline PDF modal with mobile download fallback |
-| **CV download** | PDF preview directly in the browser |
-| **Responsive design** | Adaptive layout, hamburger menu, and mobile-friendly components |
-| **Interactive hero** | Animated ShapeGrid background with cursor hover trail |
+| **Bilingual** | Full Portuguese and English content with a manual toggle; the choice is saved in `localStorage` (English by default) |
+| **Light/Dark theme** | Manual toggle, saved in `localStorage` (light by default) |
+| **Terminal hero** | Typewriter title over an interactive ShapeGrid background that reacts to the cursor, with a CV preview modal |
+| **Career timeline** | Work, education and competition entries; scrolls horizontally while pinned on desktop and becomes a stacked list on small screens |
+| **Stack & GitHub activity** | Tech stack grouped by area, next to a contribution heatmap fed by a public GitHub contributions API |
+| **Project showcase** | Cards with type badges (API, CLI, AI, TOOL), tech tags and a screenshot or text banner. Each card opens a modal with Overview and Features tabs and a short case study (the problem and the engineering decision), plus GitHub links. A dedicated `/projetos` page adds search, type filter and "show more" |
+| **Certificate viewer** | Inline PDF modal for each certificate |
+| **Scroll polish** | Scroll progress bar, reveal-on-scroll animations, active-section highlight in the nav and a back-to-top button |
+| **SEO & routing** | Page titles and meta tags via `react-helmet-async`, a 404 page and SPA rewrites on Vercel |
+| **Responsive design** | Adaptive layout and a mobile navigation menu |
 
 ---
 
@@ -62,11 +61,13 @@ Most portfolio sites are static one-pagers with a resume bolted on. This one is 
 | | |
 |---|---|
 | **Framework** | [React 19](https://react.dev) |
-| **Language** | [TypeScript](https://www.typescriptlang.org) |
-| **Bundler** | [Vite](https://vitejs.dev) |
+| **Language** | [TypeScript 6](https://www.typescriptlang.org) |
+| **Bundler** | [Vite 8](https://vite.dev) |
 | **Styling** | [CSS Modules](https://github.com/css-modules/css-modules) |
-| **Linter** | [ESLint](https://eslint.org) |
-| **Fonts** | DM Serif Display, DM Sans, JetBrains Mono |
+| **Animation** | [Motion](https://motion.dev) |
+| **Head management** | [react-helmet-async](https://github.com/staylor/react-helmet-async) |
+| **Linter** | [ESLint 10](https://eslint.org) with `typescript-eslint` |
+| **Fonts** | DM Serif Display, DM Sans, JetBrains Mono (Google Fonts) |
 | **Deploy** | [Vercel](https://vercel.com) |
 
 ---
@@ -76,38 +77,36 @@ Most portfolio sites are static one-pagers with a resume bolted on. This one is 
 ```
 src/
 ├── components/
-│   ├── About.tsx            # About me section with skills
-│   ├── Certificates.tsx     # Certificate grid
-│   ├── Contact.tsx          # Contact information
-│   ├── Footer.tsx           # Footer
-│   ├── Hero.tsx              # Terminal-inspired hero section
-│   ├── Nav.tsx               # Navigation with scroll spy
-│   ├── PdfModal.tsx          # PDF viewer modal
-│   ├── ProjectCard.tsx       # Individual project card
-│   ├── Projects.tsx          # Projects section
-│   ├── ShapeGrid.tsx         # Interactive hero background
-│   └── Timeline.tsx          # Career timeline
-├── context/                  # React Context (theme, language, translations)
-├── data/                     # Static data (projects, skills)
-├── hooks/                    # Custom hooks
-│   ├── useActiveSection.ts   # IntersectionObserver for nav
-│   └── useScrollY.ts         # Scroll position tracking
-├── i18n/                     # Translations (pt.ts, en.ts)
-├── pages/                    # Projects and certificates pages
-├── types/                    # TypeScript interfaces
-├── App.tsx                   # Root component
-├── index.css                 # Global styles and CSS custom properties
-└── main.tsx                  # Entry point
+│   ├── sections/            # Page sections (Nav, Hero, About, Timeline, StackSection,
+│   │                        #   ActivityHeatmap, ProjectsSection, CertificatesSection, Footer)
+│   ├── modals/              # ImageModal, PdfModal, ProjectModal
+│   ├── project/             # ProjectCard
+│   └── ui/                  # Shared pieces (ShapeGrid, Reveal, ScrollProgress, Expandable, Loading, icons)
+├── context/
+│   └── AppContext.tsx       # Theme, language and translations
+├── data/                    # Static content: projects, timeline, certificates
+├── hooks/                   # useActiveSection, useGithubContributions, useHorizontalPin,
+│                            #   useMediaQuery, useReveal, useScrollFade, useScrollProgress, ...
+├── i18n/                    # Translations (pt.ts, en.ts)
+├── pages/
+│   └── ProjectsPage.tsx     # /projetos (lazy loaded)
+├── types/                   # TypeScript interfaces
+├── utils/                   # Badge and project-type color helpers
+├── App.tsx                  # Routing by pathname, scroll-to-hash handling, 404
+├── index.css                # Global styles and CSS custom properties
+└── main.tsx                 # Entry point
+public/                      # Avatar, CV, project screenshots and certificate PDFs
+vercel.json                  # SPA rewrite to index.html
 ```
 
-**Why this shape:** CSS Modules over Tailwind/styled-components keeps styling scoped per component with zero runtime cost, with no CSS-in-JS overhead for a site that's mostly static content. Theme and language live in React Context rather than a state library, since both are small, low-frequency, app-wide values. A full store would be overkill. Active-section highlighting in the nav uses `IntersectionObserver` (`useActiveSection`) instead of a router, since the whole site is a single scrollable page rather than distinct routed views.
+**Why this shape:** CSS Modules over Tailwind/styled-components keeps styling scoped per component with zero runtime cost, with no CSS-in-JS overhead for a site that's mostly static content. Theme and language live in React Context rather than a state library, since both are small, low-frequency, app-wide values. A full store would be overkill. The site has only two real routes (`/` and `/projetos`), so `App.tsx` reads the pathname directly instead of pulling in a router, and `vercel.json` rewrites every path to `index.html`. Active-section highlighting in the nav uses `IntersectionObserver` (`useActiveSection`). All content (projects, timeline, certificates) is plain data under `src/data` and `src/i18n`, so updating the site never means touching components.
 
 **Known limitations:**
 - No automated tests yet.
 - Translations live as hand-written objects per language (`i18n/pt.ts`, `i18n/en.ts`) rather than an external i18n framework: fine at two languages, would need a real library beyond that.
-- Certificate PDFs render inline via modal; very large files may be slow to load on mobile.
-
-<!-- Adjust "Why this shape" and "Known limitations" to match your actual reasoning, draft based on the code structure. -->
+- The language and theme do not follow the browser: they start as English/light until the visitor toggles them.
+- The activity heatmap depends on a third-party public API (`github-contributions-api.jogruber.de`); if it is down, the heatmap shows an error state.
+- Fonts are loaded from Google Fonts at runtime, and certificate PDFs are loaded inline in a modal, which can be slow for large files on mobile.
 
 ---
 
@@ -115,14 +114,14 @@ src/
 
 ### Prerequisites
 
-- Node.js 18+
+- Node.js 20.19+ or 22.12+ (required by Vite 8)
 - npm
 
 ### Installation
 
 ```bash
-git clone https://github.com/Hugolelis/Portfolio.git
-cd Portfolio
+git clone https://github.com/Hugolelis/hugolelis-portfolio.git
+cd hugolelis-portfolio
 npm install
 ```
 
@@ -141,9 +140,22 @@ Open [http://localhost:5173](http://localhost:5173) in your browser.
 | Command | Description |
 |---|---|
 | `npm run dev` | Start the Vite development server |
-| `npm run build` | Run `tsc -b` and build for production |
+| `npm run build` | Run `tsc -b` and build for production into `dist/` |
 | `npm run preview` | Preview the production build locally |
 | `npm run lint` | Run ESLint across the codebase |
+
+---
+
+## Editing the Content
+
+| To change | Edit |
+|---|---|
+| Projects (cards, modal case study and `/projetos` page) | `src/data/projects.ts` (including `features` and `caseStudy`), with screenshots in `public/projects/` |
+| Career, education and competitions | `src/data/timeline.ts` |
+| Certificates | `src/data/certificates.ts`, with the PDFs in `public/courses/` |
+| Texts and labels | `src/i18n/pt.ts` and `src/i18n/en.ts` |
+| CV | `public/Hugolelis_cv.pdf` |
+| GitHub user for the heatmap | `GITHUB_USERNAME` in `src/components/sections/StackSection.tsx` |
 
 ---
 
@@ -151,7 +163,7 @@ Open [http://localhost:5173](http://localhost:5173) in your browser.
 
 The project is configured for **Vercel** deployment with SPA rewrites via `vercel.json`.
 
-[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https://github.com/Hugolelis/Portfolio)
+[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https://github.com/Hugolelis/hugolelis-portfolio)
 
 ---
 
@@ -164,5 +176,3 @@ The project is configured for **Vercel** deployment with SPA rewrites via `verce
 ## License
 
 Distributed under the **MIT License**. See [LICENSE](LICENSE) for more information.
-
-<!-- Confirm this repo actually has a LICENSE file with MIT. Added to match your other repos, remove/adjust if it's not really open-sourced under MIT. -->
