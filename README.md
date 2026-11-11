@@ -146,6 +146,8 @@ Open [http://localhost:5173](http://localhost:5173) in your browser.
 | `npm run preview` | Preview the production build locally |
 | `npm run lint` | Run ESLint across the codebase |
 
+See [CHANGELOG.md](CHANGELOG.md) for what changed in each version.
+
 ---
 
 ## Editing the Content
