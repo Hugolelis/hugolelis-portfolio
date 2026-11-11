@@ -113,6 +113,27 @@
   color: var(--muted);
 }
 
+.heatmapLoader {
+  display: flex;
+  flex: 1;
+  align-items: center;
+  justify-content: center;
+  min-height: 190px; /* about the heatmap's own height, so nothing jumps when it arrives */
+}
+
+.spinner {
+  width: 2rem;
+  height: 2rem;
+  border: 3px solid var(--border);
+  border-top-color: var(--accent);
+  border-radius: 50%;
+  animation: heatmapSpin 0.8s linear infinite;
+}
+
+@keyframes heatmapSpin {
+  to { transform: rotate(360deg); }
+}
+
 .githubLink {
   display: inline-flex;
   align-self: flex-start;

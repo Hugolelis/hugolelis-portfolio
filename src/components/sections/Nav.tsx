@@ -2,12 +2,12 @@ import { Activity, useCallback, useEffect, useRef, useState } from 'react'
 import { useApp } from '../../context/AppContext'
 import { useActiveSection } from '../../hooks/useActiveSection'
 import { useScrollY } from '../../hooks/useScrollY'
+import { isEmbed, sectionHref, useDeskMode } from '../../hooks/useDeskMode'
 import { useDialog } from '../../hooks/useDialog'
 import { ScrollProgress } from '../ui/ScrollProgress'
 import styles from './Nav.module.css'
 
 const EMAIL = 'hugodelelis05@gmail.com'
-const SUB_PAGES = ['/projetos'] as const
 const SECTION_IDS = ['hero', 'stack', 'sobre', 'projetos', 'timeline', 'certificados'] as const
 
 export function Nav() {
@@ -29,12 +29,34 @@ export function Nav() {
     })
   }
   const currentPath = window.location.pathname
-  const onSubPage = SUB_PAGES.some(page => currentPath === page)
-  const isHomeRoute = currentPath === '/'
-  const activeSection = useActiveSection(SECTION_IDS, isHomeRoute)
-  const linkActive = (id: string) => (isHomeRoute && activeSection === id ? styles.active : undefined)
+  const onSubPage = currentPath !== '/'
+  const isHomeRoute = !onSubPage
+  const deskMode = useDeskMode()
+  const href = (id: string) => sectionHref(id, deskMode, onSubPage)
+  // desk mode: every link is a section of /portfolio (scroll-spy there); the logo goes back to the room
+  const onPortfolio = currentPath === '/portfolio'
+  const activeSection = useActiveSection(SECTION_IDS, deskMode ? onPortfolio : isHomeRoute)
+  const linkActive = (id: string) => {
+    const on = deskMode
+      ? (onPortfolio && activeSection === id)
+      : isHomeRoute && activeSection === id
+    return on ? styles.active : undefined
+  }
 
   const closeMenu = () => setMenuOpen(false)
+
+  // lets the 3D room zoom back out once the contact modal is dismissed
+  const wasContactOpen = useRef(false)
+  useEffect(() => {
+    if (wasContactOpen.current && !contactOpen) window.dispatchEvent(new Event('contact-closed'))
+    wasContactOpen.current = contactOpen
+  }, [contactOpen])
+
+  useEffect(() => {
+    const open = () => setContactOpen(true)
+    window.addEventListener('open-contact', open)
+    return () => window.removeEventListener('open-contact', open)
+  }, [])
 
   useEffect(() => {
     if (!contactOpen && !menuOpen) return
@@ -68,7 +90,7 @@ export function Nav() {
         {lang === 'pt' ? 'Pular para o conteúdo' : 'Skip to content'}
       </a>
 
-      <Activity mode={!onSubPage ? "visible" : "hidden"}>
+      <Activity mode={!onSubPage || onPortfolio ? "visible" : "hidden"}>
           <ScrollProgress />
       </Activity>
 
@@ -77,7 +99,7 @@ export function Nav() {
         className={`${styles.nav} ${scrollY > 40 || onSubPage ? styles.scrolled : ''}`}
         aria-label={lang === 'pt' ? 'Navegação principal' : 'Main navigation'}
       >
-        <a href={onSubPage ? '/' : '#hero'} className={styles.logo} aria-label={lang === 'pt' ? 'Voltar ao início' : 'Back to home'}>
+        <a href={isEmbed ? '#hero' : deskMode || onSubPage ? '/' : '#hero'} className={styles.logo} aria-label={lang === 'pt' ? 'Voltar ao início' : 'Back to home'}>
           <svg viewBox="0 0 32 32" width="26" height="26" fill="none" style={{ display: 'block', color: 'var(--accent)' }}>
             <rect x="6" y="7" width="5" height="18" rx="1" fill="currentColor" opacity="0.15" />
             <rect x="21" y="7" width="5" height="18" rx="1" fill="currentColor" opacity="0.15" />
@@ -92,12 +114,12 @@ export function Nav() {
 
         <div className={styles.right}>
           <div className={styles.links}>
-            <a href={onSubPage ? '/#hero' : '#hero'} className={linkActive('hero')} aria-current={linkActive('hero') ? 'page' : undefined}>{t.nav.home}</a>
-            <a href={onSubPage ? '/#stack' : '#stack'} className={linkActive('stack')} aria-current={linkActive('stack') ? 'page' : undefined}>{t.stack.title}</a>
-            <a href={onSubPage ? '/#sobre' : '#sobre'} className={linkActive('sobre')} aria-current={linkActive('sobre') ? 'page' : undefined}>{t.nav.about}</a>
-            <a href={onSubPage ? '/#projetos' : '#projetos'} className={linkActive('projetos')} aria-current={linkActive('projetos') ? 'page' : undefined}>{t.nav.projects}</a>
-            <a href={onSubPage ? '/#timeline' : '#timeline'} className={linkActive('timeline')} aria-current={linkActive('timeline') ? 'page' : undefined}>{t.timeline.title}</a>
-            <a href={onSubPage ? '/#certificados' : '#certificados'} className={linkActive('certificados')} aria-current={linkActive('certificados') ? 'page' : undefined}>{t.certificates.title}</a>
+            <a href={href('hero')} className={linkActive('hero')} aria-current={linkActive('hero') ? 'page' : undefined}>{t.nav.home}</a>
+            <a href={href('stack')} className={linkActive('stack')} aria-current={linkActive('stack') ? 'page' : undefined}>{t.stack.title}</a>
+            <a href={href('sobre')} className={linkActive('sobre')} aria-current={linkActive('sobre') ? 'page' : undefined}>{t.nav.about}</a>
+            <a href={href('projetos')} className={linkActive('projetos')} aria-current={linkActive('projetos') ? 'page' : undefined}>{t.nav.projects}</a>
+            <a href={href('timeline')} className={linkActive('timeline')} aria-current={linkActive('timeline') ? 'page' : undefined}>{t.timeline.title}</a>
+            <a href={href('certificados')} className={linkActive('certificados')} aria-current={linkActive('certificados') ? 'page' : undefined}>{t.certificates.title}</a>
             <button className={styles.contactTrigger} onClick={() => setContactOpen(true)}>
               {t.nav.media}
             </button>
@@ -146,12 +168,12 @@ export function Nav() {
 
       {menuOpen && (
         <div ref={mobileMenuRef} id="mobile-navigation" className={styles.mobileMenu}>
-          <a href={onSubPage ? '/#hero' : '#hero'} className={linkActive('hero')} aria-current={linkActive('hero') ? 'page' : undefined} onClick={closeMenu}>{t.nav.home}</a>
-          <a href={onSubPage ? '/#stack' : '#stack'} className={linkActive('stack')} aria-current={linkActive('stack') ? 'page' : undefined} onClick={closeMenu}>{t.stack.title}</a>
-          <a href={onSubPage ? '/#sobre' : '#sobre'} className={linkActive('sobre')} aria-current={linkActive('sobre') ? 'page' : undefined} onClick={closeMenu}>{t.nav.about}</a>
-          <a href={onSubPage ? '/#projetos' : '#projetos'} className={linkActive('projetos')} aria-current={linkActive('projetos') ? 'page' : undefined} onClick={closeMenu}>{t.nav.projects}</a>
-          <a href={onSubPage ? '/#timeline' : '#timeline'} className={linkActive('timeline')} aria-current={linkActive('timeline') ? 'page' : undefined} onClick={closeMenu}>{t.timeline.title}</a>
-          <a href={onSubPage ? '/#certificados' : '#certificados'} className={linkActive('certificados')} aria-current={linkActive('certificados') ? 'page' : undefined} onClick={closeMenu}>{t.certificates.title}</a>
+          <a href={href('hero')} className={linkActive('hero')} aria-current={linkActive('hero') ? 'page' : undefined} onClick={closeMenu}>{t.nav.home}</a>
+          <a href={href('stack')} className={linkActive('stack')} aria-current={linkActive('stack') ? 'page' : undefined} onClick={closeMenu}>{t.stack.title}</a>
+          <a href={href('sobre')} className={linkActive('sobre')} aria-current={linkActive('sobre') ? 'page' : undefined} onClick={closeMenu}>{t.nav.about}</a>
+          <a href={href('projetos')} className={linkActive('projetos')} aria-current={linkActive('projetos') ? 'page' : undefined} onClick={closeMenu}>{t.nav.projects}</a>
+          <a href={href('timeline')} className={linkActive('timeline')} aria-current={linkActive('timeline') ? 'page' : undefined} onClick={closeMenu}>{t.timeline.title}</a>
+          <a href={href('certificados')} className={linkActive('certificados')} aria-current={linkActive('certificados') ? 'page' : undefined} onClick={closeMenu}>{t.certificates.title}</a>
           <button
             className={styles.mobileContactTrigger}
             onClick={() => {

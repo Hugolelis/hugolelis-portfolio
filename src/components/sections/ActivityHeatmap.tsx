@@ -713,6 +713,7 @@ export function ActivityHeatmap({
       )),
     [
       model,
+      noActivityWord,
       step,
       maxDiagonal,
       tabIndexDay,
@@ -931,5 +932,3 @@ export function ActivityHeatmap({
     </div>
   )
 }
-
-export default ActivityHeatmap

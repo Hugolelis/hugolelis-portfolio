@@ -17,8 +17,6 @@ export function useGithubContributions(username: string) {
 
   useEffect(() => {
     let cancelled = false
-    setState({ days: [], loading: true, error: false })
-
     fetch(API(username))
       .then((res) => {
         if (!res.ok) throw new Error(`${res.status}`)

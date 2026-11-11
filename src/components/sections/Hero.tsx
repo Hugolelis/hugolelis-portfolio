@@ -1,5 +1,7 @@
 import { useState, useEffect } from 'react'
 import { useApp } from '../../context/AppContext'
+import { isEmbed, sectionHref, useDeskMode } from '../../hooks/useDeskMode'
+import { useMediaQuery } from '../../hooks/useMediaQuery'
 import { PdfModal } from '../modals/PdfModal'
 import ShapeGrid from '../ui/ShapeGrid'
 import styles from './Hero.module.css'
@@ -28,23 +30,30 @@ function useTypewriter(text: string, speed = 28) {
 
 export function Hero() {
   const { t, theme } = useApp()
+  const deskMode = useDeskMode()
+  // phone layout on narrow screens and whenever the 3D room isn't in use, so no in-between hero
+  const narrow = useMediaQuery('(max-width: 1150px)')
+  const compact = narrow || !deskMode
   const [cvOpen, setCvOpen] = useState(false)
 
   const displayedTitle = useTypewriter('Hugo de Lelis', 30)
 
   return (
-    <section className={styles.hero} id='hero'>
-      <div className={styles.shapeGrid} aria-hidden>
-        <ShapeGrid
-          speed={0.5}
-          squareSize={40}
-          direction="diagonal"
-          borderColor={theme === 'light' ? 'rgba(66, 66, 66, 0.1)' : 'rgba(255, 255, 255, 0.09)'}
-          hoverFillColor={theme === 'light' ? 'rgba(26, 26, 26, 0.15)' : 'rgba(255, 255, 255, 0.15)'}
-          shape="square"
-          hoverTrailAmount={5}
-        />
-      </div>
+    <section className={`${styles.hero} ${compact ? styles.compact : ''}`} id='hero'>
+      {/* the monitor's embedded copy skips the animated grid: it is a thumbnail, and an extra rAF loop costs more than it shows */}
+      {!isEmbed && (
+        <div className={styles.shapeGrid} aria-hidden>
+          <ShapeGrid
+            speed={0.5}
+            squareSize={40}
+            direction="diagonal"
+            borderColor={theme === 'light' ? 'rgba(66, 66, 66, 0.1)' : 'rgba(255, 255, 255, 0.09)'}
+            hoverFillColor={theme === 'light' ? 'rgba(26, 26, 26, 0.15)' : 'rgba(255, 255, 255, 0.15)'}
+            shape="square"
+            hoverTrailAmount={5}
+          />
+        </div>
+      )}
       <div className={`container ${styles.layout}`}>
         <div className={styles.left}>
           <h1 className={styles.title}>
@@ -54,7 +63,7 @@ export function Hero() {
           <p className={styles.role}>{t.hero.role}</p>
 
           <div className={styles.cta}>
-            <a href="#projetos" className="btn btn--primary">{t.hero.cta_projects}</a>
+            <a href={sectionHref('projetos', deskMode, false)} className="btn btn--primary">{t.hero.cta_projects}</a>
             <button
               className="btn btn--ghost"
               onClick={() => setCvOpen(true)}

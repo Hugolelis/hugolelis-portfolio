@@ -1,9 +1,9 @@
-export interface LocalizedText {
+interface LocalizedText {
   pt: string
   en: string
 }
 
-export interface LocalizedList {
+interface LocalizedList {
   pt: string[]
   en: string[]
 }

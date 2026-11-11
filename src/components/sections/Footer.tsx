@@ -1,4 +1,5 @@
 import { useApp } from '../../context/AppContext'
+import { sectionHref, useDeskMode } from '../../hooks/useDeskMode'
 import styles from './Footer.module.css'
 
 const email = 'hugodelelis05@gmail.com'
@@ -6,7 +7,9 @@ const email = 'hugodelelis05@gmail.com'
 export function Footer() {
   const { t } = useApp()
   const year = new Date().getFullYear()
-  const onSubPage = window.location.pathname === '/projetos'
+  const onSubPage = window.location.pathname !== '/'
+  const deskMode = useDeskMode()
+  const href = (id: string) => sectionHref(id, deskMode, onSubPage)
 
   return (
     <footer className={styles.footer}>
@@ -17,12 +20,12 @@ export function Footer() {
         </div>
 
         <nav className={styles.links} aria-label={t.footer.linksLabel}>
-          <a href={onSubPage ? '/#hero' : '#hero'}>{t.nav.home}</a>
-          <a href={onSubPage ? '/#sobre' : '#sobre'}>{t.about.title}</a>
-          <a href={onSubPage ? '/#stack' : '#stack'}>{t.stack.title}</a>
-          <a href={onSubPage ? '/#projetos' : '#projetos'}>{t.nav.projects}</a>
-          <a href={onSubPage ? '/#timeline' : '#timeline'}>{t.timeline.title}</a>
-          <a href={onSubPage ? '/#certificados' : '#certificados'}>{t.certificates.title}</a>
+          <a href={href('hero')}>{t.nav.home}</a>
+          <a href={href('sobre')}>{t.about.title}</a>
+          <a href={href('stack')}>{t.stack.title}</a>
+          <a href={href('projetos')}>{t.nav.projects}</a>
+          <a href={href('timeline')}>{t.timeline.title}</a>
+          <a href={href('certificados')}>{t.certificates.title}</a>
         </nav>
 
         <div className={styles.social}>

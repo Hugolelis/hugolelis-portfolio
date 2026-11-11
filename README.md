@@ -8,7 +8,7 @@
 
 </div>
 
-> **Portfolio** is a personal portfolio website built with React and TypeScript, live at [hugolelis-dev.vercel.app](https://hugolelis-dev.vercel.app/). It showcases professional experience, projects, certificates and GitHub activity, with bilingual support (Portuguese and English), light and dark themes and a terminal-inspired design.
+> **Portfolio** is a personal portfolio website built with React and TypeScript, live at [hugolelis-dev.vercel.app](https://hugolelis-dev.vercel.app/). It showcases professional experience, projects, certificates and GitHub activity, with bilingual support (Portuguese and English), light and dark themes and an interactive 3D desk as its home.
 
 <details>
 <summary><strong>Table of Contents</strong></summary>
@@ -30,7 +30,7 @@
 
 ## About
 
-Most portfolio sites are static one-pagers with a resume bolted on. This one is built as a small React application on purpose: full bilingual support (PT/EN), a persisted theme preference, a live GitHub activity heatmap and a terminal-inspired hero, meant to signal the kind of engineer behind it before a recruiter reads a single word.
+Most portfolio sites are static one-pagers with a resume bolted on. This one is built as a small React application on purpose: full bilingual support (PT/EN), a persisted theme preference, a live GitHub activity heatmap and an interactive 3D desk as its home, meant to signal the kind of engineer behind it before a recruiter reads a single word.
 
 ---
 
@@ -40,7 +40,8 @@ Most portfolio sites are static one-pagers with a resume bolted on. This one is 
 |---|---|
 | **Bilingual** | Full Portuguese and English content with a manual toggle; the choice is saved in `localStorage` (English by default) |
 | **Light/Dark theme** | Manual toggle, saved in `localStorage` (light by default) |
-| **Terminal hero** | Typewriter title over an interactive ShapeGrid background that reacts to the cursor, with a CV preview modal |
+| **3D desk room (desktop)** | The home is a three.js room: the monitor runs the real site in an iframe (CSS3D), the laptop plays a person-detector loop and opens its repo, the sticky note is a real QR code (own ISO/IEC 18004 encoder) to GitHub, the framed code opens `leetcodes-study`, and the light bar, clock, phone and books are interactive. Clicking the monitor dives in and opens `/portfolio` with a View Transition. Phones/tablets and browsers without WebGL keep the single scrolling page |
+| **Hero** | Typewriter title over an interactive ShapeGrid background that reacts to the cursor, with a CV preview modal |
 | **Career timeline** | Work, education and competition entries; scrolls horizontally while pinned on desktop and becomes a stacked list on small screens |
 | **Stack & GitHub activity** | Tech stack grouped by area, next to a contribution heatmap fed by a public GitHub contributions API |
 | **Project showcase** | Cards with type badges (API, CLI, AI, TOOL), tech tags and a screenshot or text banner. Each card opens a modal with Overview and Features tabs and a short case study (the problem and the engineering decision), plus GitHub links. A dedicated `/projetos` page adds search, type filter and "show more" |
@@ -79,14 +80,15 @@ src/
 ├── components/
 │   ├── sections/            # Page sections (Nav, Hero, About, Timeline, StackSection,
 │   │                        #   ActivityHeatmap, ProjectsSection, CertificatesSection, Footer)
-│   ├── modals/              # ImageModal, PdfModal, ProjectModal
+│   ├── modals/              # PdfModal, ProjectModal
+│   ├── scene/               # DeskScene (three.js room), deskScreens (canvas painters), DeskSection
 │   ├── project/             # ProjectCard
-│   └── ui/                  # Shared pieces (ShapeGrid, Reveal, ScrollProgress, Expandable, Loading, icons)
+│   └── ui/                  # Shared pieces (ShapeGrid, Reveal, ScrollProgress, Expandable, Loading, Preloader, BackToDesk, icons)
 ├── context/
 │   └── AppContext.tsx       # Theme, language and translations
 ├── data/                    # Static content: projects, timeline, certificates
 ├── hooks/                   # useActiveSection, useGithubContributions, useHorizontalPin,
-│                            #   useMediaQuery, useReveal, useScrollFade, useScrollProgress, ...
+│                            #   useMediaQuery, useDeskMode, useReveal, ...
 ├── i18n/                    # Translations (pt.ts, en.ts)
 ├── pages/
 │   └── ProjectsPage.tsx     # /projetos (lazy loaded)
