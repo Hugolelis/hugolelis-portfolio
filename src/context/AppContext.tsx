@@ -26,6 +26,16 @@ export function AppProvider({ children }: { children: ReactNode }) {
     return navigator.language?.toLowerCase().startsWith('pt') ? 'pt' : 'en'
   })
 
+  // the monitor's iframe is a second copy of the app: keep theme/lang in sync across documents
+  useEffect(() => {
+    const onStorage = (e: StorageEvent) => {
+      if (e.key === 'theme' && (e.newValue === 'light' || e.newValue === 'dark')) setTheme(e.newValue)
+      if (e.key === 'lang' && (e.newValue === 'pt' || e.newValue === 'en')) setLang(e.newValue)
+    }
+    window.addEventListener('storage', onStorage)
+    return () => window.removeEventListener('storage', onStorage)
+  }, [])
+
   useEffect(() => {
     document.documentElement.setAttribute('data-theme', theme)
     localStorage.setItem('theme', theme)

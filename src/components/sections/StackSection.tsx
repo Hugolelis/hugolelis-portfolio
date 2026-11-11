@@ -1,14 +1,22 @@
+import { lazy, Suspense } from 'react'
 import { useApp } from '../../context/AppContext'
-import { ActivityHeatmap } from './ActivityHeatmap'
 import { useGithubContributions } from '../../hooks/useGithubContributions'
 import { stack } from '../../data'
 import styles from './StackSection.module.css'
 
 const GITHUB_USERNAME = 'Hugolelis'
 
+// motion (~100 kB) is only needed once the heatmap shows, so it stays out of the initial bundle
+const ActivityHeatmap = lazy(() => import('./ActivityHeatmap').then(m => ({ default: m.ActivityHeatmap })))
+
 export function StackSection() {
   const { t, lang } = useApp()
   const { days, loading, error } = useGithubContributions(GITHUB_USERNAME)
+  const spinner = (
+    <div className={styles.heatmapLoader} role="status" aria-label={t.stack.loading}>
+      <span className={styles.spinner} aria-hidden="true" />
+    </div>
+  )
 
   const groups = [
     { label: t.stack.languages, color: '#3B82F6', values: stack.languages },
@@ -48,19 +56,21 @@ export function StackSection() {
 
           <div className={styles.heatmapCard}>
             {!error && !loading && days.length > 0 && (
-              <ActivityHeatmap
-                days={days}
-                label={t.stack.heatmapLabel}
-                period={t.stack.heatmapPeriod}
-                connector={t.stack.heatmapConnector}
-                unit={{ one: t.stack.unitOne, other: t.stack.unitOther }}
-                noActivityWord={t.stack.noActivity}
-                lessLabel={t.stack.less}
-                moreLabel={t.stack.more}
-                locale={lang === 'pt' ? 'pt-BR' : 'en-US'}
-              />
+              <Suspense fallback={spinner}>
+                <ActivityHeatmap
+                  days={days}
+                  label={t.stack.heatmapLabel}
+                  period={t.stack.heatmapPeriod}
+                  connector={t.stack.heatmapConnector}
+                  unit={{ one: t.stack.unitOne, other: t.stack.unitOther }}
+                  noActivityWord={t.stack.noActivity}
+                  lessLabel={t.stack.less}
+                  moreLabel={t.stack.more}
+                  locale={lang === 'pt' ? 'pt-BR' : 'en-US'}
+                />
+              </Suspense>
             )}
-            {loading && <span className={styles.heatmapStatus}>{t.stack.loading}</span>}
+            {loading && spinner}
             {!loading && error && <span className={styles.heatmapStatus}>{t.stack.unavailable}</span>}
           </div>
 

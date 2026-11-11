@@ -5,10 +5,15 @@ import { ProjectModal } from '../modals/ProjectModal'
 import { projectTypeBadgeStyle } from '../../utils/projectTypeColor'
 import styles from './ProjectsSection.module.css'
 
+// Only the newest projects are shown here, however many exist; the rest is one click away on GitHub
+const FEATURED = 5
+const GITHUB = 'https://github.com/Hugolelis'
+
 export function ProjectsSection() {
   const { t, lang } = useApp()
   const p = t.projects
   const [openId, setOpenId] = useState<number | null>(null)
+  const featured = projects.slice(0, FEATURED)
   const open = projects.find(x => x.id === openId)
   const close = useCallback(() => setOpenId(null), [])
 
@@ -16,13 +21,13 @@ export function ProjectsSection() {
     <section id="projetos" className={styles.projects}>
       <div className="container">
         <header className={styles.header}>
-          <span className={styles.eyebrow}>{p.count.replace('{n}', String(projects.length))}</span>
+          <span className={styles.eyebrow}>{p.count.replace('{n}', String(featured.length))}</span>
           <h2 className={`section-title ${styles.title}`}>{p.title}</h2>
           <p className={styles.summary}>{p.summary}</p>
         </header>
 
         <ul className={styles.grid}>
-          {projects.map(project => (
+          {featured.map(project => (
             <li key={project.id}>
               <button type="button" className={styles.card} onClick={() => setOpenId(project.id)}>
                 <span className={styles.media}>
@@ -47,6 +52,10 @@ export function ProjectsSection() {
             </li>
           ))}
         </ul>
+
+        <a href={GITHUB} target="_blank" rel="noreferrer" className={`btn btn--ghost ${styles.more}`}>
+          {p.moreOnGithub} <span aria-hidden="true">↗</span>
+        </a>
       </div>
 
       {open && (

@@ -29,16 +29,9 @@ select { font: inherit; }
 
   /* terminal dark */
   --term-bg: #0d0d0d;
-  --term-bar: #1a1a1a;
   --term-border: #2a2a2a;
   --term-shadow: rgba(0,0,0,0.4);
   --term-hover: rgba(255,255,255,0.04);
-  --term-comment: #4a5568;
-  --term-muted: #555;
-  --term-key: #84b3ca;
-  --term-quote: #9b8bc9;
-  --term-value: #89c29e;
-  --term-punct: #888;
 
   /* project tags */
   --tag-api-bg: rgba(96,165,250,0.12);
@@ -74,16 +67,9 @@ select { font: inherit; }
 
   /* terminal light */
   --term-bg: #f3f3f1;
-  --term-bar: #eaeae8;
   --term-border: #dcdcd9;
   --term-shadow: rgba(20,20,20,0.07);
   --term-hover: rgba(0,0,0,0.025);
-  --term-comment: #7d8290;
-  --term-muted: #969696;
-  --term-key: #52719d;
-  --term-quote: #806b97;
-  --term-value: #4c7958;
-  --term-punct: #929292;
 
   /* project tags */
   --tag-api-bg: rgba(82,113,157,0.07);
@@ -185,4 +171,14 @@ body {
 
 @media (max-width: 900px) {
   .container { padding: 0 1.5rem; }
+}
+
+/* page-to-page transition (View Transitions): the old page keeps "diving" while it fades,
+   the new one settles in — continues the camera zoom of the 3D room instead of cutting */
+::view-transition-old(root) { animation: vt-out 0.55s cubic-bezier(0.4, 0, 0.2, 1) both; }
+::view-transition-new(root) { animation: vt-in 0.7s cubic-bezier(0.16, 1, 0.3, 1) both; }
+@keyframes vt-out { to { opacity: 0; transform: scale(1.06); filter: blur(6px); } }
+@keyframes vt-in { from { opacity: 0; transform: scale(0.97); filter: blur(6px); } }
+@media (prefers-reduced-motion: reduce) {
+  ::view-transition-old(root), ::view-transition-new(root) { animation-duration: 0.01s; }
 }

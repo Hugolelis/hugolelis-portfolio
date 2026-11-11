@@ -1,7 +1,14 @@
-import { useState, useEffect, lazy, Suspense } from 'react'
+import { useState, useEffect, useRef, lazy, Suspense } from 'react'
+import { flushSync } from 'react-dom'
 import { Helmet } from 'react-helmet-async'
 import { Footer, Loading, Nav, Hero, About, CertificatesSection, StackSection, ProjectsSection, Timeline, Reveal } from './components'
+import { Preloader } from './components/ui/Preloader'
+import { BackToDesk } from './components/ui/BackToDesk'
+import { DeskSection } from './components/scene/DeskSection'
 import { useApp } from './context/AppContext'
+import { isEmbed, useDeskMode } from './hooks/useDeskMode'
+import { NAV_EVENT, ROUTES, navigate } from './utils/navigate'
+import { smoothScrollToId } from './utils/scroll'
 import styles from './components/ui/BackToTop.module.css'
 import notFoundStyles from './components/ui/NotFound.module.css'
 
@@ -9,13 +16,73 @@ const ProjectsPage = lazy(() => import('./pages/ProjectsPage').then(m => ({ defa
 
 export default function App() {
   const { lang } = useApp()
+  const deskMode = useDeskMode()
+  // re-render on client-side navigation (see utils/navigate.ts); the URL itself is the source of truth
+  const [loc, setLoc] = useState(() => window.location.pathname + window.location.hash)
   const path = window.location.pathname
   const isProjectsPage = path === '/projetos'
-  const isUnknown = !isProjectsPage && path !== '/'
+  const isPortfolio = path === '/portfolio'
+  // desk mode: '/' is the room alone, '/portfolio' is the real site (hero + every section)
+  const isRoom = deskMode && !isEmbed && path === '/'
+  const isUnknown = !isProjectsPage && !isPortfolio && path !== '/'
 
   const [showBackToTop, setShowBackToTop] = useState(false)
+  const navScrolled = useRef(false) // the last location change already positioned the scroll
+  // what the first-load screen waits for (decided once: later navigations are already warm)
+  const [needs] = useState(() => ['fonts', 'window', ...(isRoom ? ['scene', 'screen'] : [])])
 
   useEffect(() => {
+    const sync = () => setLoc(window.location.pathname + window.location.hash)
+    // route change: swap the page under a transition, landing at the top (no jump, no half-revealed
+    // section), then glide down to the requested section once the transition is over
+    const onNavigate = () => {
+      const id = window.location.hash.slice(1)
+      navScrolled.current = true
+      const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches
+      if (reduced || !document.startViewTransition) {
+        sync()
+        const target = id && document.getElementById(id)
+        if (target) target.scrollIntoView({ behavior: 'instant' })
+        else window.scrollTo({ top: 0, behavior: 'instant' })
+        return
+      }
+      const vt = document.startViewTransition(() => {
+        flushSync(sync)
+        window.scrollTo({ top: 0, behavior: 'instant' })
+      })
+      if (id) vt.finished.then(() => smoothScrollToId(id)).catch(() => {})
+    }
+    // internal links navigate without a reload; files and external links stay native
+    const onClick = (e: MouseEvent) => {
+      if (e.defaultPrevented || e.button !== 0 || e.metaKey || e.ctrlKey || e.shiftKey || e.altKey) return
+      const a = (e.target as Element).closest('a')
+      if (!a || a.target || a.hasAttribute('download')) return
+      const url = new URL(a.href, window.location.href)
+      if (url.origin !== window.location.origin || !ROUTES.includes(url.pathname)) return
+      if (url.pathname === window.location.pathname && url.hash) {
+        // same page: glide to the section instead of a hard anchor jump (skip link keeps its native focus move)
+        if (url.hash === '#main-content' || !document.getElementById(url.hash.slice(1))) return
+        e.preventDefault()
+        window.history.pushState(null, '', url.hash)
+        smoothScrollToId(url.hash.slice(1))
+        return
+      }
+      e.preventDefault()
+      navigate(url.pathname + url.search + url.hash)
+    }
+    window.addEventListener(NAV_EVENT, onNavigate)
+    const onPop = () => { navScrolled.current = false; sync() }
+    window.addEventListener('popstate', onPop)
+    document.addEventListener('click', onClick)
+    return () => {
+      window.removeEventListener(NAV_EVENT, onNavigate)
+      window.removeEventListener('popstate', onPop)
+      document.removeEventListener('click', onClick)
+    }
+  }, [])
+
+  useEffect(() => {
+    if (navScrolled.current) { navScrolled.current = false; return } // client-side navigation positions itself
     const hash = window.location.hash
     const target = hash ? document.getElementById(hash.slice(1)) : null
     if (!target) {
@@ -44,7 +111,7 @@ export default function App() {
       window.removeEventListener('touchstart', markScrolled)
       window.removeEventListener('keydown', markScrolled)
     }
-  }, [isProjectsPage, isUnknown])
+  }, [loc])
 
   useEffect(() => {
     const onScroll = () => setShowBackToTop(window.scrollY > 400)
@@ -85,6 +152,7 @@ export default function App() {
         <Suspense fallback={<Loading fullScreen />}>
           <ProjectsPage />
         </Suspense>
+        <Footer />
       </>
     )
   }
@@ -112,26 +180,41 @@ export default function App() {
         <meta property="og:url" content="https://hugolelis.dev" />
         <script type="application/ld+json">{JSON.stringify(schema)}</script>
       </Helmet>
+      {!isEmbed && <Preloader needs={needs} />}
       <div style={{ overflowX: 'clip' }}>
         <Nav />
         <main id="main-content">
-          <Hero />
-          <Reveal><StackSection /></Reveal>
-          <Reveal><About /></Reveal>
-          <Reveal><ProjectsSection /></Reveal>
-          <Timeline />
-          <Reveal><CertificatesSection /></Reveal>
+          {isRoom ? <DeskSection /> : (
+            <>
+              <Hero />
+              {/* the monitor's embedded copy only ever shows the hero */}
+              {!isEmbed && (
+                <>
+                  <Reveal><StackSection /></Reveal>
+                  <Reveal><About /></Reveal>
+                  <Reveal><ProjectsSection /></Reveal>
+                  <Timeline />
+                  <Reveal><CertificatesSection /></Reveal>
+                </>
+              )}
+            </>
+          )}
         </main>
-        <button
-          className={`${styles.backToTop} ${showBackToTop ? styles.backToTopVisible : ''}`}
-          onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
-          aria-label={lang === 'pt' ? 'Voltar ao topo' : 'Back to top'}
-          tabIndex={showBackToTop ? 0 : -1}
-          inert={!showBackToTop}
-        >
-          ↑
-        </button>
-        <Footer />
+        {!isRoom && !isEmbed && (
+          <>
+            <button
+              className={`${styles.backToTop} ${showBackToTop ? styles.backToTopVisible : ''}`}
+              onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
+              aria-label={lang === 'pt' ? 'Voltar ao topo' : 'Back to top'}
+              tabIndex={showBackToTop ? 0 : -1}
+              inert={!showBackToTop}
+            >
+              ↑
+            </button>
+            {deskMode && isPortfolio && <BackToDesk />}
+          </>
+        )}
+        {!isEmbed && <Footer />}
       </div>
     </>
   )
