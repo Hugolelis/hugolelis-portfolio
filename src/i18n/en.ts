@@ -32,6 +32,7 @@ export const en: Translations = {
     tabOverview: 'Overview',
     tabFeatures: 'Features',
     clickToView: 'Click to view',
+    moreOnGithub: 'Want to see more? Visit my GitHub',
     viewCode: 'View code',
     viewDeploy: 'View deploy',
     deployUnavailable: 'No live deploy available',

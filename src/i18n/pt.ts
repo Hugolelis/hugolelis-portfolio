@@ -30,6 +30,7 @@ export const pt = {
     tabOverview: 'Visão geral',
     tabFeatures: 'Funcionalidades',
     clickToView: 'Clique para ver',
+    moreOnGithub: 'Quer ver mais? Visite meu GitHub',
     viewCode: 'Ver código',
     viewDeploy: 'Ver deploy',
     deployUnavailable: 'Sem deploy disponível',
