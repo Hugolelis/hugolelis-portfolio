@@ -17,7 +17,6 @@ export const pt = {
   },
   about: {
     title: 'Sobre mim',
-    location: 'Volta Redonda, Brasil',
     p1: 'Desenvolvedor de software com foco em backend e arquitetura de sistemas. Desde 2024 projeto APIs, modelo bancos relacionais e cuido do ciclo completo de aplicações web, do planejamento ao deploy. No estágio na Metta Innovations trabalho com visão computacional e IA, em C++ e Python, com Qt/QML, PostgreSQL, Docker e testes unitários em squad SCRUMBAN.',
     p3: 'Gosto de entender o que as ferramentas escondem: implementei um gerador de QR Code direto da especificação ISO/IEC 18004 e coloquei um debounce entre o detector e os alertas num pipeline de visão computacional. Cursando Sistemas de Informação na UniFoa, busco times onde decisão de arquitetura e performance pesam mais do que entregar funcionalidade.',
   },

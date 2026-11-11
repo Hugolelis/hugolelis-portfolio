@@ -19,7 +19,6 @@ export const en: Translations = {
   },
   about: {
     title: 'About me',
-    location: 'Volta Redonda, Brazil',
     p1: 'Software developer focused on backend and systems architecture. Since 2024 I have designed APIs, modeled relational databases and owned the full lifecycle of web applications, from planning to deploy. At my Metta Innovations internship I work on computer vision and AI in C++ and Python, with Qt/QML, PostgreSQL, Docker and unit tests in a SCRUMBAN squad.',
     p3: 'I like understanding what tools hide: I built a QR Code generator straight from the ISO/IEC 18004 spec, and put a debounce between detector and alerts in a computer vision pipeline. Studying Information Systems at UniFoa, I look for teams where architecture and performance decisions matter more than shipping features.',
   },
