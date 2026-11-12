@@ -7,7 +7,7 @@ const GIVE_UP_MS = 8000 // never trap the visitor behind the loader (no WebGL, s
 
 /** Full-screen loader for the first paint: stays until every key in `needs` is ready, then fades out. */
 export function Preloader({ needs }: { needs: string[] }) {
-  const { lang } = useApp()
+  const { t } = useApp()
   const done = useSyncExternalStore(onReadyChange, () => needs.filter(isReady).length)
   const [gone, setGone] = useState(false)
   const finished = done >= needs.length
@@ -32,7 +32,7 @@ export function Preloader({ needs }: { needs: string[] }) {
     <div className={`${styles.overlay} ${finished ? styles.hide : ''}`} role="status" aria-live="polite">
       <span className={styles.name}>Hugo de Lelis</span>
       <div className={styles.bar}><div className={styles.fill} style={{ width: `${Math.max(8, (done / needs.length) * 100)}%` }} /></div>
-      <span className={styles.label}>{lang === 'pt' ? 'montando o setup…' : 'setting up the desk…'}</span>
+      <span className={styles.label}>{t.ui.settingUp}</span>
     </div>
   )
 }

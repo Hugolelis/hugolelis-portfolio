@@ -4,8 +4,8 @@ import { BriefcaseIcon, GraduationCapIcon, TrophyIcon } from '../ui/icons'
 import styles from './Timeline.module.css'
 
 type Props =
-  | { entry: TimelineEntry; lang: Lang; present: string; stacked: true; above?: never; column?: never }
-  | { entry: TimelineEntry; lang: Lang; present: string; stacked?: false; above: boolean; column: number }
+  | { entry: TimelineEntry; lang: Lang; present: string; ended: string; stacked: true; above?: never; column?: never }
+  | { entry: TimelineEntry; lang: Lang; present: string; ended: string; stacked?: false; above: boolean; column: number }
 
 const categoryIcon: Record<TimelineCategory, typeof BriefcaseIcon> = {
   work: BriefcaseIcon,
@@ -13,8 +13,7 @@ const categoryIcon: Record<TimelineCategory, typeof BriefcaseIcon> = {
   competition: TrophyIcon,
 }
 
-export function TimelineItem({ entry, lang, present, above, column, stacked }: Props) {
-  const ended = lang === 'pt' ? 'Experiência encerrada' : 'Experience ended'
+export function TimelineItem({ entry, lang, present, ended, above, column, stacked }: Props) {
   const CategoryIcon = categoryIcon[entry.category]
   // fades in as it scrolls into view (sideways on desktop, down the page on mobile) and back out when it leaves
   const { ref, visible } = useReveal<HTMLDivElement>(0.2, true)

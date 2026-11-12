@@ -13,7 +13,6 @@ export function ProjectPage({ project }: { project: Project }) {
   const p = t.projects
   const deskMode = useDeskMode()
   const others = projects.filter(x => x !== project)
-  const pt = lang === 'pt'
 
   return (
     <div className={styles.page}>
@@ -82,7 +81,7 @@ export function ProjectPage({ project }: { project: Project }) {
         {others.length > 0 && (
           <section className={styles.others}>
             <Reveal repeat>
-              <h2 className={styles.label}>{pt ? 'Outros projetos' : 'Other projects'}</h2>
+              <h2 className={styles.label}>{p.others}</h2>
             </Reveal>
             {/* same cards as the home gallery, so they look and behave the same */}
             <ul className={cards.grid}>

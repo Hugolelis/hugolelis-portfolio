@@ -124,7 +124,7 @@ export function Timeline() {
               style={{ top: lineRect.top, height: lineRect.height, transform: `scaleY(${scrollProgress})` }}
             />
             {orderedTimeline.map((entry) => (
-              <TimelineItem key={entry.id} entry={entry} lang={lang} present={t.timeline.present} stacked />
+              <TimelineItem key={entry.id} entry={entry} lang={lang} present={t.timeline.present} ended={t.timeline.ended} stacked />
             ))}
           </div>
         </div>
@@ -154,7 +154,7 @@ export function Timeline() {
                 key={entry.id}
                 entry={entry}
                 lang={lang}
-                present={t.timeline.present}
+                present={t.timeline.present} ended={t.timeline.ended}
                 above={i % 2 === 0}
                 column={i + 2}
               />

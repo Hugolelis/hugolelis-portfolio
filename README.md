@@ -3,7 +3,7 @@
 <div align="left">
 
 [![Status](https://img.shields.io/badge/Status-Live-407a50?style=for-the-badge&labelColor=1a1a1a&logoColor=white)](https://hugolelis-dev.vercel.app/)
-[![Version](https://img.shields.io/badge/Version-1.0.0-0f766e?style=for-the-badge&labelColor=1a1a1a&logoColor=white)]()
+[![Version](https://img.shields.io/badge/Version-2.0.0-0f766e?style=for-the-badge&labelColor=1a1a1a&logoColor=white)]()
 [![License](https://img.shields.io/badge/License-MIT-0f766e?style=for-the-badge&labelColor=1a1a1a&logoColor=white)](LICENSE)
 
 </div>
@@ -38,16 +38,16 @@ Most portfolio sites are static one-pagers with a resume bolted on. This one is 
 
 | Capability | Description |
 |---|---|
-| **Bilingual** | Full Portuguese and English content with a manual toggle; the choice is saved in `localStorage` (English by default) |
-| **Light/Dark theme** | Manual toggle, saved in `localStorage` (light by default) |
+| **Bilingual** | Full Portuguese and English content with a manual toggle; starts in the browser language (English as fallback) and the choice is saved in `localStorage`. Every UI label, `aria-label` and the page meta description lives in `src/i18n` |
+| **Light/Dark theme** | Manual toggle; starts from the system `prefers-color-scheme` (light as fallback) and is saved in `localStorage` |
 | **3D desk room (desktop)** | The home is a three.js room: the monitor runs the real site in an iframe (CSS3D), the laptop plays a person-detector loop and opens its repo, the sticky note is a real QR code (own ISO/IEC 18004 encoder) to GitHub, the framed code opens `leetcodes-study`, and the light bar, clock, phone and books are interactive. Clicking the monitor dives in and opens `/portfolio` with a View Transition. Phones/tablets and browsers without WebGL keep the single scrolling page |
 | **Hero** | Typewriter title over an interactive ShapeGrid background that reacts to the cursor, with a CV preview modal |
 | **Career timeline** | Work, education and competition entries; scrolls horizontally while pinned on desktop and becomes a stacked list on small screens |
 | **Stack & GitHub activity** | Tech stack grouped by area, next to a contribution heatmap fed by a public GitHub contributions API |
-| **Project showcase** | Cards with type badges (API, CLI, AI, TOOL), tech tags and a screenshot or text banner. Each card opens a modal with Overview and Features tabs and a short case study (the problem and the engineering decision), plus GitHub links. A dedicated `/projetos` page adds search, type filter and "show more" |
-| **Certificate viewer** | Inline PDF modal for each certificate |
+| **Project showcase** | Cards with type badges (API, CLI, AI, TOOL), tech tags and a screenshot or text banner. Each card opens its own page at `/projetos/<slug>` with the description, a short case study (the problem and the engineering decision), key facts, features, GitHub/deploy links and the other projects. A `/projetos` page adds search, type filter and "show more" |
+| **Certificate viewer** | Inline PDF modal for each certificate (also used for the CV), with a download/open fallback on mobile |
 | **Scroll polish** | Scroll progress bar, reveal-on-scroll animations, active-section highlight in the nav and a back-to-top button |
-| **SEO & routing** | Page titles and meta tags via `react-helmet-async`, a 404 page and SPA rewrites on Vercel |
+| **SEO & routing** | Page titles and meta tags via `react-helmet-async`, a localized 404 page and SPA rewrites on Vercel. Routes: `/`, `/portfolio`, `/projetos` and `/projetos/<slug>` |
 | **Responsive design** | Adaptive layout and a mobile navigation menu |
 
 ---
@@ -65,6 +65,7 @@ Most portfolio sites are static one-pagers with a resume bolted on. This one is 
 | **Language** | [TypeScript 6](https://www.typescriptlang.org) |
 | **Bundler** | [Vite 8](https://vite.dev) |
 | **Styling** | [CSS Modules](https://github.com/css-modules/css-modules) |
+| **3D** | [three.js](https://threejs.org) (WebGL scene and CSS3D monitor) |
 | **Animation** | [Motion](https://motion.dev) |
 | **Head management** | [react-helmet-async](https://github.com/staylor/react-helmet-async) |
 | **Linter** | [ESLint 10](https://eslint.org) with `typescript-eslint` |
@@ -80,33 +81,34 @@ src/
 ├── components/
 │   ├── sections/            # Page sections (Nav, Hero, About, Timeline, StackSection,
 │   │                        #   ActivityHeatmap, ProjectsSection, CertificatesSection, Footer)
-│   ├── modals/              # PdfModal, ProjectModal
+│   ├── modals/              # PdfModal
 │   ├── scene/               # DeskScene (three.js room), deskScreens (canvas painters), DeskSection
 │   ├── project/             # ProjectCard
 │   └── ui/                  # Shared pieces (ShapeGrid, Reveal, ScrollProgress, Expandable, Loading, Preloader, BackToDesk, icons)
 ├── context/
 │   └── AppContext.tsx       # Theme, language and translations
-├── data/                    # Static content: projects, timeline, certificates
+├── data/                    # Static content: projects, timeline, certificates, stack (bilingual {pt, en})
 ├── hooks/                   # useActiveSection, useGithubContributions, useHorizontalPin,
 │                            #   useMediaQuery, useDeskMode, useReveal, ...
-├── i18n/                    # Translations (pt.ts, en.ts)
+├── i18n/                    # UI translations (pt.ts, en.ts)
 ├── pages/
-│   └── ProjectsPage.tsx     # /projetos (lazy loaded)
+│   ├── ProjectsPage.tsx     # /projetos (lazy loaded)
+│   └── ProjectPage.tsx      # /projetos/<slug> (lazy loaded)
 ├── types/                   # TypeScript interfaces
-├── utils/                   # Badge and project-type color helpers
-├── App.tsx                  # Routing by pathname, scroll-to-hash handling, 404
+├── utils/                   # Navigation, project slugs, QR encoder, scroll and color helpers
+├── App.tsx                  # Routing by pathname, View Transitions, scroll-to-hash handling, 404
 ├── index.css                # Global styles and CSS custom properties
 └── main.tsx                 # Entry point
 public/                      # Avatar, CV, project screenshots and certificate PDFs
 vercel.json                  # SPA rewrite to index.html
 ```
 
-**Why this shape:** CSS Modules over Tailwind/styled-components keeps styling scoped per component with zero runtime cost, with no CSS-in-JS overhead for a site that's mostly static content. Theme and language live in React Context rather than a state library, since both are small, low-frequency, app-wide values. A full store would be overkill. The site has only two real routes (`/` and `/projetos`), so `App.tsx` reads the pathname directly instead of pulling in a router, and `vercel.json` rewrites every path to `index.html`. Active-section highlighting in the nav uses `IntersectionObserver` (`useActiveSection`). All content (projects, timeline, certificates) is plain data under `src/data` and `src/i18n`, so updating the site never means touching components.
+**Why this shape:** CSS Modules over Tailwind/styled-components keeps styling scoped per component with zero runtime cost, with no CSS-in-JS overhead for a site that's mostly static content. Theme and language live in React Context rather than a state library, since both are small, low-frequency, app-wide values. A full store would be overkill. The site has only a handful of routes (`/`, `/portfolio`, `/projetos`, `/projetos/<slug>`), so `App.tsx` reads the pathname directly instead of pulling in a router, and `vercel.json` rewrites every path to `index.html`. Active-section highlighting in the nav uses `IntersectionObserver` (`useActiveSection`). UI strings live in `src/i18n`; content (projects, timeline, certificates) is plain data under `src/data`, with each text stored as `{ pt, en }`, so updating the site never means touching components.
 
 **Known limitations:**
 - No automated tests yet.
-- Translations live as hand-written objects per language (`i18n/pt.ts`, `i18n/en.ts`) rather than an external i18n framework: fine at two languages, would need a real library beyond that.
-- The language and theme do not follow the browser: they start as English/light until the visitor toggles them.
+- Translations live as hand-written objects per language (`i18n/pt.ts`, `i18n/en.ts`, typed from `pt.ts` so a missing key fails `tsc`) rather than an external i18n framework: fine at two languages, would need a real library beyond that.
+- Page `<title>`s and the project meta tags are English only.
 - The activity heatmap depends on a third-party public API (`github-contributions-api.jogruber.de`); if it is down, the heatmap shows an error state.
 - Fonts are loaded from Google Fonts at runtime, and certificate PDFs are loaded inline in a modal, which can be slow for large files on mobile.
 
@@ -155,8 +157,9 @@ Open [http://localhost:5173](http://localhost:5173) in your browser.
 | Projects (cards, modal case study and `/projetos` page) | `src/data/projects.ts` (including `features` and `caseStudy`), with screenshots in `public/projects/` |
 | Career, education and competitions | `src/data/timeline.ts` |
 | Certificates | `src/data/certificates.ts`, with the PDFs in `public/courses/` |
-| Texts and labels | `src/i18n/pt.ts` and `src/i18n/en.ts` |
+| UI texts and labels (add every new string to both files) | `src/i18n/pt.ts` and `src/i18n/en.ts` |
 | CV | `public/Hugolelis_cv.pdf` |
+| Tech stack | `src/data/stack.ts` |
 | GitHub user for the heatmap | `GITHUB_USERNAME` in `src/components/sections/StackSection.tsx` |
 
 ---

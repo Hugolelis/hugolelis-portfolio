@@ -59,6 +59,7 @@ export function StackSection() {
                   connector={t.stack.heatmapConnector}
                   unit={{ one: t.stack.unitOne, other: t.stack.unitOther }}
                   noActivityWord={t.stack.noActivity}
+                  text={t.stack}
                   lessLabel={t.stack.less}
                   moreLabel={t.stack.more}
                   locale={lang === 'pt' ? 'pt-BR' : 'en-US'}

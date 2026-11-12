@@ -20,18 +20,18 @@ function leaveDesk(from: string, to: string) {
 }
 
 export function DeskSection() {
-  const { t, theme, lang } = useApp()
+  const { t, theme } = useApp()
   return (
     <section id="mesa" style={{ position: 'relative', height: '100vh', minHeight: 560 }}>
       <Suspense fallback={null}>
         <DeskScene
           theme={theme}
           labels={{
-            monitor: lang === 'pt' ? 'Meu portfólio · clique para abrir' : 'My portfolio · click to open',
+            monitor: t.desk.monitor,
             laptop: 'Person Detector · GitHub', books: t.stack.title,
             frame: t.certificates.title, portrait: t.nav.about, clock: t.timeline.title, phone: t.nav.media,
-            lamp: lang === 'pt' ? 'Luz' : 'Light',
-            qr: lang === 'pt' ? 'GitHub (QR de verdade)' : 'GitHub (a real QR)',
+            lamp: t.desk.lamp,
+            qr: t.desk.qr,
             code: 'leetcodes-study · GitHub',
           }}
           onSelect={(id) => {

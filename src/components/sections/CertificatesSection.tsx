@@ -11,7 +11,7 @@ import styles from './CertificatesSection.module.css'
 const INITIAL_COUNT = 4
 
 export function CertificatesSection() {
-  const { t, lang } = useApp()
+  const { t } = useApp()
   const [selected, setSelected] = useState<Certificate | null>(null)
   const certsShown = useShowMore(certificates, INITIAL_COUNT)
 
@@ -53,11 +53,11 @@ export function CertificatesSection() {
           <div className={styles.showMore}>
             {certsShown.remaining > 0 ? (
               <button className="btn btn--ghost" onClick={certsShown.showMore}>
-                {lang === 'pt' ? `Ver mais (${certsShown.remaining})` : `Show more (${certsShown.remaining})`}
+                {t.ui.showMore.replace('{n}', String(certsShown.remaining))}
               </button>
             ) : (
               <button className="btn btn--ghost" onClick={certsShown.showLess}>
-                {lang === 'pt' ? 'Ver menos' : 'Show less'}
+                {t.ui.showLess}
               </button>
             )}
           </div>

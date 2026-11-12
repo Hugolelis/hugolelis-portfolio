@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react'
+import { useApp } from '../../context/AppContext'
 import styles from './PdfModal.module.css'
 
 interface PdfModalProps {
@@ -21,6 +22,7 @@ function useIsMobile() {
 
 export function PdfModal({ name, issuer, file, onClose }: PdfModalProps) {
     const isMobile = useIsMobile()
+    const { t } = useApp()
 
     useEffect(() => {
         document.body.style.overflow = 'hidden'
@@ -53,14 +55,14 @@ export function PdfModal({ name, issuer, file, onClose }: PdfModalProps) {
                 href={file}
                 download
                 className={styles.downloadBtn}
-                title="Download"
+                title={t.ui.download}
                 >
                 ↓
                 </a>
                 <button
                 className={styles.closeBtn}
                 onClick={onClose}
-                title="Fechar"
+                title={t.ui.close}
                 >
                 ✕
                 </button>
@@ -70,7 +72,7 @@ export function PdfModal({ name, issuer, file, onClose }: PdfModalProps) {
             {isMobile ? (
             <div className={styles.mobileFallback}>
                 <p className={styles.fallbackText}>
-                Preview unavailable.
+                {t.ui.previewUnavailable}
                 </p>
                 <a
                 href={file}
@@ -78,14 +80,14 @@ export function PdfModal({ name, issuer, file, onClose }: PdfModalProps) {
                 rel="noopener noreferrer"
                 className={styles.fallbackBtn}
                 >
-                Abrir PDF ↗
+                {t.ui.openPdf}
                 </a>
                 <a
                 href={file}
                 download
                 className={styles.fallbackBtnOutline}
                 >
-                Baixar PDF ↓
+                {t.ui.downloadPdf}
                 </a>
             </div>
             ) : (

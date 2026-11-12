@@ -87,7 +87,7 @@ export function Nav() {
   return (
     <>
       <a href="#main-content" className={styles.skipLink}>
-        {lang === 'pt' ? 'Pular para o conteúdo' : 'Skip to content'}
+        {t.ui.skipToContent}
       </a>
 
       <Activity mode={!onSubPage || onPortfolio ? "visible" : "hidden"}>
@@ -97,9 +97,9 @@ export function Nav() {
       <nav
         ref={navRef}
         className={`${styles.nav} ${scrollY > 40 || onSubPage ? styles.scrolled : ''}`}
-        aria-label={lang === 'pt' ? 'Navegação principal' : 'Main navigation'}
+        aria-label={t.ui.mainNav}
       >
-        <a href={isEmbed ? '#hero' : deskMode || onSubPage ? '/' : '#hero'} className={styles.logo} aria-label={lang === 'pt' ? 'Voltar ao início' : 'Back to home'}>
+        <a href={isEmbed ? '#hero' : deskMode || onSubPage ? '/' : '#hero'} className={styles.logo} aria-label={t.ui.backHome}>
           <svg viewBox="0 0 32 32" width="26" height="26" fill="none" style={{ display: 'block', color: 'var(--accent)' }}>
             <rect x="6" y="7" width="5" height="18" rx="1" fill="currentColor" opacity="0.15" />
             <rect x="21" y="7" width="5" height="18" rx="1" fill="currentColor" opacity="0.15" />
@@ -129,16 +129,16 @@ export function Nav() {
             <button
               className={styles.toggle}
               onClick={toggleLang}
-              title={lang === 'pt' ? 'Switch to English' : 'Mudar para português'}
-              aria-label={lang === 'pt' ? 'Switch to English' : 'Mudar para português'}
+              title={t.ui.switchLang}
+              aria-label={t.ui.switchLang}
             >
               {lang === 'pt' ? 'PT' : 'EN'}
             </button>
             <button
               className={styles.toggle}
               onClick={toggleTheme}
-              title={lang === 'pt' ? 'Alternar tema' : 'Toggle theme'}
-              aria-label={lang === 'pt' ? 'Alternar tema' : 'Toggle theme'}
+              title={t.ui.toggleTheme}
+              aria-label={t.ui.toggleTheme}
             >
               {theme === 'dark' ? (
                 <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
@@ -156,7 +156,7 @@ export function Nav() {
               onClick={() => setMenuOpen(previous => !previous)}
               aria-expanded={menuOpen}
               aria-controls="mobile-navigation"
-              aria-label={menuOpen ? (lang === 'pt' ? 'Fechar menu' : 'Close menu') : (lang === 'pt' ? 'Abrir menu' : 'Open menu')}
+              aria-label={menuOpen ? t.ui.closeMenu : t.ui.openMenu}
             >
               <span />
               <span />
@@ -212,7 +212,7 @@ export function Nav() {
               <button
                 className={styles.closeContact}
                 onClick={() => setContactOpen(false)}
-                aria-label={lang === 'pt' ? 'Fechar contato' : 'Close contact'}
+                aria-label={t.ui.closeContact}
               >
                 ×
               </button>

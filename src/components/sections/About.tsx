@@ -2,18 +2,8 @@ import { useApp } from '../../context/AppContext'
 import { Reveal } from '../ui/Reveal'
 import styles from './About.module.css'
 
-const interests = [
-  'Arquitetura de Sistemas', 'Sistemas Distribuídos', 'Backend e APIs', 'Visão Computacional',
-  'Bancos Relacionais', 'Performance', 'Testes', 'IA',
-]
-const interestsEn = [
-  'System Architecture', 'Distributed Systems', 'Backend & APIs', 'Computer Vision',
-  'Relational Databases', 'Performance', 'Testing', 'AI',
-]
-
 export function About() {
-  const { t, lang } = useApp()
-  const interestTags = lang === 'pt' ? interests : interestsEn
+  const { t } = useApp()
 
   return (
     <section id="sobre" className={styles.about}>
@@ -31,9 +21,9 @@ export function About() {
         </div>
 
         <Reveal repeat className={styles.subsection}>
-          <p className={styles.interestsLabel}>{lang === 'pt' ? 'Áreas de interesse' : 'Areas of interest'}</p>
+          <p className={styles.interestsLabel}>{t.about.interestsLabel}</p>
           <div className={styles.interests}>
-            {interestTags.map(tag => (
+            {t.about.interests.map(tag => (
               <span key={tag} className={styles.interest}>{tag}</span>
             ))}
           </div>

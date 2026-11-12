@@ -2,7 +2,7 @@ import { useApp } from '../../context/AppContext'
 import styles from './BackToDesk.module.css'
 
 export function BackToDesk() {
-  const { lang } = useApp()
+  const { t } = useApp()
   return (
     <a href="/#mesa" className={styles.pill}>
       <span className={styles.icon} aria-hidden="true">
@@ -10,7 +10,7 @@ export function BackToDesk() {
           <path d="M19 12H5M11 6l-6 6 6 6" />
         </svg>
       </span>
-      {lang === 'pt' ? 'Voltar à mesa' : 'Back to desk'}
+      {t.ui.backToDesk}
     </a>
   )
 }

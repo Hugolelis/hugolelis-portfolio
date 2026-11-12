@@ -38,6 +38,29 @@ export interface ActivityDay {
  * comparison is the point. Cells wave in once on view, a tooltip glides between cells on hover or keyboard focus, and a
  * new range recolors the grid in a sweep instead of redrawing it. Arrow keys move by day and week, Enter selects.
  */
+export interface HeatmapText {
+  levelsLabel: string
+  highlight: string
+  /** Whole phrase for the empty range, e.g. "no contributions". */
+  none: string
+  to: string
+  orMore: string
+  day: string
+  days: string
+  with: string
+}
+
+const DEFAULT_TEXT: HeatmapText = {
+  levelsLabel: 'Highlight days by level',
+  highlight: 'Highlight days with',
+  none: '',
+  to: 'to',
+  orMore: 'or more',
+  day: 'day',
+  days: 'days',
+  with: 'with',
+}
+
 export interface ActivityHeatmapProps {
   /** One entry per day, oldest first. Days missing inside the range count as zero. */
   days: ActivityDay[]
@@ -54,6 +77,8 @@ export interface ActivityHeatmapProps {
   moreLabel?: string
   /** Word used in place of a count when it's zero, e.g. "No" contributions. */
   noActivityWord?: string
+  /** Words for the range labels and legend; English by default. */
+  text?: Partial<HeatmapText>
   /** Upper bounds for levels one to three; anything above the last is level four. Defaults to quarters of the busiest day. */
   thresholds?: [number, number, number]
   weekStartsOn?: 0 | 1
@@ -369,6 +394,7 @@ export function ActivityHeatmap({
   lessLabel = 'Less',
   moreLabel = 'More',
   noActivityWord = 'No',
+  text: textProp,
   thresholds,
   weekStartsOn = 0,
   selectedDate = null,
@@ -494,15 +520,17 @@ export function ActivityHeatmap({
     }
   }
   const [a, b, c] = model.thresholds
+  const text = { ...DEFAULT_TEXT, ...textProp }
+  const none = text.none || `no ${unit.other}`
   const ranges = [
-    `no ${unit.other}`,
-    a === 1 ? `1 ${unit.one}` : `1 to ${a} ${unit.other}`,
-    `${a + 1} to ${b} ${unit.other}`,
-    `${b + 1} to ${c} ${unit.other}`,
-    `${c + 1} or more ${unit.other}`,
+    none,
+    a === 1 ? `1 ${unit.one}` : `1 ${text.to} ${a} ${unit.other}`,
+    `${a + 1} ${text.to} ${b} ${unit.other}`,
+    `${b + 1} ${text.to} ${c} ${unit.other}`,
+    `${c + 1} ${text.orMore} ${unit.other}`,
   ]
   const shortRanges = [
-    `no ${unit.other}`,
+    none,
     a === 1 ? `1 ${unit.one}` : `1–${a} ${unit.other}`,
     `${a + 1}–${b} ${unit.other}`,
     `${b + 1}–${c} ${unit.other}`,
@@ -511,9 +539,9 @@ export function ActivityHeatmap({
   const dayCount =
     highlight === null
       ? ''
-      : `${formats.number.format(model.perLevel[highlight])} ${model.perLevel[highlight] === 1 ? 'day' : 'days'}`
+      : `${formats.number.format(model.perLevel[highlight])} ${model.perLevel[highlight] === 1 ? text.day : text.days}`
   const caption =
-    highlight === null ? '' : `${dayCount} with ${shortRanges[highlight]}`
+    highlight === null ? '' : `${dayCount} ${text.with} ${shortRanges[highlight]}`
   function show(next: Tip) {
     window.clearTimeout(hideTimer.current)
     setChange(
@@ -844,7 +872,7 @@ export function ActivityHeatmap({
           <div
             className={styles.swatches}
             role="group"
-            aria-label="Highlight days by level"
+            aria-label={text.levelsLabel}
             onKeyDown={onLegendKeyDown}
           >
             {LEVELS.map((level) => (
@@ -856,7 +884,7 @@ export function ActivityHeatmap({
                 data-level={level}
                 tabIndex={level === legendFocus ? 0 : -1}
                 aria-pressed={pinned === level}
-                aria-label={`Highlight days with ${ranges[level]}`}
+                aria-label={`${text.highlight} ${ranges[level]}`}
                 onClick={() =>
                   setPinned((current) => (current === level ? null : level))
                 }

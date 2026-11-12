@@ -81,9 +81,9 @@ export function ProjectsPage() {
                     type="text"
                     value={search}
                     onChange={e => setSearch(e.target.value)}
-                    placeholder={lang === 'pt' ? 'Buscar projetos...' : 'Search projects...'}
+                    placeholder={t.projects.search}
                     className={styles.searchInput}
-                    aria-label={lang === 'pt' ? 'Buscar projetos' : 'Search projects'}
+                    aria-label={t.projects.searchLabel}
                   />
                 </div>
                 <div className={styles.selectWrap} ref={filterRef}>
@@ -95,7 +95,7 @@ export function ProjectsPage() {
                     aria-expanded={filterOpen}
                   >
                     {typeFilter && <span className={styles.selectDot} style={{ background: TYPE_DOT[typeFilter] }} aria-hidden="true" />}
-                    <span className={styles.selectLabel}>{typeFilter ?? (lang === 'pt' ? 'Todos os tipos' : 'All types')}</span>
+                    <span className={styles.selectLabel}>{typeFilter ?? t.projects.allTypes}</span>
                     <svg className={`${styles.selectChevron} ${filterOpen ? styles.selectChevronOpen : ''}`} width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
                       <polyline points="6 9 12 15 18 9" />
                     </svg>
@@ -108,7 +108,7 @@ export function ProjectsPage() {
                           className={`${styles.selectOption} ${typeFilter === null ? styles.selectOptionActive : ''}`}
                           onClick={() => { setTypeFilter(null); setFilterOpen(false) }}
                         >
-                          {lang === 'pt' ? 'Todos os tipos' : 'All types'}
+                          {t.projects.allTypes}
                         </button>
                       </li>
                       {availableTypes.map(type => (
@@ -131,7 +131,7 @@ export function ProjectsPage() {
           </Reveal>
           {filteredProjects.length === 0 ? (
             <p className={styles.empty}>
-              {lang === 'pt' ? 'Nenhum projeto encontrado.' : 'No projects found.'}
+              {t.projects.noResults}
             </p>
           ) : (
             <div className={styles.list}>
@@ -158,11 +158,11 @@ export function ProjectsPage() {
             <div className={styles.showMore}>
               {remaining > 0 ? (
                 <button className="btn btn--ghost" onClick={showMore}>
-                  {lang === 'pt' ? `Ver mais (${remaining})` : `Show more (${remaining})`}
+                  {t.ui.showMore.replace('{n}', String(remaining))}
                 </button>
               ) : (
                 <button className="btn btn--ghost" onClick={showLess}>
-                  {lang === 'pt' ? 'Ver menos' : 'Show less'}
+                  {t.ui.showLess}
                 </button>
               )}
             </div>

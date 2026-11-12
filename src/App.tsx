@@ -18,7 +18,7 @@ const ProjectsPage = lazy(() => import('./pages/ProjectsPage').then(m => ({ defa
 const ProjectPage = lazy(() => import('./pages/ProjectPage').then(m => ({ default: m.ProjectPage })))
 
 export default function App() {
-  const { lang } = useApp()
+  const { t } = useApp()
   const deskMode = useDeskMode()
   // re-render on client-side navigation (see utils/navigate.ts); the URL itself is the source of truth
   const [loc, setLoc] = useState(() => window.location.pathname + window.location.hash)
@@ -128,16 +128,16 @@ export default function App() {
     return (
       <>
         <Helmet>
-          <title>404 — Page not found</title>
+          <title>{`404 — ${t.notFound.title}`}</title>
           <meta name="robots" content="noindex" />
         </Helmet>
         <Nav />
         <main id="main-content" className={notFoundStyles.notFound}>
           <div className={notFoundStyles.inner}>
             <span className={notFoundStyles.code}>404</span>
-            <h1 className={notFoundStyles.title}>Page not found</h1>
-            <p className={notFoundStyles.desc}>The page you are looking for does not exist or has been moved.</p>
-            <a href="/" className={notFoundStyles.link}>Back to home</a>
+            <h1 className={notFoundStyles.title}>{t.notFound.title}</h1>
+            <p className={notFoundStyles.desc}>{t.notFound.desc}</p>
+            <a href="/" className={notFoundStyles.link}>{t.notFound.back}</a>
           </div>
         </main>
       </>
@@ -168,7 +168,7 @@ export default function App() {
       <>
         <Helmet>
           <title>{'Hugo | Projects'}</title>
-          <meta name="description" content="Projects by Hugo de Lelis | Software Developer." />
+          <meta name="description" content={t.seo.projects} />
           <meta property="og:title" content="Hugo | Projects" />
           <meta property="og:type" content="website" />
           <meta property="og:url" content={window.location.href} />
@@ -197,9 +197,9 @@ export default function App() {
     <>
       <Helmet>
         <title>{'Hugo | Software Developer'}</title>
-        <meta name="description" content="Portfolio de Hugo de Lelis | Software Developer com foco em backend, APIs, bancos de dados relacionais e aplicações com IA." />
+        <meta name="description" content={t.seo.home} />
         <meta property="og:title" content="Hugo | Software Developer" />
-        <meta property="og:description" content="Portfolio de Hugo de Lelis | Software Developer com foco em backend, APIs, bancos de dados relacionais e aplicações com IA." />
+        <meta property="og:description" content={t.seo.home} />
         <meta property="og:type" content="website" />
         <meta property="og:url" content="https://hugolelis.dev" />
         <script type="application/ld+json">{JSON.stringify(schema)}</script>
@@ -229,7 +229,7 @@ export default function App() {
             <button
               className={`${styles.backToTop} ${showBackToTop ? styles.backToTopVisible : ''}`}
               onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
-              aria-label={lang === 'pt' ? 'Voltar ao topo' : 'Back to top'}
+              aria-label={t.ui.backToTop}
               tabIndex={showBackToTop ? 0 : -1}
               inert={!showBackToTop}
             >
