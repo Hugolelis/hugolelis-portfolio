@@ -2,7 +2,7 @@
   padding: 6rem 0 7rem;
   border-top: 1px solid var(--border);
   scroll-margin-top: 6rem;
-  background: var(--bg);
+  background: var(--surface);
 }
 
 .layout {

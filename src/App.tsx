@@ -214,8 +214,8 @@ export default function App() {
               {/* the monitor's embedded copy only ever shows the hero */}
               {!isEmbed && (
                 <>
-                  <StackSection />
                   <About />
+                  <StackSection />
                   <ProjectsSection />
                   <Timeline />
                   <CertificatesSection />

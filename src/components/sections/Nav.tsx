@@ -8,7 +8,7 @@ import { ScrollProgress } from '../ui/ScrollProgress'
 import styles from './Nav.module.css'
 
 const EMAIL = 'hugodelelis05@gmail.com'
-const SECTION_IDS = ['hero', 'stack', 'sobre', 'projetos', 'timeline', 'certificados'] as const
+const SECTION_IDS = ['hero', 'sobre', 'stack', 'projetos', 'timeline', 'certificados'] as const
 
 export function Nav() {
   const { t, theme, toggleTheme, lang, toggleLang } = useApp()
@@ -115,8 +115,8 @@ export function Nav() {
         <div className={styles.right}>
           <div className={styles.links}>
             <a href={href('hero')} className={linkActive('hero')} aria-current={linkActive('hero') ? 'page' : undefined}>{t.nav.home}</a>
-            <a href={href('stack')} className={linkActive('stack')} aria-current={linkActive('stack') ? 'page' : undefined}>{t.stack.title}</a>
             <a href={href('sobre')} className={linkActive('sobre')} aria-current={linkActive('sobre') ? 'page' : undefined}>{t.nav.about}</a>
+            <a href={href('stack')} className={linkActive('stack')} aria-current={linkActive('stack') ? 'page' : undefined}>{t.stack.title}</a>
             <a href={href('projetos')} className={linkActive('projetos')} aria-current={linkActive('projetos') ? 'page' : undefined}>{t.nav.projects}</a>
             <a href={href('timeline')} className={linkActive('timeline')} aria-current={linkActive('timeline') ? 'page' : undefined}>{t.timeline.title}</a>
             <a href={href('certificados')} className={linkActive('certificados')} aria-current={linkActive('certificados') ? 'page' : undefined}>{t.certificates.title}</a>
@@ -169,8 +169,8 @@ export function Nav() {
       {menuOpen && (
         <div ref={mobileMenuRef} id="mobile-navigation" className={styles.mobileMenu}>
           <a href={href('hero')} className={linkActive('hero')} aria-current={linkActive('hero') ? 'page' : undefined} onClick={closeMenu}>{t.nav.home}</a>
-          <a href={href('stack')} className={linkActive('stack')} aria-current={linkActive('stack') ? 'page' : undefined} onClick={closeMenu}>{t.stack.title}</a>
           <a href={href('sobre')} className={linkActive('sobre')} aria-current={linkActive('sobre') ? 'page' : undefined} onClick={closeMenu}>{t.nav.about}</a>
+          <a href={href('stack')} className={linkActive('stack')} aria-current={linkActive('stack') ? 'page' : undefined} onClick={closeMenu}>{t.stack.title}</a>
           <a href={href('projetos')} className={linkActive('projetos')} aria-current={linkActive('projetos') ? 'page' : undefined} onClick={closeMenu}>{t.nav.projects}</a>
           <a href={href('timeline')} className={linkActive('timeline')} aria-current={linkActive('timeline') ? 'page' : undefined} onClick={closeMenu}>{t.timeline.title}</a>
           <a href={href('certificados')} className={linkActive('certificados')} aria-current={linkActive('certificados') ? 'page' : undefined} onClick={closeMenu}>{t.certificates.title}</a>

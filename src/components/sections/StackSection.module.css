@@ -2,7 +2,7 @@
   padding: 6rem 0 4rem;
   border-top: 1px solid var(--border);
   scroll-margin-top: 6rem;
-  background: var(--surface);
+  background: var(--bg);
 }
 
 .sectionHeader {
@@ -84,7 +84,7 @@
      respect the 1fr track and fall back to the heatmap's own internal
      horizontal scroller instead of blowing out the whole section's width */
   min-width: 0;
-  background: var(--bg);
+  background: var(--surface);
   border: 1px solid var(--border);
   border-radius: 10px;
   padding: 1.5rem;
