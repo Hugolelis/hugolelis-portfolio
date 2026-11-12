@@ -6,32 +6,22 @@
 }
 
 .layout {
-  display: grid;
-  grid-template-columns: 290px 1fr;
-  gap: 2.5rem;
-  align-items: start;
   margin-bottom: 1.75rem;
-}
-
-/* ── photo card: ASCII-art portrait, built from characters ── */
-.photoCard {
-  display: flex;
-  justify-content: center;
-}
-
-.ascii {
-  width: fit-content;
-  font-family: var(--font-mono);
-  font-size: 6px;
-  line-height: 1;
-  white-space: pre;
-  color: var(--text);
-  user-select: none;
 }
 
 /* ── text column ── */
 .content {
   min-width: 0;
+  text-align: center;
+}
+
+.role {
+  margin-bottom: 0.6rem;
+  color: var(--accent);
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
 }
 
 .title {
@@ -46,6 +36,8 @@
 }
 
 .body p {
+  max-width: 62ch;
+  margin: 0 auto;
   color: var(--muted);
   font-size: 0.98rem;
   line-height: 1.75;
@@ -91,15 +83,6 @@
 
 @media (max-width: 900px) {
   .about { padding: 4.5rem 0 5rem; }
-
-  .layout {
-    grid-template-columns: 1fr;
-    gap: 2rem;
-  }
-
-  .ascii {
-    font-size: 5.2px;
-  }
 
   .body { margin-bottom: 2.25rem; }
   .body p { font-size: 0.92rem; }

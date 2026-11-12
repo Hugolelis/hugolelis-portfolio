@@ -13,14 +13,15 @@ export const en: Translations = {
   },
   hero: {
     role: 'Software developer · Backend & AI',
+    quote: 'What I cannot create, I do not understand.',
+    quoteAuthor: 'Richard Feynman',
     cta_projects: 'View projects',
     cta_cv: 'Download CV',
     cta_email: 'Send email',
   },
   about: {
     title: 'About me',
-    p1: 'Software developer focused on backend and systems architecture. Since 2024 I have designed APIs, modeled relational databases and owned the full lifecycle of web applications, from planning to deploy. At my Metta Innovations internship I work on computer vision and AI in C++ and Python, with Qt/QML, PostgreSQL, Docker and unit tests in a SCRUMBAN squad.',
-    p3: 'I like understanding what tools hide: I built a QR Code generator straight from the ISO/IEC 18004 spec, and put a debounce between detector and alerts in a computer vision pipeline. Studying Information Systems at UniFoa, I look for teams where architecture and performance decisions matter more than shipping features.',
+    p1: 'Software developer focused on backend, systems architecture and artificial intelligence. I design APIs, model relational databases and own the full lifecycle of applications, from planning to deploy. I like understanding what tools hide, and teams where architecture and performance matter more than shipping features.',
   },
   projects: {
     title: 'Projects',

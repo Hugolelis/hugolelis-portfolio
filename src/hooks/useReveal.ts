@@ -1,6 +1,7 @@
 import { useState, useEffect, useRef } from 'react'
 
-export function useReveal<T extends HTMLElement>(threshold = 0.15) {
+// repeat: hide again when it leaves the viewport, so it animates in on every pass (scrolling up too)
+export function useReveal<T extends HTMLElement>(threshold = 0.15, repeat = false) {
   const ref = useRef<T>(null)
   const [visible, setVisible] = useState(false)
 
@@ -12,7 +13,9 @@ export function useReveal<T extends HTMLElement>(threshold = 0.15) {
       ([entry]) => {
         if (entry.isIntersecting) {
           setVisible(true)
-          observer.disconnect()
+          if (!repeat) observer.disconnect()
+        } else if (repeat) {
+          setVisible(false)
         }
       },
       { threshold }
@@ -20,7 +23,7 @@ export function useReveal<T extends HTMLElement>(threshold = 0.15) {
 
     observer.observe(el)
     return () => observer.disconnect()
-  }, [threshold])
+  }, [threshold, repeat])
 
   return { ref, visible }
 }

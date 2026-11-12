@@ -26,56 +26,56 @@
   line-height: 1.6;
 }
 
-/* ── uniform card grid: every project, same shape ── */
+/* ── two-column gallery: big screenshot, then name + year, then one line ── */
 
 .grid {
   display: grid;
-  grid-template-columns: 1fr;
-  gap: 1.25rem;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 3.5rem 2rem;
   list-style: none;
 }
 
 .card {
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
+  gap: 0.35rem;
   width: 100%;
-  height: 100%;
   padding: 0;
-  border: 1px solid var(--border);
-  border-radius: 10px;
-  background: var(--bg);
+  border: 0;
+  background: none;
   color: inherit;
   text-align: left;
+  text-decoration: none;
   cursor: pointer;
-  overflow: hidden;
 }
-
 
 .media {
   display: flex;
   align-items: center;
   justify-content: center;
-  position: relative;
-  flex: 0 0 38%;
-  min-height: 220px;
-  padding: 1.25rem;
-  border-right: 1px solid var(--border);
+  aspect-ratio: 4 / 3; /* closer to the square-ish screenshots, so they fill more of the frame */
+  margin-bottom: 0.75rem;
+  border: 1px solid var(--border);
+  padding: 1rem; /* every screenshot floats with the same margin, whatever its shape */
+  border-radius: 10px;
   background: var(--term-bg);
   overflow: hidden;
+  transition: transform 0.3s ease;
+}
+
+.card:hover .media, .card:focus-visible .media {
+  transform: translateY(-4px);
 }
 
 .media img {
-  /* out of flow so a tall screenshot never stretches the card */
-  position: absolute;
-  inset: 1.25rem;
-  width: calc(100% - 2.5rem);
-  height: calc(100% - 2.5rem);
-  object-fit: contain;
-  border-radius: 4px;
-  transition: transform 0.35s ease;
+  width: 100%;
+  height: 100%;
+  object-fit: contain; /* screenshots vary from wide to square; none gets cropped */
+  border-radius: 6px;
+  transition: transform 0.5s ease;
 }
 
-.card:hover .media img { transform: scale(1.05); }
+.card:hover .media img { transform: scale(1.02); }
 
 .banner {
   color: var(--text);
@@ -88,74 +88,28 @@
   text-align: center;
 }
 
-.body {
-  display: flex;
-  flex: 1;
-  flex-direction: column;
-  gap: 0.6rem;
-  padding: 1.5rem 1.5rem 1.5rem;
-}
-
 .meta {
   display: flex;
-  align-items: center;
-  gap: 0.5rem;
-}
-
-.badge {
-  padding: 0.15rem 0.5rem;
-  border: 1px solid var(--border);
-  border-radius: 6px;
-  background: var(--tag-default-bg);
-  font-family: var(--font-mono);
-  font-size: 0.6rem;
-  font-weight: 600;
-  letter-spacing: 0.04em;
-  text-transform: uppercase;
-}
-
-.year {
-  margin-left: auto;
-  color: var(--muted);
-  font-family: var(--font-mono);
-  font-size: 0.7rem;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 1rem;
 }
 
 .name {
-  margin-top: 0.4rem;
-  font-family: var(--font-display);
-  font-size: 1.3rem;
-  letter-spacing: -0.01em;
-  line-height: 1.25;
+  font-size: 1rem;
+  font-weight: 500;
 }
 
-.tag {
+.year {
   color: var(--muted);
   font-family: var(--font-mono);
-  font-size: 0.7rem;
+  font-size: 0.75rem;
 }
 
 .desc {
-  max-width: 52ch;
-  margin: 0.2rem 0 0.9rem;
   color: var(--muted);
-  font-size: 0.85rem;
-  line-height: 1.6;
-}
-
-.card .cta {
-  align-self: stretch;
-  margin-top: auto;
-  min-height: 48px;
   font-size: 0.9rem;
-  text-align: center;
-  transition: background 0.25s, border-color 0.25s, color 0.25s;
-}
-
-.card:hover .cta {
-  background: var(--accent);
-  border-color: var(--accent);
-  color: var(--bg);
+  line-height: 1.6;
 }
 
 /* the "see more" button closing the list: as wide as the cards, and easy to hit */
@@ -175,17 +129,11 @@ a.more {
 }
 
 @media (max-width: 640px) {
-  .card { flex-direction: column; }
-  .media {
-    flex: none;
-    height: 170px;
-    min-height: 0;
-    border-right: 0;
-    border-bottom: 1px solid var(--border);
-  }
+  .grid { grid-template-columns: 1fr; gap: 2.5rem; }
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .card, .cta, .media img { transition: none; }
+  .media, .media img { transition: none; }
+  .card:hover .media { transform: none; }
   .card:hover .media img { transform: none; }
 }

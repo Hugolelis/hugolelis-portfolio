@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react'
+import { useState } from 'react'
 import { useApp } from '../../context/AppContext'
 import { isEmbed, sectionHref, useDeskMode } from '../../hooks/useDeskMode'
 import { useMediaQuery } from '../../hooks/useMediaQuery'
@@ -10,24 +10,6 @@ import cvUrl from '/Hugolelis_cv.pdf'
 
 const email = 'hugodelelis05@gmail.com'
 
-function useTypewriter(text: string, speed = 28) {
-  const [displayed, setDisplayed] = useState('')
-  useEffect(() => {
-    if (!text) return
-    let i = 0
-    const id = setInterval(() => {
-      i++
-      setDisplayed(text.slice(0, i))
-      if (i >= text.length) clearInterval(id)
-    }, speed)
-    return () => {
-      clearInterval(id)
-      setDisplayed('')
-    }
-  }, [text, speed])
-  return displayed
-}
-
 export function Hero() {
   const { t, theme } = useApp()
   const deskMode = useDeskMode()
@@ -35,8 +17,6 @@ export function Hero() {
   const narrow = useMediaQuery('(max-width: 1150px)')
   const compact = narrow || !deskMode
   const [cvOpen, setCvOpen] = useState(false)
-
-  const displayedTitle = useTypewriter('Hugo de Lelis', 30)
 
   return (
     <section className={`${styles.hero} ${compact ? styles.compact : ''}`} id='hero'>
@@ -56,11 +36,8 @@ export function Hero() {
       )}
       <div className={`container ${styles.layout}`}>
         <div className={styles.left}>
-          <h1 className={styles.title}>
-            <span className={styles.accent}>{displayedTitle}</span>
-            <span className={styles.cursor}>_</span>
-          </h1>
-          <p className={styles.role}>{t.hero.role}</p>
+          <h1 className={styles.title}>“{t.hero.quote}”</h1>
+          <p className={styles.role}>— {t.hero.quoteAuthor}</p>
 
           <div className={styles.cta}>
             <a href={sectionHref('projetos', deskMode, false)} className="btn btn--primary">{t.hero.cta_projects}</a>

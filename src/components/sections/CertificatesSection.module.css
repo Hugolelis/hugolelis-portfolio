@@ -23,96 +23,81 @@
   margin-bottom: 0;
 }
 
+/* two-column gallery, same look as the projects: preview, name + year, issuer */
+
 .grid {
-  display: flex;
-  flex-direction: column;
-  gap: 0.5rem;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  column-gap: 2rem;
+  align-items: start;
 }
 
 .card {
   display: flex;
-  align-items: center;
-  gap: 1.25rem;
-  padding: 1.25rem 1.5rem;
-  background: var(--bg);
-  border: 1px solid var(--border);
-  border-radius: 8px;
-  cursor: pointer;
-  text-align: left;
-  width: 100%;
-  transition: border-color 0.2s;
-}
-
-.card:hover {
-  border-color: var(--accent);
-}
-
-.card:hover .arrow {
-  color: var(--accent);
-  transform: translate(2px, -2px);
-}
-
-.icon {
-  font-family: var(--font-mono);
-  font-size: 0.72rem;
-  font-weight: 600;
-  letter-spacing: 0.01em;
-  color: var(--accent);
-  width: 2.5rem;
-  height: 2.5rem;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background: var(--surface);
-  border: 1px solid var(--border);
-  border-radius: 6px;
-  flex-shrink: 0;
-}
-
-.info {
-  display: flex;
   flex-direction: column;
-  gap: 0.2rem;
-  min-width: 0;
-  flex: 1;
+  gap: 0.35rem;
+  width: 100%;
+  margin-bottom: 3rem; /* margin, not grid gap: a collapsed row must take no space */
+  padding: 0;
+  border: 0;
+  background: none;
+  color: inherit;
+  text-align: left;
+  cursor: pointer;
 }
 
-.name {
-  font-size: 0.95rem;
-  color: var(--text);
-  overflow-wrap: anywhere;
+.media {
+  display: flex;
+  aspect-ratio: 4 / 3; /* certificates are landscape letter, ~1.3 */
+  margin-bottom: 0.75rem;
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  background: var(--term-bg);
+  overflow: hidden;
+  transition: transform 0.3s ease;
 }
 
-.issuer {
-  font-size: 0.8rem;
-  color: var(--muted);
-  font-family: var(--font-mono);
-  overflow-wrap: anywhere;
+.card:hover .media, .card:focus-visible .media {
+  transform: translateY(-4px);
 }
+
+.media img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.5s ease;
+}
+
+.card:hover .media img { transform: scale(1.02); }
 
 .meta {
   display: flex;
-  align-items: center;
+  align-items: baseline;
+  justify-content: space-between;
   gap: 1rem;
-  flex-shrink: 0;
+}
+
+.name {
+  font-size: 1rem;
+  font-weight: 500;
+  overflow-wrap: anywhere;
 }
 
 .year {
+  color: var(--muted);
   font-family: var(--font-mono);
   font-size: 0.75rem;
-  color: var(--muted);
 }
 
-.arrow {
-  font-size: 1rem;
+.issuer {
   color: var(--muted);
-  transition: color 0.2s, transform 0.2s;
+  font-size: 0.9rem;
 }
 
 .showMore {
   display: flex;
   justify-content: center;
-  margin-top: 1.25rem;
+  margin-top: 0.5rem;
 }
 
 @media (max-width: 900px) {
@@ -120,26 +105,10 @@
 }
 
 @media (max-width: 600px) {
-  .card {
-    align-items: flex-start;
-    gap: 0.75rem;
-    padding: 1rem;
-  }
+  .grid { grid-template-columns: 1fr; }
+}
 
-  .icon {
-    width: 2rem;
-    height: 2rem;
-  }
-
-  .name {
-    font-size: 0.85rem;
-  }
-
-  .issuer {
-    font-size: 0.7rem;
-  }
-
-  .meta {
-    gap: 0.5rem;
-  }
+@media (prefers-reduced-motion: reduce) {
+  .media, .media img { transition: none; }
+  .card:hover .media, .card:hover .media img { transform: none; }
 }

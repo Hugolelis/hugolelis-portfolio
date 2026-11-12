@@ -5,10 +5,11 @@ interface Props {
   children: ReactNode
   delay?: number
   className?: string
+  repeat?: boolean
 }
 
-export function Reveal({ children, delay = 0, className }: Props) {
-  const { ref, visible } = useReveal<HTMLDivElement>(0.08)
+export function Reveal({ children, delay = 0, className, repeat }: Props) {
+  const { ref, visible } = useReveal<HTMLDivElement>(0.08, repeat)
 
   return (
     <div

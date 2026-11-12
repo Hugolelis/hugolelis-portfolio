@@ -1,18 +1,21 @@
 import { useState, useEffect, useRef, lazy, Suspense } from 'react'
 import { flushSync } from 'react-dom'
 import { Helmet } from 'react-helmet-async'
-import { Footer, Loading, Nav, Hero, About, CertificatesSection, StackSection, ProjectsSection, Timeline, Reveal } from './components'
+import { Footer, Loading, Nav, Hero, About, CertificatesSection, StackSection, ProjectsSection, Timeline } from './components'
 import { Preloader } from './components/ui/Preloader'
 import { BackToDesk } from './components/ui/BackToDesk'
 import { DeskSection } from './components/scene/DeskSection'
 import { useApp } from './context/AppContext'
+import { projects } from './data'
 import { isEmbed, useDeskMode } from './hooks/useDeskMode'
-import { NAV_EVENT, ROUTES, navigate } from './utils/navigate'
+import { NAV_EVENT, isRoute, navigate } from './utils/navigate'
+import { projectSlug } from './utils/projectSlug'
 import { smoothScrollToId } from './utils/scroll'
 import styles from './components/ui/BackToTop.module.css'
 import notFoundStyles from './components/ui/NotFound.module.css'
 
 const ProjectsPage = lazy(() => import('./pages/ProjectsPage').then(m => ({ default: m.ProjectsPage })))
+const ProjectPage = lazy(() => import('./pages/ProjectPage').then(m => ({ default: m.ProjectPage })))
 
 export default function App() {
   const { lang } = useApp()
@@ -24,7 +27,9 @@ export default function App() {
   const isPortfolio = path === '/portfolio'
   // desk mode: '/' is the room alone, '/portfolio' is the real site (hero + every section)
   const isRoom = deskMode && !isEmbed && path === '/'
-  const isUnknown = !isProjectsPage && !isPortfolio && path !== '/'
+  const slug = path.match(/^\/projetos\/([^/]+)\/?$/)?.[1]
+  const project = slug ? projects.find(p => projectSlug(p) === slug) : undefined
+  const isUnknown = !isProjectsPage && !project && !isPortfolio && path !== '/'
 
   const [showBackToTop, setShowBackToTop] = useState(false)
   const navScrolled = useRef(false) // the last location change already positioned the scroll
@@ -58,7 +63,7 @@ export default function App() {
       const a = (e.target as Element).closest('a')
       if (!a || a.target || a.hasAttribute('download')) return
       const url = new URL(a.href, window.location.href)
-      if (url.origin !== window.location.origin || !ROUTES.includes(url.pathname)) return
+      if (url.origin !== window.location.origin || !isRoute(url.pathname)) return
       if (url.pathname === window.location.pathname && url.hash) {
         // same page: glide to the section instead of a hard anchor jump (skip link keeps its native focus move)
         if (url.hash === '#main-content' || !document.getElementById(url.hash.slice(1))) return
@@ -139,6 +144,25 @@ export default function App() {
     )
   }
 
+  if (project) {
+    return (
+      <>
+        <Helmet>
+          <title>{`${project.title.en} | Hugo`}</title>
+          <meta name="description" content={project.description.en[0]} />
+          <meta property="og:title" content={`${project.title.en} | Hugo`} />
+          <meta property="og:description" content={project.description.en[0]} />
+          <meta property="og:type" content="article" />
+          <meta property="og:url" content={window.location.href} />
+        </Helmet>
+        <Suspense fallback={<Loading fullScreen />}>
+          <ProjectPage project={project} />
+        </Suspense>
+        <Footer />
+      </>
+    )
+  }
+
   if (isProjectsPage) {
     return (
       <>
@@ -190,11 +214,11 @@ export default function App() {
               {/* the monitor's embedded copy only ever shows the hero */}
               {!isEmbed && (
                 <>
-                  <Reveal><StackSection /></Reveal>
-                  <Reveal><About /></Reveal>
-                  <Reveal><ProjectsSection /></Reveal>
+                  <StackSection />
+                  <About />
+                  <ProjectsSection />
                   <Timeline />
-                  <Reveal><CertificatesSection /></Reveal>
+                  <CertificatesSection />
                 </>
               )}
             </>

@@ -1,5 +1,6 @@
 import { useApp } from '../../context/AppContext'
 import { sectionHref, useDeskMode } from '../../hooks/useDeskMode'
+import { Reveal } from '../ui/Reveal'
 import styles from './Footer.module.css'
 
 const email = 'hugodelelis05@gmail.com'
@@ -13,7 +14,7 @@ export function Footer() {
 
   return (
     <footer className={styles.footer}>
-      <div className={styles.inner}>
+      <Reveal repeat className={styles.inner}>
         <div className={styles.brand}>
           <span className={styles.name}>Hugo de Lelis</span>
           <span className={styles.tagline}>{t.footer.tagline}</span>
@@ -55,7 +56,7 @@ export function Footer() {
             <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5.2 3.5A2.1 2.1 0 113.1 5.6a2.1 2.1 0 012.1-2.1zM3.4 8.3h3.6V20H3.4V8.3zm5.8 0h3.4v1.6h.05c.47-.9 1.63-1.85 3.36-1.85 3.6 0 4.27 2.37 4.27 5.45V20h-3.55v-5.76c0-1.37-.03-3.13-1.91-3.13-1.91 0-2.2 1.49-2.2 3.03V20H9.2V8.3z" /></svg>
           </a>
         </div>
-      </div>
+      </Reveal>
 
       <div className={styles.bottom}>
         <div className={styles.bottomInner}>

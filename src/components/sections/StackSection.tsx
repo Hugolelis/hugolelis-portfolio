@@ -2,6 +2,7 @@ import { lazy, Suspense } from 'react'
 import { useApp } from '../../context/AppContext'
 import { useGithubContributions } from '../../hooks/useGithubContributions'
 import { stack } from '../../data'
+import { Reveal } from '../ui/Reveal'
 import styles from './StackSection.module.css'
 
 const GITHUB_USERNAME = 'Hugolelis'
@@ -19,40 +20,34 @@ export function StackSection() {
   )
 
   const groups = [
-    { label: t.stack.languages, color: '#3B82F6', values: stack.languages },
-    { label: t.stack.databases, color: '#F59E0B', values: stack.databases },
-    { label: t.stack.infra, color: '#10B981', values: stack.infra },
+    { label: t.stack.languages, values: stack.languages },
+    { label: t.stack.databases, values: stack.databases },
+    { label: t.stack.infra, values: stack.infra },
   ]
 
   return (
     <section id="stack" className={styles.stack}>
       <div className="container">
-        <div className={styles.sectionHeader}>
+        <Reveal repeat className={styles.sectionHeader}>
           <span className={styles.count}>{t.stack.eyebrow}</span>
           <h2 className={`section-title ${styles.sectionTitle}`}>{t.stack.title}</h2>
-        </div>
+        </Reveal>
 
         <div className={styles.grid}>
-          <div className={styles.list}>
+          <Reveal repeat className={styles.list}>
             <ul className={styles.items}>
               {groups.map((group) => (
                 <li key={group.label} className={styles.item}>
                   <span className={styles.itemLabel}>{group.label}</span>
                   <span className={styles.itemValue}>
                     {group.values.map((tech) => (
-                      <span
-                        key={tech}
-                        className={styles.tech}
-                        style={{ '--tech-color': group.color } as React.CSSProperties}
-                      >
-                        {tech}
-                      </span>
+                      <span key={tech} className={styles.tech}>{tech}</span>
                     ))}
                   </span>
                 </li>
               ))}
             </ul>
-          </div>
+          </Reveal>
 
           <div className={styles.heatmapCard}>
             {!error && !loading && days.length > 0 && (

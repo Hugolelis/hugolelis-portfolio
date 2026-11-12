@@ -4,6 +4,7 @@ import { timeline } from '../../data'
 import { TimelineItem } from './TimelineItem'
 import { useHorizontalPin } from '../../hooks/useHorizontalPin'
 import { useMediaQuery } from '../../hooks/useMediaQuery'
+import { Reveal } from '../ui/Reveal'
 import styles from './Timeline.module.css'
 
 // Data is stored newest -> oldest; the horizontal track reads left to right
@@ -105,9 +106,9 @@ export function Timeline() {
 
   const intro = (
     <>
-      <span className={styles.count}>{t.timeline.count.replace('{n}', String(orderedTimeline.length))}</span>
-      <h2 className={`section-title ${styles.title}`}>{t.timeline.title}</h2>
-      <p className={styles.summary}>{t.timeline.summary}</p>
+      <Reveal repeat><span className={styles.count}>{t.timeline.count.replace('{n}', String(orderedTimeline.length))}</span></Reveal>
+      <Reveal repeat delay={0.08}><h2 className={`section-title ${styles.title}`}>{t.timeline.title}</h2></Reveal>
+      <Reveal repeat delay={0.16}><p className={styles.summary}>{t.timeline.summary}</p></Reveal>
     </>
   )
 

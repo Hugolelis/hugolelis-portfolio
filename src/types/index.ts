@@ -28,14 +28,11 @@ export interface Project {
   }
 }
 
-export type CertificateIcon = 'google' | 'udemy'
-
 export interface Certificate {
   name: string
   issuer: string
   year: string
   file: string
-  icon?: CertificateIcon
 }
 
 export type TimelineCategory = 'work' | 'education' | 'competition'

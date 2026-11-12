@@ -1,8 +1,7 @@
-import { useState } from 'react'
 import type { Project } from '../../types'
 import type { Lang } from '../../types'
 import type { Translations } from '../../i18n'
-import { ProjectModal } from '../modals/ProjectModal'
+import { projectPath } from '../../utils/projectSlug'
 import { projectTypeBadgeStyle } from '../../utils/projectTypeColor'
 import styles from './ProjectCard.module.css'
 
@@ -15,10 +14,9 @@ interface Props {
 export function ProjectCard({ project, lang, translations }: Props) {
   const title = project.title[lang]
   const description = project.description[lang][0]
-  const [open, setOpen] = useState(false)
 
   return (
-    <article className={styles.card} onClick={() => setOpen(true)}>
+    <a href={projectPath(project)} className={styles.card}>
       {project.image ? (
         <img src={project.image} alt="" className={styles.thumb} />
       ) : (
@@ -37,15 +35,6 @@ export function ProjectCard({ project, lang, translations }: Props) {
         <p className={styles.description}>{description}</p>
         <span className={styles.hint}>{translations.clickToView} →</span>
       </div>
-
-      {open && (
-        <ProjectModal
-          project={project}
-          lang={lang}
-          translations={translations}
-          onClose={() => setOpen(false)}
-        />
-      )}
-    </article>
+    </a>
   )
 }

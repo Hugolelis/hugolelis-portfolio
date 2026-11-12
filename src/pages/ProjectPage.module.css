@@ -1,0 +1,174 @@
+.page {
+  min-height: 100vh;
+  background: var(--bg);
+  color: var(--text);
+  transition: background 0.3s, color 0.3s;
+}
+
+.main {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 8rem 2rem 6rem;
+}
+
+.back {
+  display: inline-block;
+  margin-bottom: 2.5rem;
+  color: var(--muted);
+  font-family: var(--font-mono);
+  font-size: 0.78rem;
+  text-decoration: none;
+  transition: color 0.2s;
+}
+
+.back:hover { color: var(--text); }
+
+.meta {
+  display: block;
+  margin-bottom: 0.75rem;
+  color: var(--accent);
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.title {
+  margin-bottom: 0.5rem;
+  font-family: var(--font-display);
+  font-size: clamp(2.2rem, 6vw, 3.25rem);
+  font-weight: 400;
+  letter-spacing: -0.02em;
+  line-height: 1.1;
+}
+
+.tag {
+  color: var(--muted);
+  font-family: var(--font-mono);
+  font-size: 0.8rem;
+}
+
+.lead {
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+  max-width: 62ch;
+  margin-top: 1.5rem;
+  color: var(--muted);
+  font-size: 1.02rem;
+  line-height: 1.7;
+}
+
+.links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  margin-top: 1.75rem;
+}
+
+.links a {
+  gap: 0.6rem;
+  min-height: 46px;
+  padding: 0 1.4rem;
+}
+
+/* same frame as the gallery cards, just bigger; fixed ratio so every project's image block is the same size */
+.media {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  aspect-ratio: 16 / 10;
+  margin-top: 3rem;
+  padding: 1rem;
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  background: var(--term-bg);
+  overflow: hidden;
+}
+
+.media img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  border-radius: 6px;
+}
+
+.banner {
+  color: var(--text);
+  font-family: var(--font-mono);
+  font-size: 1.8rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.section { margin-top: 3.5rem; }
+
+.label {
+  margin-bottom: 0.85rem;
+  color: var(--muted);
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  font-weight: 400;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.text {
+  max-width: 62ch;
+  color: var(--muted);
+  font-size: 0.98rem;
+  line-height: 1.75;
+}
+
+.facts {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.6rem;
+  margin-top: 1.5rem;
+  list-style: none;
+}
+
+.facts li {
+  padding: 0.35rem 0.8rem;
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  background: var(--tag-default-bg);
+  color: var(--tag-default-color);
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+}
+
+.features {
+  display: flex;
+  flex-direction: column;
+  list-style: none;
+}
+
+.features li {
+  display: grid;
+  grid-template-columns: minmax(0, 200px) 1fr;
+  gap: 1.5rem;
+  padding: 0.9rem 0;
+  border-top: 1px solid var(--border);
+  font-size: 0.92rem;
+  line-height: 1.6;
+}
+
+.features li:last-child { border-bottom: 1px solid var(--border); }
+
+.features strong { font-weight: 500; }
+.features span { color: var(--muted); }
+
+.others {
+  margin-top: 5rem;
+  padding-top: 2.5rem;
+  border-top: 1px solid var(--border);
+}
+
+.others .label { margin-bottom: 1.75rem; }
+
+@media (max-width: 640px) {
+  .main { padding: 6.5rem 1.5rem 4rem; }
+  .features li { grid-template-columns: 1fr; gap: 0.2rem; }
+}

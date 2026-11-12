@@ -1,4 +1,5 @@
 import type { TimelineEntry, Lang, TimelineCategory } from '../../types'
+import { useReveal } from '../../hooks/useReveal'
 import { BriefcaseIcon, GraduationCapIcon, TrophyIcon } from '../ui/icons'
 import styles from './Timeline.module.css'
 
@@ -15,10 +16,12 @@ const categoryIcon: Record<TimelineCategory, typeof BriefcaseIcon> = {
 export function TimelineItem({ entry, lang, present, above, column, stacked }: Props) {
   const ended = lang === 'pt' ? 'Experiência encerrada' : 'Experience ended'
   const CategoryIcon = categoryIcon[entry.category]
+  // fades in as it scrolls into view (sideways on desktop, down the page on mobile) and back out when it leaves
+  const { ref, visible } = useReveal<HTMLDivElement>(0.2, true)
 
   const dot = (
     <span
-      className={`${styles.dot} ${entry.current ? styles.dotCurrent : ''}`}
+      className={`${styles.dot} ${entry.current ? styles.dotCurrent : ''} ${visible ? '' : styles.dotHidden}`}
       style={stacked ? undefined : { gridColumn: column }}
       data-timeline-dot={stacked ? '' : undefined}
     >
@@ -44,7 +47,7 @@ export function TimelineItem({ entry, lang, present, above, column, stacked }: P
 
   if (stacked) {
     return (
-      <div className={styles.stackedItem}>
+      <div ref={ref} className={`${styles.stackedItem} ${styles.fade} ${visible ? styles.fadeIn : ''}`}>
         {dot}
         <div className={styles.stackedText}>{content}</div>
       </div>
@@ -55,7 +58,8 @@ export function TimelineItem({ entry, lang, present, above, column, stacked }: P
     <>
       {dot}
       <div
-        className={`${styles.text} ${above ? styles.textAbove : styles.textBelow}`}
+        ref={ref}
+        className={`${styles.text} ${above ? styles.textAbove : styles.textBelow} ${styles.fade} ${visible ? styles.fadeIn : ''}`}
         style={{ gridColumn: column }}
       >
         {content}
