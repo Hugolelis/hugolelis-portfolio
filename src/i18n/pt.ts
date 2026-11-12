@@ -12,7 +12,6 @@ export const pt = {
   hero: {
     role: 'Desenvolvedor de software · Backend & IA',
     quote: 'O que eu não consigo criar, eu não entendo.',
-    quoteAuthor: 'Richard Feynman',
     cta_projects: 'Ver projetos',
     cta_cv: 'Baixar currículo',
     cta_email: 'Enviar e-mail',

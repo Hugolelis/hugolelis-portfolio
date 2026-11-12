@@ -14,7 +14,6 @@ export const en: Translations = {
   hero: {
     role: 'Software developer · Backend & AI',
     quote: 'What I cannot create, I do not understand.',
-    quoteAuthor: 'Richard Feynman',
     cta_projects: 'View projects',
     cta_cv: 'Download CV',
     cta_email: 'Send email',

@@ -37,7 +37,6 @@ export function Hero() {
       <div className={`container ${styles.layout}`}>
         <div className={styles.left}>
           <h1 className={styles.title}>“{t.hero.quote}”</h1>
-          <p className={styles.role}>— {t.hero.quoteAuthor}</p>
 
           <div className={styles.cta}>
             <a href={sectionHref('projetos', deskMode, false)} className="btn btn--primary">{t.hero.cta_projects}</a>
