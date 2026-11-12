@@ -10,14 +10,8 @@ export const timeline: TimelineEntry[] = [
     current: true,
     category: 'work',
     description: {
-      pt: [
-        'Estágio com foco em Visão Computacional e Inteligência Artificial, desenvolvendo backend em C++ e Python',
-        'Aplicações com Qt/QML, bancos MySQL/PostgreSQL, containers Docker e testes unitários em squad SCRUMBAN',
-      ],
-      en: [
-        'Computer Vision and AI-focused internship, building backend services in C++ and Python',
-        'Qt/QML applications, MySQL/PostgreSQL, Docker containers, and unit testing within a SCRUMBAN team',
-      ],
+      pt: ['Empresa de visão computacional, onde desenvolvo em Python e C++'],
+      en: ['Computer vision company, where I build with Python and C++'],
     },
   },
   {
