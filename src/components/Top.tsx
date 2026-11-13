@@ -1,0 +1,27 @@
+import { useState } from 'react'
+import { ContactModal } from './ContactModal'
+import { useApp } from '../context/AppContext'
+import { Link } from './Link'
+import { Logo } from './icons'
+
+// topo fixo: logo à esquerda; atalho para a outra página, contato, idioma e tema à direita
+export function Top({ cross }: { cross?: { to: string; label: string } }) {
+  const { lang, theme, t, toggleLang, toggleTheme } = useApp()
+  const [contactOpen, setContactOpen] = useState(false)
+  return (
+    <>
+    <header className="top">
+      <Link to="/" className="logo" aria-label="Hugo Lelis"><Logo /></Link>
+      <div className="right">
+        {cross && <Link to={cross.to}>{cross.label} →</Link>}
+        <div className="tools">
+          <button onClick={() => setContactOpen(true)}>{t.contact}</button>
+          <button onClick={toggleLang} title={t.langTitle}>{lang === 'pt' ? 'EN' : 'PT'}</button>
+          <button onClick={toggleTheme} title={t.themeTitle}>{theme === 'dark' ? '☀' : '☾'}</button>
+        </div>
+      </div>
+    </header>
+    {contactOpen && <ContactModal onClose={() => setContactOpen(false)} />}
+    </>
+  )
+}

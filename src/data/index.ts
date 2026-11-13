@@ -1,5 +1,4 @@
 export { projects } from './projects'
 export { certificates } from './certificates'
 export { timeline } from './timeline'
-export { asciiPortraitDark } from './asciiPortrait'
 export { stack } from './stack'

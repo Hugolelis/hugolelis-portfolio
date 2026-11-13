@@ -1,72 +1,50 @@
-import { createContext, useContext, useState, useEffect, type ReactNode } from 'react'
-import type { Theme, Lang } from '../types'
-import { pt, en } from '../i18n'
-import type { Translations } from '../i18n'
+import { createContext, useContext, useEffect, useState, type ReactNode } from 'react'
+import { dict, type Dict } from '../i18n'
+import type { Lang, Theme } from '../types'
 
-interface AppContextValue {
-  theme: Theme
-  toggleTheme: () => void
+interface AppState {
   lang: Lang
+  theme: Theme
+  t: Dict
   toggleLang: () => void
-  t: Translations
+  toggleTheme: () => void
 }
 
-const AppContext = createContext<AppContextValue | null>(null)
+const Ctx = createContext<AppState | null>(null)
+
+const read = (k: string) => {
+  try { return localStorage.getItem(k) } catch { return null }
+}
 
 export function AppProvider({ children }: { children: ReactNode }) {
-  const [theme, setTheme] = useState<Theme>(() => {
-    const saved = localStorage.getItem('theme')
-    if (saved === 'light' || saved === 'dark') return saved
-    return window.matchMedia?.('(prefers-color-scheme: dark)').matches ? 'dark' : 'light'
-  })
-
   const [lang, setLang] = useState<Lang>(() => {
-    const saved = localStorage.getItem('lang')
-    if (saved === 'pt' || saved === 'en') return saved
-    return navigator.language?.toLowerCase().startsWith('pt') ? 'pt' : 'en'
+    const s = read('lang')
+    return s === 'pt' || s === 'en' ? s : navigator.language.startsWith('pt') ? 'pt' : 'en'
+  })
+  const [theme, setTheme] = useState<Theme>(() => {
+    const s = read('theme')
+    return s === 'dark' || s === 'light' ? s : matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light'
   })
 
-  // the monitor's iframe is a second copy of the app: keep theme/lang in sync across documents
   useEffect(() => {
-    const onStorage = (e: StorageEvent) => {
-      if (e.key === 'theme' && (e.newValue === 'light' || e.newValue === 'dark')) setTheme(e.newValue)
-      if (e.key === 'lang' && (e.newValue === 'pt' || e.newValue === 'en')) setLang(e.newValue)
-    }
-    window.addEventListener('storage', onStorage)
-    return () => window.removeEventListener('storage', onStorage)
-  }, [])
-
-  useEffect(() => {
-    document.documentElement.setAttribute('data-theme', theme)
-    localStorage.setItem('theme', theme)
-  }, [theme])
-
-  useEffect(() => {
-    localStorage.setItem('lang', lang)
     document.documentElement.lang = lang === 'pt' ? 'pt-BR' : 'en'
-  }, [lang])
+    document.documentElement.dataset.theme = theme
+    try { localStorage.setItem('lang', lang); localStorage.setItem('theme', theme) } catch { /* modo privado */ }
+  }, [lang, theme])
 
-  const toggleTheme = () => {
-    // fade colors for a moment instead of snapping (see .theme-fade in index.css)
-    const root = document.documentElement
-    root.classList.add('theme-fade')
-    window.setTimeout(() => root.classList.remove('theme-fade'), 400)
-    setTheme(t => t === 'dark' ? 'light' : 'dark')
+  const value: AppState = {
+    lang,
+    theme,
+    t: dict[lang],
+    toggleLang: () => setLang(l => (l === 'pt' ? 'en' : 'pt')),
+    toggleTheme: () => setTheme(m => (m === 'dark' ? 'light' : 'dark')),
   }
-  const toggleLang = () => setLang(l => l === 'pt' ? 'en' : 'pt')
-
-  const t = lang === 'pt' ? pt : en
-
-  return (
-    <AppContext.Provider value={{ theme, toggleTheme, lang, toggleLang, t }}>
-      {children}
-    </AppContext.Provider>
-  )
+  return <Ctx.Provider value={value}>{children}</Ctx.Provider>
 }
 
 // eslint-disable-next-line react-refresh/only-export-components
 export function useApp() {
-  const ctx = useContext(AppContext)
-  if (!ctx) throw new Error('useApp must be used within AppProvider')
-  return ctx
+  const v = useContext(Ctx)
+  if (!v) throw new Error('useApp fora do AppProvider')
+  return v
 }
