@@ -3,9 +3,12 @@ import { useReveal } from '../../hooks/useReveal'
 import { BriefcaseIcon, GraduationCapIcon, TrophyIcon } from '../ui/icons'
 import styles from './Timeline.module.css'
 
-type Props =
-  | { entry: TimelineEntry; lang: Lang; present: string; ended: string; stacked: true; above?: never; column?: never }
-  | { entry: TimelineEntry; lang: Lang; present: string; ended: string; stacked?: false; above: boolean; column: number }
+interface Props {
+  entry: TimelineEntry
+  lang: Lang
+  present: string
+  ended: string
+}
 
 const categoryIcon: Record<TimelineCategory, typeof BriefcaseIcon> = {
   work: BriefcaseIcon,
@@ -13,56 +16,32 @@ const categoryIcon: Record<TimelineCategory, typeof BriefcaseIcon> = {
   competition: TrophyIcon,
 }
 
-export function TimelineItem({ entry, lang, present, ended, above, column, stacked }: Props) {
+export function TimelineItem({ entry, lang, present, ended }: Props) {
   const CategoryIcon = categoryIcon[entry.category]
-  // fades in as it scrolls into view (sideways on desktop, down the page on mobile) and back out when it leaves
+  // fades in as it scrolls into view and back out when it leaves
   const { ref, visible } = useReveal<HTMLDivElement>(0.2, true)
 
-  const dot = (
-    <span
-      className={`${styles.dot} ${entry.current ? styles.dotCurrent : ''} ${visible ? '' : styles.dotHidden}`}
-      style={stacked ? undefined : { gridColumn: column }}
-      data-timeline-dot={stacked ? '' : undefined}
-    >
-      <CategoryIcon size={13} />
-    </span>
-  )
-
-  const content = (
-    <>
-      <span className={styles.period}>{entry.period[lang]}</span>
-      <h3 className={styles.org}>{entry.org[lang]}</h3>
-      <span className={styles.role}>{entry.role[lang]}</span>
-      <ul className={styles.desc}>
-        {entry.description[lang].map((line, i) => (
-          <li key={i}>{line}</li>
-        ))}
-      </ul>
-      <span className={`${styles.status} ${entry.current ? styles.statusCurrent : ''}`}>
-        {entry.current ? present : ended}
-      </span>
-    </>
-  )
-
-  if (stacked) {
-    return (
-      <div ref={ref} className={`${styles.stackedItem} ${styles.fade} ${visible ? styles.fadeIn : ''}`}>
-        {dot}
-        <div className={styles.stackedText}>{content}</div>
-      </div>
-    )
-  }
-
   return (
-    <>
-      {dot}
-      <div
-        ref={ref}
-        className={`${styles.text} ${above ? styles.textAbove : styles.textBelow} ${styles.fade} ${visible ? styles.fadeIn : ''}`}
-        style={{ gridColumn: column }}
+    <div ref={ref} className={`${styles.stackedItem} ${styles.fade} ${visible ? styles.fadeIn : ''}`}>
+      <span
+        className={`${styles.dot} ${entry.current ? styles.dotCurrent : ''} ${visible ? '' : styles.dotHidden}`}
+        data-timeline-dot=""
       >
-        {content}
+        <CategoryIcon size={13} />
+      </span>
+      <div className={styles.stackedText}>
+        <span className={styles.period}>{entry.period[lang]}</span>
+        <h3 className={styles.org}>{entry.org[lang]}</h3>
+        <span className={styles.role}>{entry.role[lang]}</span>
+        <ul className={styles.desc}>
+          {entry.description[lang].map((line, i) => (
+            <li key={i}>{line}</li>
+          ))}
+        </ul>
+        <span className={`${styles.status} ${entry.current ? styles.statusCurrent : ''}`}>
+          {entry.current ? present : ended}
+        </span>
       </div>
-    </>
+    </div>
   )
 }

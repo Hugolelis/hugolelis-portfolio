@@ -1,67 +1,14 @@
 .timeline {
-  position: relative;
+  padding: 6rem 0 5rem;
   border-top: 1px solid var(--border);
   scroll-margin-top: 6rem;
-  /* this section's own height changes under JS (see useHorizontalPin) —
-     without this, the browser's scroll anchoring can yank scroll position
-     around to "compensate" for that shift mid-scroll */
-  overflow-anchor: none;
-}
-
-.pin {
-  position: sticky;
-  top: 0;
-  width: 100%;
-  height: 100vh;
-  display: flex;
-  background: var(--bg);
-  transition: background 0.3s;
-  /* clip (not hidden) the oversized horizontal track so it can't open a
-     page scrollbar: hidden still formally counts as a scroll container,
-     which some browsers (Firefox) treat specially for wheel input near an
-     element's edges — clip avoids that class of bug entirely. Never clip
-     vertically — row heights below are content-sized, not guessed, so
-     there's nothing to clip against on short viewports anyway */
-  overflow-x: clip;
-  overflow-y: visible;
-  z-index: 1;
-}
-
-/* ── the track: title first, then the dotted line of entries —
-   everything travels together as one strip, driven entirely by the page's
-   own vertical scroll (see useHorizontalPin); it must never scroll on its
-   own axis, or the two mechanisms fight each other ── */
-
-.trackArea {
-  flex: 1 1 auto;
-  min-width: 0;
-  display: flex;
-  align-items: center;
-  overflow: clip;
-}
-
-.track {
-  position: relative;
-  display: grid;
-  grid-auto-flow: column;
-  grid-auto-columns: min(72vw, 320px);
-  grid-template-rows: auto auto auto;
-  row-gap: 1.25rem;
-  column-gap: 4rem;
-  width: max-content;
-  /* left inset matches the site's own centered 900px container, so the
-     title lines up with where "About me" / "Certificates" start */
-  padding: 1rem 4rem 1rem max(2rem, calc((100vw - 900px) / 2 + 2rem));
-  will-change: transform;
 }
 
 .intro {
-  grid-row: 1 / 4;
   display: flex;
   flex-direction: column;
-  justify-content: center;
   gap: 0.6rem;
-  padding-right: 2rem;
+  margin-bottom: 3rem;
 }
 
 .count {
@@ -73,46 +20,20 @@
   text-transform: uppercase;
 }
 
-.title {
-  margin-bottom: 0;
+.intro .title {
+  margin-bottom: 0; /* beats the global .section-title margin */
 }
 
 .summary {
   color: var(--muted);
   font-size: 0.9rem;
   line-height: 1.55;
-  max-width: 30ch;
+  max-width: 46ch;
 }
 
-/* the line doubles as the progress indicator: a muted full-length track
-   underneath, and an accent-colored fill that grows with scroll progress.
-   grid-column is set inline (Timeline.tsx) to an explicit line number —
-   `-1` doesn't resolve sensibly here since the grid has no explicit
-   grid-template-columns, only auto-generated implicit tracks */
-.line {
-  grid-row: 2;
-  align-self: center;
-  height: 2px;
-  background: var(--border);
-}
-
-.lineFill {
-  grid-row: 2;
-  align-self: center;
-  height: 2px;
-  background: var(--accent);
-  transform-origin: left;
-  transform: scaleX(0);
-}
-
-/* ── one entry: a dot on the line, text above or below it ──
-   rows are sized to content (not a guessed height), so a longer
-   description just grows its row — nothing is ever clipped */
+/* ── one entry: a dot on the line, its text beside it ── */
 
 .dot {
-  grid-row: 2;
-  justify-self: center;
-  align-self: center;
   z-index: 1;
   width: 26px;
   height: 26px;
@@ -155,13 +76,6 @@
   border-color: var(--accent);
   color: var(--bg);
 }
-
-.text {
-  min-width: 0;
-}
-
-.textAbove { grid-row: 1; align-self: end; }
-.textBelow { grid-row: 3; align-self: start; }
 
 .period {
   display: block;
@@ -224,36 +138,17 @@
   color: var(--accent);
 }
 
-@media (max-width: 900px) {
-  .track { padding-left: 1.5rem; }
-}
-
-/* ── mobile: a plain stacked list instead of the horizontal scroll-jack
-   (see useMediaQuery in Timeline.tsx — below 760px .track never mounts,
-   this renders instead) ── */
-
-.mobileWrap {
-  padding: 4.5rem 0 3rem;
-}
-
-.mobileIntro {
-  display: flex;
-  flex-direction: column;
-  gap: 0.6rem;
-  margin-bottom: 2.5rem;
-}
-
 .stackedList {
   display: flex;
   flex-direction: column;
-  gap: 2rem;
+  gap: 2.5rem;
   position: relative;
 }
 
-/* same track + accent fill as the desktop .line/.lineFill, just scaling
-   vertically (transform-origin: top) instead of horizontally — their top
-   and height are measured in JS (see useStackedLineRect in Timeline.tsx)
-   so the line spans exactly from the first dot's center to the last's */
+/* the line doubles as the progress indicator: a muted full-length track and an
+   accent fill that grows with scroll (transform-origin: top). Their top and height
+   are measured in JS (see useStackedLineRect in Timeline.tsx) so the line spans
+   exactly from the first dot's center to the last's */
 .stackedLine {
   position: absolute;
   left: 12px;
@@ -280,6 +175,11 @@
 .stackedText {
   flex: 1 1 auto;
   min-width: 0;
+  max-width: 62ch;
+}
+
+@media (max-width: 900px) {
+  .timeline { padding: 4.5rem 0 3rem; }
 }
 
 @media (max-width: 760px) {
