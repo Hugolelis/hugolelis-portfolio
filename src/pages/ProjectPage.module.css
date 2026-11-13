@@ -11,18 +11,6 @@
   padding: 8rem 2rem 6rem;
 }
 
-.back {
-  display: inline-block;
-  margin-bottom: 2.5rem;
-  color: var(--muted);
-  font-family: var(--font-mono);
-  font-size: 0.78rem;
-  text-decoration: none;
-  transition: color 0.2s;
-}
-
-.back:hover { color: var(--text); }
-
 .meta {
   display: block;
   margin-bottom: 0.75rem;

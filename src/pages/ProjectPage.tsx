@@ -2,7 +2,6 @@ import { Nav, Reveal } from '../components'
 import { useApp } from '../context/AppContext'
 import { projects } from '../data'
 import { GithubIcon } from '../components/ui/icons'
-import { sectionHref, useDeskMode } from '../hooks/useDeskMode'
 import type { Project } from '../types'
 import { projectPath } from '../utils/projectSlug'
 import cards from '../components/sections/ProjectsSection.module.css'
@@ -11,7 +10,6 @@ import styles from './ProjectPage.module.css'
 export function ProjectPage({ project }: { project: Project }) {
   const { t, lang } = useApp()
   const p = t.projects
-  const deskMode = useDeskMode()
   const others = projects.filter(x => x !== project)
 
   return (
@@ -19,7 +17,6 @@ export function ProjectPage({ project }: { project: Project }) {
       <Nav />
       <main className={styles.main}>
         <Reveal repeat>
-          <a href={sectionHref('projetos', deskMode, true)} className={styles.back}>← {t.nav.projects}</a>
           <span className={styles.meta}>{project.type} · {project.year}</span>
           <h1 className={styles.title}>{project.title[lang]}</h1>
           <span className={styles.tag}>{project.tag}</span>
