@@ -1,21 +1,13 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" width="32" height="32">
-  <rect width="32" height="32" rx="6" fill="#0a0a0a"/>
-
-  <!-- Left vertical bar -->
-  <rect x="6" y="7" width="5" height="18" rx="1" fill="#e8ff47" opacity="0.15"/>
-
-  <!-- Right vertical bar -->
-  <rect x="21" y="7" width="5" height="18" rx="1" fill="#e8ff47" opacity="0.15"/>
-
-  <!-- Crossbar — the main accent -->
-  <rect x="6" y="13" width="20" height="6" rx="1" fill="#e8ff47"/>
-
-  <!-- Left bar segments above / below crossbar (slightly brighter) -->
-  <rect x="6" y="7" width="5" height="6" rx="1" fill="#e8ff47" opacity="0.35"/>
-  <rect x="6" y="19" width="5" height="6" rx="1" fill="#e8ff47" opacity="0.35"/>
-  <rect x="21" y="7" width="5" height="6" rx="1" fill="#e8ff47" opacity="0.35"/>
-  <rect x="21" y="19" width="5" height="6" rx="1" fill="#e8ff47" opacity="0.35"/>
-
-  <!-- Accent dot -->
-  <circle cx="27" cy="26" r="1.5" fill="#e8ff47"/>
+  <rect width="32" height="32" rx="7" fill="#111111"/>
+  <g fill="#f2f2f2" transform="translate(-0.25 -0.25)">
+    <rect x="6" y="7" width="5" height="18" rx="1" opacity="0.3"/>
+    <rect x="21" y="7" width="5" height="18" rx="1" opacity="0.3"/>
+    <rect x="6" y="13" width="20" height="6" rx="1"/>
+    <rect x="6" y="7" width="5" height="6" rx="1" opacity="0.55"/>
+    <rect x="6" y="19" width="5" height="6" rx="1" opacity="0.55"/>
+    <rect x="21" y="7" width="5" height="6" rx="1" opacity="0.55"/>
+    <rect x="21" y="19" width="5" height="6" rx="1" opacity="0.55"/>
+    <circle cx="27" cy="26" r="1.5"/>
+  </g>
 </svg>
