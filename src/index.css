@@ -1,5 +1,5 @@
-:root,[data-theme=light]{color-scheme:light;--bg:#fafafa;--fg:#161616;--mute:#757575;--line:#e3e3e3;--surface:#f0f0ee;--btn:#161616;--btn-fg:#fafafa;--api:#2563eb;--cli:#7c3aed;--ai:#db2777;--tool:#16a34a;--hl:#2563eb;--on-hl:#ffffff}
-[data-theme=dark]{color-scheme:dark;--bg:#111;--fg:#f2f2f2;--mute:#8a8a8a;--line:#2a2a2a;--surface:#181818;--btn:#f2f2f2;--btn-fg:#111;--api:#60a5fa;--cli:#a78bfa;--ai:#f472b6;--tool:#4ade80;--hl:#60a5fa;--on-hl:#071a33}
+:root,[data-theme=light]{color-scheme:light;--bg:#fafafa;--fg:#161616;--mute:#757575;--line:#e3e3e3;--surface:#f0f0ee;--btn:#161616;--btn-fg:#fafafa;--api:#2563eb;--cli:#7c3aed;--ai:#db2777;--tool:#16a34a;--hl:#1b7788;--on-hl:#ffffff}
+[data-theme=dark]{color-scheme:dark;--bg:#111;--fg:#f2f2f2;--mute:#8a8a8a;--line:#2a2a2a;--surface:#181818;--btn:#f2f2f2;--btn-fg:#111;--api:#60a5fa;--cli:#a78bfa;--ai:#f472b6;--tool:#4ade80;--hl:#2190a4;--on-hl:#06141a}
 *{box-sizing:border-box;margin:0}
 #root{min-height:100vh;min-height:100dvh;display:flex;flex-direction:column}
 body{background:var(--bg);color:var(--fg);font:16px/1.6 Inter,system-ui,sans-serif;-webkit-font-smoothing:antialiased}
@@ -15,7 +15,7 @@ a{color:inherit;text-decoration:none}
 .top .right{display:flex;align-items:center;gap:20px}
 .tools{display:flex;gap:8px}
 .tools button{display:inline-flex;align-items:center;justify-content:center;height:34px;min-width:34px;padding:0 10px;border:1px solid var(--line);border-radius:99px;background:none;color:var(--fg);font:500 12px 'JetBrains Mono',monospace;cursor:pointer;transition:border-color .2s}
-.tools button:hover{border-color:var(--hl)}
+.tools button:hover{border-color:var(--hl);color:var(--hl)}
 .tools .icon{padding:0;width:34px}
 
 /* home */
@@ -51,7 +51,7 @@ footer b{color:var(--fg);letter-spacing:-.03em}
 .social a{display:flex}
 .social svg{width:20px;height:20px}
 footer .year{justify-self:end}
-footer a{transition:color .2s}footer a:hover{color:var(--fg)}
+footer a{transition:color .2s}footer a:hover{color:var(--hl)}
 @media(max-width:560px){footer{padding:18px 0;font-size:13px}}
 
 /* ===== páginas de lista: cards portados do site atual (galeria), em 3 colunas ===== */
@@ -86,7 +86,7 @@ h2.title{font-weight:600;font-size:clamp(2rem,5vw,3rem);letter-spacing:-.05em;li
 
 /* botão fantasma (mesmo do site atual) e "ver mais" */
 .btn.ghost{border-color:var(--border);background:var(--surface);color:var(--text);border-radius:6px;width:auto;padding:0 1.25rem;height:42px;display:inline-flex;align-items:center;justify-content:center;gap:.6rem;font-size:.85rem;font-weight:500;cursor:pointer;font-family:inherit}
-.btn.ghost:hover{border-color:var(--accent);opacity:1;transform:none}
+.btn.ghost:hover{border-color:var(--hl);color:var(--hl);opacity:1;transform:none}
 .showmore{display:flex;justify-content:center;margin-top:3.5rem}
 
 /* Expandable */
@@ -107,7 +107,7 @@ h2.title{font-weight:600;font-size:clamp(2rem,5vw,3rem);letter-spacing:-.05em;li
 .missuer{font:.78rem 'JetBrains Mono',monospace;color:var(--muted)}
 .mact{display:flex;gap:.5rem}
 .mact a,.mact button{width:2rem;height:2rem;display:flex;align-items:center;justify-content:center;border:1px solid var(--border);border-radius:6px;background:transparent;color:var(--muted);font-size:1rem;cursor:pointer;transition:border-color .2s,color .2s}
-.mact a:hover,.mact button:hover{border-color:var(--accent);color:var(--accent)}
+.mact a:hover,.mact button:hover{border-color:var(--hl);color:var(--hl)}
 .viewer{flex:1;width:100%;border:none}
 .fallback{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:1rem;padding:2rem}
 .fallback p{font:.88rem 'JetBrains Mono',monospace;color:var(--muted);text-align:center}
