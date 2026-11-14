@@ -23,7 +23,7 @@ export function Home() {
       <div className="btns">
         <Link to="/projetos" className="btn primary">{t.projects}</Link>
         <Link to="/certificados" className="btn">{t.certs}</Link>
-        <Link to="/sobre" className="btn green">{t.about}</Link>
+        <Link to="/sobre" className="btn hl">{t.about}</Link>
       </div>
     </main>
   )
