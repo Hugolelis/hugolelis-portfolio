@@ -14,7 +14,7 @@ a{color:inherit;text-decoration:none}
 .top a:hover{color:var(--fg)}
 .top .right{display:flex;align-items:center;gap:20px}
 .tools{display:flex;gap:8px}
-.tools button{height:34px;min-width:34px;padding:0 10px;border:1px solid var(--line);border-radius:99px;background:none;color:var(--fg);font:500 12px 'JetBrains Mono',monospace;cursor:pointer;transition:border-color .2s}
+.tools button{display:inline-flex;align-items:center;justify-content:center;height:34px;min-width:34px;padding:0 10px;border:1px solid var(--line);border-radius:99px;background:none;color:var(--fg);font:500 12px 'JetBrains Mono',monospace;cursor:pointer;transition:border-color .2s}
 .tools button:hover{border-color:var(--fg)}
 
 /* home */
@@ -189,11 +189,12 @@ main.home .avatar{animation:fade 1.2s ease both}
 .modal.sm .links small{font-size:14px}
 @media(max-width:768px){.modal.sm{width:100%}}
 
-/* topo no celular: nada quebra em duas linhas */
+/* topo responsivo: nada quebra em duas linhas; no celular "Fale comigo" vira só o ícone */
 .top a,.tools button{white-space:nowrap}
+.tools .contact svg{display:none}
 @media(max-width:560px){
-  .top{font-size:13px}
-  .top .right{gap:10px}
-  .tools{gap:6px}
-  .tools button{padding:0 9px;font-size:11px}
+  .top .right{gap:12px}
+  .tools .contact{padding:0;width:34px}
+  .tools .contact .lbl{display:none}
+  .tools .contact svg{display:block}
 }
