@@ -16,6 +16,7 @@ a{color:inherit;text-decoration:none}
 .tools{display:flex;gap:8px}
 .tools button{display:inline-flex;align-items:center;justify-content:center;height:34px;min-width:34px;padding:0 10px;border:1px solid var(--line);border-radius:99px;background:none;color:var(--fg);font:500 12px 'JetBrains Mono',monospace;cursor:pointer;transition:border-color .2s}
 .tools button:hover{border-color:var(--hl)}
+.tools .icon{padding:0;width:34px}
 
 /* home */
 main.home{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:32px 24px 64px}
@@ -204,9 +205,6 @@ main.home .avatar{animation:fade 1.2s ease both}
   .tools .contact .lbl{display:none}
 }
 
-/* verde de destaque só no hover: nome do card */
-.card .name{transition:color .2s}
-.card:hover .name,.card:focus-visible .name{color:var(--hl)}
 
 /* página Sobre */
 .about-text{max-width:58ch;margin:0 auto 3rem;color:var(--muted);font-size:1.05rem;line-height:1.75;text-align:center}

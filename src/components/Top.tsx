@@ -2,7 +2,7 @@ import { useEffect, useRef, useState } from 'react'
 import { ContactModal } from './ContactModal'
 import { useApp } from '../context/AppContext'
 import { Link } from './Link'
-import { ChatIcon, Logo, MenuIcon } from './icons'
+import { ChatIcon, Logo, MenuIcon, MoonIcon, SunIcon } from './icons'
 import { usePath } from '../router'
 
 const items = [
@@ -47,9 +47,9 @@ export function Top() {
             <span className="lbl">{t.contact}</span>
           </button>
           <button onClick={toggleLang} title={t.langTitle}>{lang === 'pt' ? 'EN' : 'PT'}</button>
-          <button onClick={toggleTheme} title={t.themeTitle}>{theme === 'dark' ? '☀' : '☾'}</button>
+          <button className="icon" onClick={toggleTheme} title={t.themeTitle} aria-label={t.themeTitle}>{theme === 'dark' ? <SunIcon /> : <MoonIcon />}</button>
           <div className="menuwrap" ref={menuRef}>
-            <button onClick={() => setMenuOpen(o => !o)} aria-expanded={menuOpen} aria-label={t.menu} title={t.menu}>
+            <button className="icon" onClick={() => setMenuOpen(o => !o)} aria-expanded={menuOpen} aria-label={t.menu} title={t.menu}>
               <MenuIcon open={menuOpen} />
             </button>
             {menuOpen && (
