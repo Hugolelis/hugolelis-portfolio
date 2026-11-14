@@ -7,6 +7,9 @@ const pt = {
   sub: 'Sistemas e scripts, do planejamento ao deploy.',
   projects: 'Projetos',
   certs: 'Certificados',
+  about: 'Sobre',
+  aboutText: 'Desenvolvedor de software focado em backend, arquitetura de sistemas e inteligência artificial. Projeto APIs, modelo bancos relacionais e cuido do ciclo completo de aplicações, do planejamento ao deploy. Gosto de entender o que as ferramentas escondem e de times onde arquitetura e performance pesam mais do que entregar funcionalidade.',
+  interestsLabel: 'Áreas de interesse',
   ghd: 'Código & projetos',
   lid: 'Carreira & contatos',
   mail: 'E-mail',
@@ -48,6 +51,9 @@ const en: Dict = {
   sub: 'Systems and scripts, from planning to deploy.',
   projects: 'Projects',
   certs: 'Certificates',
+  about: 'About',
+  aboutText: 'Software developer focused on backend, systems architecture and artificial intelligence. I design APIs, model relational databases and own the full lifecycle of applications, from planning to deploy. I like understanding what tools hide, and teams where architecture and performance matter more than shipping features.',
+  interestsLabel: 'Areas of interest',
   ghd: 'Code & projects',
   lid: 'Career & contacts',
   mail: 'Email',
@@ -82,3 +88,8 @@ const en: Dict = {
 
 export const dict: Record<Lang, Dict> = { pt, en }
 export type { Dict }
+
+export const interests: Record<Lang, string[]> = {
+  pt: ['Arquitetura de Sistemas', 'Sistemas Distribuídos', 'Backend e APIs', 'Visão Computacional', 'Bancos Relacionais', 'Performance', 'Testes', 'IA'],
+  en: ['System Architecture', 'Distributed Systems', 'Backend & APIs', 'Computer Vision', 'Relational Databases', 'Performance', 'Testing', 'AI'],
+}

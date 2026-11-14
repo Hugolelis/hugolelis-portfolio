@@ -1,5 +1,5 @@
-:root,[data-theme=light]{color-scheme:light;--bg:#fafafa;--fg:#161616;--mute:#757575;--line:#e3e3e3;--surface:#f0f0ee;--btn:#161616;--btn-fg:#fafafa;--api:#2563eb;--cli:#7c3aed;--ai:#db2777;--tool:#16a34a}
-[data-theme=dark]{color-scheme:dark;--bg:#111;--fg:#f2f2f2;--mute:#8a8a8a;--line:#2a2a2a;--surface:#181818;--btn:#f2f2f2;--btn-fg:#111;--api:#60a5fa;--cli:#a78bfa;--ai:#f472b6;--tool:#4ade80}
+:root,[data-theme=light]{color-scheme:light;--bg:#fafafa;--fg:#161616;--mute:#757575;--line:#e3e3e3;--surface:#f0f0ee;--btn:#161616;--btn-fg:#fafafa;--api:#2563eb;--cli:#7c3aed;--ai:#db2777;--tool:#16a34a;--green:#1f7a4a;--on-green:#ffffff}
+[data-theme=dark]{color-scheme:dark;--bg:#111;--fg:#f2f2f2;--mute:#8a8a8a;--line:#2a2a2a;--surface:#181818;--btn:#f2f2f2;--btn-fg:#111;--api:#60a5fa;--cli:#a78bfa;--ai:#f472b6;--tool:#4ade80;--green:#4ade80;--on-green:#062414}
 *{box-sizing:border-box;margin:0}
 #root{min-height:100vh;display:flex;flex-direction:column}
 body{background:var(--bg);color:var(--fg);font:16px/1.6 Inter,system-ui,sans-serif;-webkit-font-smoothing:antialiased}
@@ -15,7 +15,7 @@ a{color:inherit;text-decoration:none}
 .top .right{display:flex;align-items:center;gap:20px}
 .tools{display:flex;gap:8px}
 .tools button{display:inline-flex;align-items:center;justify-content:center;height:34px;min-width:34px;padding:0 10px;border:1px solid var(--line);border-radius:99px;background:none;color:var(--fg);font:500 12px 'JetBrains Mono',monospace;cursor:pointer;transition:border-color .2s}
-.tools button:hover{border-color:var(--fg)}
+.tools button:hover{border-color:var(--green)}
 
 /* home */
 main.home{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:32px 24px 64px}
@@ -31,6 +31,8 @@ p.sub{color:var(--mute);font-size:17px}
 .btn{width:170px;text-align:center;padding:14px 0;border-radius:99px;font-weight:500;border:1px solid var(--btn);transition:opacity .2s,transform .2s}
 .btn:hover{opacity:.85;transform:translateY(-1px)}
 .btn.primary{background:var(--btn);color:var(--btn-fg)}
+.btn.green{background:var(--green);border-color:var(--green);color:var(--on-green)}
+.btn:not(.primary):not(.green):hover{border-color:var(--green);color:var(--green);opacity:1}
 .links{list-style:none;padding:0;width:min(680px,100%);margin-top:56px;text-align:left}
 .links li{border-bottom:1px solid var(--line)}
 .links li:first-child{border-top:1px solid var(--line)}
@@ -40,7 +42,7 @@ p.sub{color:var(--mute);font-size:17px}
 .links b{font-weight:500;font-size:18px}
 .links small{color:var(--mute);font-size:15px}
 .links i{font-style:normal;color:var(--mute);transition:transform .2s}
-.links a:hover i,.links button:hover i{transform:translate(2px,-2px);color:var(--fg)}
+.links a:hover i,.links button:hover i{transform:translate(2px,-2px);color:var(--green)}
 footer{border-top:1px solid var(--line);padding:28px 0;display:flex;justify-content:space-between;color:var(--mute);font-size:14px}
 footer b{color:var(--fg);letter-spacing:-.03em}
 footer .right{display:flex;gap:16px}
@@ -198,3 +200,15 @@ main.home .avatar{animation:fade 1.2s ease both}
   .tools .contact .lbl{display:none}
   .tools .contact svg{display:block}
 }
+
+/* verde de destaque só no hover: nome do card */
+.card .name{transition:color .2s}
+.card:hover .name,.card:focus-visible .name{color:var(--green)}
+
+/* página Sobre */
+.about-text{max-width:58ch;margin:0 auto 3rem;color:var(--muted);font-size:1.05rem;line-height:1.75;text-align:center}
+.tl .chips{justify-content:flex-start;max-width:none;margin:0}
+.tl .chip{border-color:var(--border)}
+
+/* três botões na home: no celular ficam empilhados e ocupam a largura toda */
+@media(max-width:560px){.btns{width:100%;flex-direction:column;align-items:stretch}.btns .btn{width:100%;padding:17px 0;font-size:1.05rem}}
