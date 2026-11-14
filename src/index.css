@@ -41,8 +41,8 @@ p.sub{color:var(--mute);font-size:17px}
 .links svg{width:24px;height:24px}
 .links b{font-weight:500;font-size:18px}
 .links small{color:var(--mute);font-size:15px}
-.links i{font-style:normal;color:var(--mute);transition:transform .2s}
-.links a:hover i,.links button:hover i{transform:translate(2px,-2px);color:var(--green)}
+.links i{font-style:normal;color:var(--mute);transition:transform .2s,color .2s}
+.links a:hover i,.links button:hover i{transform:translate(2px,-2px);color:var(--tool);font-weight:700}
 footer{border-top:1px solid var(--line);padding:28px 0;display:grid;grid-template-columns:1fr auto 1fr;align-items:center;color:var(--mute);font-size:14px}
 footer b{color:var(--fg);letter-spacing:-.03em}
 /* ícones das redes no meio do rodapé */
