@@ -1,4 +1,3 @@
-import { Top } from '../components/Top'
 import { ProjectCard } from '../components/ProjectCard'
 import { useApp } from '../context/AppContext'
 import { projects } from '../data'
@@ -7,7 +6,6 @@ export function Projects() {
   const { t } = useApp()
   return (
     <div className="page">
-      <Top cross={{ to: '/certificados', label: t.certs }} />
       <main>
         <div className="head">
           <span className="eyebrow">{t.pCount.replace('{n}', String(projects.length))}</span>

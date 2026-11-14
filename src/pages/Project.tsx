@@ -1,6 +1,6 @@
 import { useState } from 'react'
-import { Top } from '../components/Top'
 import { Banner } from '../components/Banner'
+import { Link } from '../components/Link'
 import { ProjectCard } from '../components/ProjectCard'
 import { Reveal } from '../components/Reveal'
 import { GithubIcon } from '../components/icons'
@@ -23,12 +23,10 @@ export function Project({ slug }: { slug: string }) {
   const { t, lang } = useApp()
   const project = projects.find(p => projectSlug(p) === slug)
   const [others] = useState(() => pickOthers(project))
-  const cross = { to: '/projetos', label: t.projects }
 
   if (!project) {
     return (
       <div className="page">
-        <Top cross={cross} />
         <p className="summary" style={{ marginTop: '3rem' }}>{t.notFound}</p>
       </div>
     )
@@ -36,10 +34,10 @@ export function Project({ slug }: { slug: string }) {
 
   return (
     <div className="page">
-      <Top cross={cross} />
       <main className="narrow">
         {/* topo da página: entra em sequência ao abrir; as seções de baixo animam ao rolar */}
         <div className="rise">
+          <Link to="/projetos" className="back"><span aria-hidden="true">←</span> {t.back}</Link>
           <span className="pmeta">{project.type} · {project.year}</span>
           <h1 className="ptitle">{project.title[lang]}</h1>
           <span className="ptag">{project.tag}</span>

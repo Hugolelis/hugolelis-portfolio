@@ -1,4 +1,5 @@
 import { Footer } from './components/Footer'
+import { Top } from './components/Top'
 import { About } from './pages/About'
 import { Certificates } from './pages/Certificates'
 import { Home } from './pages/Home'
@@ -16,6 +17,7 @@ export default function App() {
     <Home />
   return (
     <>
+      <Top />
       {page}
       <Footer />
     </>

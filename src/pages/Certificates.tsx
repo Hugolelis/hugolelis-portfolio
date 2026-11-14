@@ -1,5 +1,4 @@
 import { useState } from 'react'
-import { Top } from '../components/Top'
 import { Reveal } from '../components/Reveal'
 import { Expandable } from '../components/Expandable'
 import { PdfModal } from '../components/PdfModal'
@@ -18,7 +17,6 @@ export function Certificates() {
 
   return (
     <div className="page">
-      <Top cross={{ to: '/projetos', label: t.projects }} />
       <main>
         <div className="head">
           <span className="eyebrow">{t.cCount.replace('{n}', String(certificates.length))}</span>
