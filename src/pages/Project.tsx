@@ -38,27 +38,25 @@ export function Project({ slug }: { slug: string }) {
     <div className="page">
       <Top cross={cross} />
       <main className="narrow">
-        <Reveal>
+        {/* topo da página: entra em sequência ao abrir; as seções de baixo animam ao rolar */}
+        <div className="rise">
           <span className="pmeta">{project.type} · {project.year}</span>
           <h1 className="ptitle">{project.title[lang]}</h1>
           <span className="ptag">{project.tag}</span>
-          <div className="lead">{project.description[lang].map(l => <p key={l}>{l}</p>)}</div>
-          {project.link && (
-            <div className="links2">
-              <a className="btn solid" href={project.link} target="_blank" rel="noreferrer">
-                <GithubIcon size={16} /> {t.viewCode}
-              </a>
-            </div>
-          )}
-        </Reveal>
-
-        <Reveal>
-          <div className="pmedia">
-            {project.image
-              ? <img src={project.image} alt={project.title[lang]} />
-              : <Banner text={project.banner?.[lang] ?? project.type} />}
+        </div>
+        <div className="lead rise d1">{project.description[lang].map(l => <p key={l}>{l}</p>)}</div>
+        {project.link && (
+          <div className="links2 rise d2">
+            <a className="btn solid" href={project.link} target="_blank" rel="noreferrer">
+              <GithubIcon size={16} /> {t.viewCode}
+            </a>
           </div>
-        </Reveal>
+        )}
+        <div className="pmedia rise d3">
+          {project.image
+            ? <img src={project.image} alt={project.title[lang]} />
+            : <Banner text={project.banner?.[lang] ?? project.type} />}
+        </div>
 
         <div className="psec"><Reveal>
           <h2 className="label">{t.problem}</h2>

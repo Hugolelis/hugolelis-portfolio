@@ -16,8 +16,8 @@ export function Top({ cross }: { cross?: { to: string; label: string } }) {
         {cross && <Link to={cross.to}>{cross.label} ↓</Link>}
         <div className="tools">
           <button className="contact" onClick={() => setContactOpen(true)} title={t.contact} aria-label={t.contact}>
-            <span className="lbl">{t.contact}</span>
             <ChatIcon />
+            <span className="lbl">{t.contact}</span>
           </button>
           <button onClick={toggleLang} title={t.langTitle}>{lang === 'pt' ? 'EN' : 'PT'}</button>
           <button onClick={toggleTheme} title={t.themeTitle}>{theme === 'dark' ? '☀' : '☾'}</button>

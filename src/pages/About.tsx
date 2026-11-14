@@ -9,7 +9,7 @@ export function About() {
   return (
     <div className="page">
       <Top cross={{ to: '/projetos', label: t.projects }} />
-      <main className="narrow">
+      <main className="narrow about">
         <div className="head">
           <span className="eyebrow">Hugo Lelis</span>
           <h2 className="title">{t.about}</h2>
