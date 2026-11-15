@@ -19,9 +19,8 @@ export function Certificates() {
     <div className="page">
       <main>
         <div className="head">
-          <span className="eyebrow">{t.cCount.replace('{n}', String(certificates.length))}</span>
-          <h2 className="title">{t.certs}</h2>
-          <p className="summary">{t.cSummary}</p>
+          <span className="eyebrow">{t.certs} · {certificates.length}</span>
+          <h1 className="title">{t.cTitle}</h1>
         </div>
         <div className="gallery certs">
           {certificates.map((c, i) => {

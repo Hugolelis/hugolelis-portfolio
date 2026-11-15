@@ -8,9 +8,8 @@ export function Projects() {
     <div className="page">
       <main>
         <div className="head">
-          <span className="eyebrow">{t.pCount.replace('{n}', String(projects.length))}</span>
-          <h2 className="title">{t.projects}</h2>
-          <p className="summary">{t.pSummary}</p>
+          <span className="eyebrow">{t.projects} · {projects.length}</span>
+          <h1 className="title">{t.pTitle}</h1>
         </div>
         <ul className="gallery flex">
           {projects.map((p, i) => <ProjectCard key={p.id} project={p} index={i} />)}

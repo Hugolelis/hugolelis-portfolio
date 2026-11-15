@@ -1,5 +1,5 @@
-:root,[data-theme=light]{color-scheme:light;--bg:#fafafa;--fg:#161616;--mute:#757575;--line:#e3e3e3;--surface:#f0f0ee;--btn:#161616;--btn-fg:#fafafa;--api:#2563eb;--cli:#7c3aed;--ai:#db2777;--tool:#16a34a;--hl:#1b7788;--on-hl:#ffffff}
-[data-theme=dark]{color-scheme:dark;--bg:#111;--fg:#f2f2f2;--mute:#8a8a8a;--line:#2a2a2a;--surface:#181818;--btn:#f2f2f2;--btn-fg:#111;--api:#60a5fa;--cli:#a78bfa;--ai:#f472b6;--tool:#4ade80;--hl:#2190a4;--on-hl:#06141a}
+:root,[data-theme=light]{color-scheme:light;--bg:#fafafa;--fg:#161616;--mute:#757575;--line:#e3e3e3;--surface:#f0f0ee;--btn:#161616;--btn-fg:#fafafa;--api:#2563eb;--cli:#7c3aed;--ai:#db2777;--tool:#16a34a}
+[data-theme=dark]{color-scheme:dark;--bg:#111;--fg:#f2f2f2;--mute:#8a8a8a;--line:#2a2a2a;--surface:#181818;--btn:#f2f2f2;--btn-fg:#111;--api:#60a5fa;--cli:#a78bfa;--ai:#f472b6;--tool:#4ade80}
 *{box-sizing:border-box;margin:0}
 #root{min-height:100vh;min-height:100dvh;display:flex;flex-direction:column}
 body{background:var(--bg);color:var(--fg);font:16px/1.6 Inter,system-ui,sans-serif;-webkit-font-smoothing:antialiased}
@@ -9,13 +9,14 @@ a{color:inherit;text-decoration:none}
 
 /* topo: voltar / navegação + idioma + tema */
 .top{position:sticky;top:0;z-index:50;display:flex;justify-content:space-between;align-items:center;padding:16px 0;background:var(--bg);font-size:14px;color:var(--mute)}
-#root>.top{width:min(1040px,100% - 48px);margin:0 auto}
+/* barra de borda a borda; o conteúdo interno continua alinhado à coluna de 1040px */
+#root>.top{width:100%;margin:0;padding-left:max(24px,calc((100% - 1040px)/2));padding-right:max(24px,calc((100% - 1040px)/2))}
 .top .logo{display:flex;color:var(--fg);transition:opacity .2s}.top .logo:hover{opacity:.7}
 .top a:hover{color:var(--fg)}
 .top .right{display:flex;align-items:center;gap:20px}
 .tools{display:flex;gap:8px}
 .tools button{display:inline-flex;align-items:center;justify-content:center;height:34px;min-width:34px;padding:0 10px;border:1px solid var(--line);border-radius:99px;background:none;color:var(--fg);font:500 12px 'JetBrains Mono',monospace;cursor:pointer;transition:border-color .2s}
-.tools button:hover{border-color:var(--hl);color:var(--hl)}
+.tools button:hover{border-color:var(--fg)}
 .tools .icon{padding:0;width:34px}
 
 /* home */
@@ -32,8 +33,7 @@ p.sub{color:var(--mute);font-size:17px}
 .btn{width:170px;text-align:center;padding:14px 0;border-radius:99px;font-weight:500;border:1px solid var(--btn);transition:opacity .2s,transform .2s}
 .btn:hover{opacity:.85;transform:translateY(-1px)}
 .btn.primary{background:var(--btn);color:var(--btn-fg)}
-.btn.hl{background:var(--hl);border-color:var(--hl);color:var(--on-hl)}
-.btns .btn:not(.primary):not(.hl):hover{border-color:var(--hl);color:var(--hl);opacity:1}
+.btns .btn:not(.primary):hover{opacity:1}
 .links{list-style:none;padding:0;width:min(680px,100%);margin-top:56px;text-align:left}
 .links li{border-bottom:1px solid var(--line)}
 .links li:first-child{border-top:1px solid var(--line)}
@@ -43,7 +43,7 @@ p.sub{color:var(--mute);font-size:17px}
 .links b{font-weight:500;font-size:18px}
 .links small{color:var(--mute);font-size:15px}
 .links i{font-style:normal;color:var(--mute);transition:transform .2s,color .2s}
-.links a:hover i,.links button:hover i{transform:translate(2px,-2px);color:var(--hl);font-weight:700}
+.links a:hover i,.links button:hover i{transform:translate(2px,-2px);color:var(--fg)}
 footer{border-top:1px solid var(--line);padding:28px 0;display:grid;grid-template-columns:1fr auto 1fr;align-items:center;color:var(--mute);font-size:14px}
 footer b{color:var(--fg);letter-spacing:-.03em}
 /* ícones das redes no meio do rodapé */
@@ -51,15 +51,16 @@ footer b{color:var(--fg);letter-spacing:-.03em}
 .social a{display:flex}
 .social svg{width:20px;height:20px}
 footer .year{justify-self:end}
-footer a{transition:color .2s}footer a:hover{color:var(--hl)}
+footer a{transition:color .2s}footer a:hover{color:var(--fg)}
 @media(max-width:560px){footer{padding:18px 0;font-size:13px}}
 
 /* ===== páginas de lista: cards portados do site atual (galeria), em 3 colunas ===== */
 :root{--border:var(--line);--term-bg:var(--surface);--text:var(--fg);--muted:var(--mute);--accent:var(--fg)}
-:where(button,a):focus-visible{outline:2px solid var(--api);outline-offset:3px}
+:where(button,a):focus-visible{outline:2px solid var(--fg);outline-offset:3px}
 .page{flex:1;width:min(1040px,100% - 48px);margin:0 auto;padding-bottom:64px}
-.eyebrow{display:block;margin:40px 0 .75rem;color:var(--accent);font:.75rem 'JetBrains Mono',monospace;letter-spacing:.12em;text-transform:uppercase}
-h2.title{font-weight:600;font-size:clamp(2rem,5vw,3rem);letter-spacing:-.05em;line-height:1.1;margin:0 0 .75rem}
+/* cabeçalho de página: etiqueta pequena em mono e uma frase grande e leve, centralizadas */
+.eyebrow{display:block;margin:clamp(44px,8vw,72px) 0 26px;color:var(--muted);font:.72rem 'JetBrains Mono',monospace;letter-spacing:.22em;text-transform:uppercase}
+.title{max-width:22ch;margin:0 auto 22px;font-weight:300;font-size:clamp(1.9rem,4.4vw,3.1rem);letter-spacing:-.035em;line-height:1.12;text-wrap:balance}
 .summary{max-width:46ch;color:var(--muted);font-size:.95rem;line-height:1.6;margin-bottom:3.25rem}
 
 .gallery{display:grid;grid-template-columns:repeat(3,1fr);gap:3.5rem 2rem;list-style:none;padding:0}
@@ -68,7 +69,8 @@ h2.title{font-weight:600;font-size:clamp(2rem,5vw,3rem);letter-spacing:-.05em;li
 .gallery.flex{display:flex;flex-wrap:wrap;justify-content:center}
 .gallery.flex>li{width:calc((100% - 4rem)/3)}
 .head{text-align:center}
-.head .summary{margin:0 auto 3.25rem}
+.head .summary{max-width:50ch;margin:0 auto 4rem;font-size:1rem}
+.head .title:last-child{margin-bottom:4rem} /* sem subtítulo, a frase já respira antes do conteúdo */
 .gallery.certs{gap:0 2rem;align-items:start;margin-bottom:-3rem}
 .card{display:flex;flex-direction:column;gap:.35rem;width:100%;padding:0;border:0;background:none;color:inherit;text-align:left;text-decoration:none;cursor:pointer;font:inherit}
 .gallery.certs .card{margin-bottom:3rem} /* margin e não gap: uma linha recolhida não ocupa espaço */
@@ -86,7 +88,7 @@ h2.title{font-weight:600;font-size:clamp(2rem,5vw,3rem);letter-spacing:-.05em;li
 
 /* botão fantasma (mesmo do site atual) e "ver mais" */
 .btn.ghost{border-color:var(--border);background:var(--surface);color:var(--text);border-radius:6px;width:auto;padding:0 1.25rem;height:42px;display:inline-flex;align-items:center;justify-content:center;gap:.6rem;font-size:.85rem;font-weight:500;cursor:pointer;font-family:inherit}
-.btn.ghost:hover{border-color:var(--hl);color:var(--hl);opacity:1;transform:none}
+.btn.ghost:hover{border-color:var(--fg);opacity:1;transform:none}
 .showmore{display:flex;justify-content:center;margin-top:3.5rem}
 
 /* Expandable */
@@ -107,7 +109,7 @@ h2.title{font-weight:600;font-size:clamp(2rem,5vw,3rem);letter-spacing:-.05em;li
 .missuer{font:.78rem 'JetBrains Mono',monospace;color:var(--muted)}
 .mact{display:flex;gap:.5rem}
 .mact a,.mact button{width:2rem;height:2rem;display:flex;align-items:center;justify-content:center;border:1px solid var(--border);border-radius:6px;background:transparent;color:var(--muted);font-size:1rem;cursor:pointer;transition:border-color .2s,color .2s}
-.mact a:hover,.mact button:hover{border-color:var(--hl);color:var(--hl)}
+.mact a:hover,.mact button:hover{border-color:var(--fg);color:var(--fg)}
 .viewer{flex:1;width:100%;border:none}
 .fallback{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:1rem;padding:2rem}
 .fallback p{font:.88rem 'JetBrains Mono',monospace;color:var(--muted);text-align:center}
@@ -119,7 +121,7 @@ h2.title{font-weight:600;font-size:clamp(2rem,5vw,3rem);letter-spacing:-.05em;li
 /* página de projeto */
 .narrow{max-width:680px;margin:0 auto}
 .pmeta{display:block;margin:40px 0 .75rem;color:var(--accent);font:.75rem 'JetBrains Mono',monospace;letter-spacing:.12em;text-transform:uppercase}
-.ptitle{font-weight:600;font-size:clamp(2.2rem,6vw,3.25rem);letter-spacing:-.05em;line-height:1.1;margin-bottom:.5rem}
+.ptitle{font-weight:300;font-size:clamp(2.2rem,6vw,3.25rem);letter-spacing:-.04em;line-height:1.1;margin-bottom:.5rem}
 .ptag{color:var(--muted);font:.8rem 'JetBrains Mono',monospace}
 .lead{display:flex;flex-direction:column;gap:.6rem;max-width:62ch;margin-top:1.5rem;color:var(--muted);font-size:1.02rem;line-height:1.7}
 .links2{display:flex;flex-wrap:wrap;gap:.75rem;margin-top:1.75rem}
@@ -196,13 +198,10 @@ main.home .avatar{animation:fade 1.2s ease both}
 .modal.sm .links small{font-size:14px}
 @media(max-width:768px){.modal.sm{width:100%}}
 
-/* topo responsivo: nada quebra em duas linhas; o balão de conversa aparece em todos os tamanhos; no celular "Fale comigo" vira só o ícone */
+/* topo responsivo: nada quebra em duas linhas; o contato é só o balão de conversa */
 .top a,.tools button{white-space:nowrap}
-.tools .contact{gap:7px}
 @media(max-width:560px){
   .top .right{gap:12px}
-  .tools .contact{padding:0;width:34px}
-  .tools .contact .lbl{display:none}
 }
 
 
@@ -219,6 +218,7 @@ main.home .avatar{animation:fade 1.2s ease both}
 .about>:nth-child(2){--i:1}
 .about>:nth-child(3){--i:2}
 .about>:nth-child(4){--i:3}
+.about>:nth-child(5){--i:4}
 @media(prefers-reduced-motion:reduce){.about>*{animation:none}}
 
 /* animação de entrada reutilizável: sobe e aparece, com atraso por classe (d1, d2, d3) */
@@ -232,7 +232,7 @@ main.home .avatar{animation:fade 1.2s ease both}
 .menu a{display:flex;align-items:center;justify-content:space-between;padding:11px 14px;border-radius:9px;color:var(--fg);font-size:15px;transition:background .15s}
 .menu a:hover{background:color-mix(in srgb,var(--fg) 8%,transparent);color:var(--fg)}
 .menu a.on{font-weight:600}
-.menu a.on::after{content:'';width:7px;height:7px;border-radius:50%;background:var(--hl)}
+.menu a.on::after{content:'';width:7px;height:7px;border-radius:50%;background:var(--fg)}
 
 /* botão voltar na página do projeto */
 .back{display:inline-flex;align-items:center;gap:8px;margin-top:28px;color:var(--muted);font-size:14px;transition:color .2s}
@@ -274,13 +274,68 @@ main.home .avatar{animation:fade 1.2s ease both}
   footer{padding:12px 0}
 }
 
-/* topo convencional no desktop e notebook: logo + links à esquerda | ações à direita. Abaixo de 961px vale o menu hambúrguer */
+/* topo convencional no desktop e notebook: logo à esquerda | links e ações à direita. Abaixo de 961px vale o menu hambúrguer */
 .topnav{display:none}
 @media(min-width:961px){
-  .topnav{display:flex;gap:30px;margin:0 auto 0 36px} /* colado ao logo, à esquerda; as ações vão para a direita */
+  .topnav{display:flex;gap:30px;margin:0 32px 0 auto} /* links à direita, logo antes das ações; o logo fica sozinho à esquerda */
   .topnav a{position:relative;padding:6px 2px;color:var(--mute);font-size:14px;transition:color .2s}
-  .topnav a:hover{color:var(--hl)}
+  .topnav a:hover{color:var(--fg)}
   .topnav a.on{color:var(--fg)}
-  .topnav a.on::after{content:'';position:absolute;left:0;right:0;bottom:-4px;height:2px;border-radius:2px;background:var(--hl)}
+  .topnav a.on::after{content:'';position:absolute;left:0;right:0;bottom:-4px;height:2px;border-radius:2px;background:var(--fg)}
   .menuwrap{display:none}
 }
+
+
+/* estante de leituras (página Sobre): livros de lombada, o escolhido gira e mostra a capa */
+.bshelf{--W:150px;--H:200px;--D:30px;display:flex;align-items:flex-end;justify-content:center;gap:4px;padding:26px 0 0;min-height:calc(var(--H) + 40px);border-bottom:1px solid var(--line)}
+.bslot{position:relative;flex:none;width:calc(var(--D) + 6px);height:var(--H);padding:0;border:0;background:none;color:inherit;cursor:pointer;perspective:1400px;transition:width 1s cubic-bezier(.16,1,.3,1);-webkit-tap-highlight-color:transparent}
+.bslot.open{width:calc(var(--W) + 56px)}
+.bslot:focus-visible{outline:2px solid var(--fg);outline-offset:4px;border-radius:4px}
+.bk{position:absolute;left:50%;top:0;width:var(--W);height:var(--H);margin-left:calc(var(--W) / -2);transform-style:preserve-3d;transform:translateZ(calc(var(--W) / -2)) rotateY(90deg);transition:transform 1s cubic-bezier(.16,1,.3,1)}
+.bslot:not(.open):hover .bk{transform:translateY(-8px) translateZ(calc(var(--W) / -2)) rotateY(90deg)}
+.bslot.open .bk{transform:translateY(-8px) translateZ(34px) rotateY(16deg)}
+.bk>span{position:absolute;top:0;height:var(--H);backface-visibility:hidden}
+/* capa */
+.bk-front{left:0;width:var(--W);transform:translateZ(calc(var(--D) / 2));overflow:hidden;background:var(--surface);border:1px solid var(--line);border-radius:2px 6px 6px 2px;box-shadow:0 22px 34px -22px rgba(0,0,0,.55)}
+.bk-front img{display:block;width:100%;height:100%;object-fit:cover;object-position:top;user-select:none}
+/* sombra de encadernação na borda esquerda da capa */
+.bk-front::after{content:'';position:absolute;left:0;top:0;bottom:0;width:9px;background:linear-gradient(90deg,rgba(0,0,0,.32),transparent)}
+/* lombada */
+.bk-spine{left:calc((var(--W) - var(--D)) / 2);width:var(--D);transform:rotateY(-90deg) translateZ(calc(var(--W) / 2));display:flex;flex-direction:column;align-items:center;justify-content:space-between;padding:12px 0;
+  background:var(--c);color:#fff;border-radius:2px 0 0 2px}
+.bk-band{width:calc(100% - 10px);height:2px;background:#fff;opacity:.9}
+.bk-stitle{writing-mode:vertical-rl;transform:rotate(180deg);font-size:11px;font-weight:600;letter-spacing:.02em;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;flex:1;margin:10px 0}
+.bk-dot{width:5px;height:5px;border-radius:50%;background:#fff;opacity:.9}
+/* miolo (lado das páginas) */
+.bk-pages{left:calc((var(--W) - var(--D)) / 2);width:var(--D);transform:rotateY(90deg) translateZ(calc(var(--W) / 2));background:repeating-linear-gradient(90deg,#fff 0 2px,#e6e5e0 2px 3px)}
+/* detalhes do livro escolhido */
+.binfo{min-height:108px;padding-top:24px;text-align:center}
+.binfo-in{animation:rise .5s cubic-bezier(.16,1,.3,1) both}
+.brow{display:flex;align-items:baseline;justify-content:space-between;gap:16px}
+.binfo h3{font-size:1.4rem;font-weight:600;letter-spacing:-.03em;line-height:1.15}
+.bcount{flex:none;font:.72rem 'JetBrains Mono',monospace;letter-spacing:.06em;color:var(--muted)}
+.bsub{max-width:52ch;margin:6px 0 0;color:var(--muted);font-size:.98rem;line-height:1.5}
+.bmeta{display:flex;flex-wrap:wrap;align-items:center;gap:10px;margin-top:14px}
+.bauthor{font-size:.9rem;font-weight:500;color:var(--fg)}
+.btag{padding:.18rem .65rem;border:1px solid var(--border);border-radius:99px;font-size:.78rem;color:var(--muted)}
+.bhint{margin-top:18px;display:flex;flex-wrap:wrap;align-items:center;gap:6px;font-size:.78rem;color:var(--muted)}
+.bhint kbd{padding:1px 7px;border:1px solid var(--line);border-bottom-width:2px;border-radius:6px;font:.68rem 'JetBrains Mono',monospace;color:var(--muted);background:var(--surface)}
+@media(max-width:560px){.bshelf{--W:118px;--H:157px;--D:24px;gap:3px}.bslot.open{width:calc(var(--W) + 38px)}.bk-stitle{font-size:10px}}
+@media(prefers-reduced-motion:reduce){.bslot,.bk{transition:none}.binfo-in{animation:none}}
+@media(pointer:coarse),(hover:none),(max-width:1024px){.bhint{display:none}} /* celular e tablet não têm setas nem Esc */
+
+/* página Sobre: título e etiqueta centralizados; texto, seções e livros à esquerda, com espaçamento regular */
+.about .head .title{margin-bottom:2.75rem}
+.about .about-text{text-align:left;margin:0 0 4.5rem;max-width:60ch;font-size:1.02rem;line-height:1.8}
+.about .tl{margin-top:0;margin-bottom:4.5rem}
+.about .tl:last-child{margin-bottom:0}
+.about .tl .label{margin-bottom:1.5rem}
+.about .bshelf{justify-content:flex-start}
+.about .binfo{text-align:left}
+.about .bk{transition:transform 1s cubic-bezier(.16,1,.3,1),left 1s cubic-bezier(.16,1,.3,1),margin-left 1s cubic-bezier(.16,1,.3,1)}
+.about .bslot.open .bk{left:0;margin-left:0} /* o livro puxado encosta na margem esquerda, alinhado com o texto */
+
+/* sombra sutil no topo quando a página já rolou */
+.top{transition:box-shadow .25s ease}
+.top.scrolled{box-shadow:0 1px 0 rgba(0,0,0,.05),0 10px 24px -14px rgba(0,0,0,.28)}
+[data-theme=dark] .top.scrolled{box-shadow:0 1px 0 rgba(255,255,255,.05),0 12px 26px -12px rgba(0,0,0,.75)}

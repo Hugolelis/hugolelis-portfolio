@@ -18,7 +18,16 @@ export function Top() {
   const path = usePath().replace(/\/$/, '') || '/'
   const [contactOpen, setContactOpen] = useState(false)
   const [menuOpen, setMenuOpen] = useState(false)
+  const [scrolled, setScrolled] = useState(false)
   const menuRef = useRef<HTMLDivElement>(null)
+
+  // com a página rolada, o topo ganha uma sombra leve para se destacar do conteúdo que passa por baixo
+  useEffect(() => {
+    const on = () => setScrolled(window.scrollY > 8)
+    on()
+    window.addEventListener('scroll', on, { passive: true })
+    return () => window.removeEventListener('scroll', on)
+  }, [])
 
   // fecha o menu ao clicar fora ou com Esc
   useEffect(() => {
@@ -39,7 +48,7 @@ export function Top() {
 
   return (
     <>
-      <header className="top">
+      <header className={`top${scrolled ? ' scrolled' : ''}`}>
         <Link to="/" className="logo" aria-label="Hugo Lelis"><Logo /></Link>
         {/* telas largas: links no topo, como em qualquer site; telas pequenas usam o menu hambúrguer */}
         <nav className="topnav" aria-label={t.menu}>
@@ -48,9 +57,8 @@ export function Top() {
           ))}
         </nav>
         <div className="tools">
-          <button className="contact" onClick={() => setContactOpen(true)} title={t.contact} aria-label={t.contact}>
+          <button className="icon" onClick={() => setContactOpen(true)} title={t.contact} aria-label={t.contact}>
             <ChatIcon />
-            <span className="lbl">{t.contact}</span>
           </button>
           <button onClick={toggleLang} title={t.langTitle}>{lang === 'pt' ? 'EN' : 'PT'}</button>
           <button className="icon" onClick={toggleTheme} title={t.themeTitle} aria-label={t.themeTitle}>{theme === 'dark' ? <SunIcon /> : <MoonIcon />}</button>
