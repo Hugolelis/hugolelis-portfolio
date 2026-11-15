@@ -273,3 +273,14 @@ main.home .avatar{animation:fade 1.2s ease both}
   .btns .btn{padding:9px 0;font-size:.95rem}
   footer{padding:12px 0}
 }
+
+/* topo convencional no desktop e notebook: logo + links à esquerda | ações à direita. Abaixo de 961px vale o menu hambúrguer */
+.topnav{display:none}
+@media(min-width:961px){
+  .topnav{display:flex;gap:30px;margin:0 auto 0 36px} /* colado ao logo, à esquerda; as ações vão para a direita */
+  .topnav a{position:relative;padding:6px 2px;color:var(--mute);font-size:14px;transition:color .2s}
+  .topnav a:hover{color:var(--hl)}
+  .topnav a.on{color:var(--fg)}
+  .topnav a.on::after{content:'';position:absolute;left:0;right:0;bottom:-4px;height:2px;border-radius:2px;background:var(--hl)}
+  .menuwrap{display:none}
+}

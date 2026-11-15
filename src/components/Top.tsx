@@ -12,7 +12,7 @@ const items = [
   { to: '/sobre', key: 'about' },
 ] as const
 
-// topo fixo: logo à esquerda; contato, idioma, tema e o menu (as 4 seções) à direita
+// topo fixo: logo à esquerda, as 4 seções (links no desktop, hambúrguer no celular) e as ações à direita
 export function Top() {
   const { lang, theme, t, toggleLang, toggleTheme } = useApp()
   const path = usePath().replace(/\/$/, '') || '/'
@@ -41,6 +41,12 @@ export function Top() {
     <>
       <header className="top">
         <Link to="/" className="logo" aria-label="Hugo Lelis"><Logo /></Link>
+        {/* telas largas: links no topo, como em qualquer site; telas pequenas usam o menu hambúrguer */}
+        <nav className="topnav" aria-label={t.menu}>
+          {items.map(i => (
+            <Link key={i.to} to={i.to} className={isActive(i.to) ? 'on' : undefined}>{t[i.key]}</Link>
+          ))}
+        </nav>
         <div className="tools">
           <button className="contact" onClick={() => setContactOpen(true)} title={t.contact} aria-label={t.contact}>
             <ChatIcon />
