@@ -1,30 +1,37 @@
+import { useEffect, useState } from 'react'
 import { stack } from '../data'
-import { Link } from '../components/Link'
+import { Books } from '../components/Books'
+import { Certificates } from './Certificates'
+import { Projects } from './Projects'
 import { useApp } from '../context/AppContext'
 
 const techs = [...stack.languages, ...stack.databases, ...stack.infra]
 
 export function Home() {
   const { t } = useApp()
+  // a entrada palavra a palavra só vale na abertura; depois disso, trocar de idioma não reanima a frase
+  const [intro, setIntro] = useState(true)
+  useEffect(() => { const id = setTimeout(() => setIntro(false), 2600); return () => clearTimeout(id) }, [])
+  let i = 0
+  // cada palavra entra em sequência; a segunda frase fica em tom mais suave
+  const words = (s: string, cls?: string) =>
+    s.split(' ').map(w => <span key={i} className={cls ? `w ${cls}` : 'w'} style={{ '--i': i++ } as React.CSSProperties}>{w} </span>)
   return (
-    <main className="home">
-      <div className="who">
-        <img className="avatar" src="/avatar.jpg" alt="Hugo Lelis" />
-        <div>
-          <b>Hugo Lelis</b>
-          <span>{t.role}</span>
-        </div>
-      </div>
-      <h1><span className="l">{t.h1a}</span><span className="l l2">{t.h1b}</span></h1>
+    <>
+    <section className="home">
+      <p className="eyebrow">{t.role}</p>
+      <h1 className={intro ? 'intro' : undefined} aria-label={`${t.h1a} ${t.h1b}`}>
+        <span aria-hidden="true">{words(t.h1a)}{words(t.h1b, 'dim')}</span>
+      </h1>
       <p className="sub">{t.sub}</p>
+      <p className="by"><img className="avatar" src="/avatar.jpg" alt="" /><b>Hugo Lelis</b></p>
       <ul className="chips">
         {techs.map(x => <li key={x} className="chip">{x}</li>)}
       </ul>
-      <div className="btns">
-        <Link to="/projetos" className="btn primary">{t.projects}</Link>
-        <Link to="/certificados" className="btn">{t.certs}</Link>
-        <Link to="/sobre" className="btn">{t.about}</Link>
-      </div>
-    </main>
+    </section>
+    <Projects compact />
+    <Certificates compact />
+    <div className="page"><section className="narrow about shelfhome"><Books /></section></div>
+    </>
   )
 }

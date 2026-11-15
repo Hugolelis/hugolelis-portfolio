@@ -7,8 +7,7 @@ import type { Project } from '../types'
 
 export function ProjectCard({ project, index }: { project: Project; index: number }) {
   const { lang } = useApp()
-  return (
-    <li>
+  const card = (
       <Reveal delay={(index % 3) * 0.12}>
         <Link to={`/projetos/${projectSlug(project)}`} className="card">
           <span className="media">
@@ -25,6 +24,6 @@ export function ProjectCard({ project, index }: { project: Project; index: numbe
           <span className="desc">{project.description[lang][0]}</span>
         </Link>
       </Reveal>
-    </li>
   )
+  return <li>{card}</li>
 }

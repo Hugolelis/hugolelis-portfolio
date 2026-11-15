@@ -20,20 +20,18 @@ a{color:inherit;text-decoration:none}
 .tools .icon{padding:0;width:34px}
 
 /* home */
-main.home{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:32px 24px 64px}
-.who{display:flex;align-items:center;gap:14px;text-align:left;margin-bottom:8px}
-.who b{display:block;font-weight:600;line-height:1.3}
-.who span{color:var(--mute);font-size:14px}
-.avatar{width:48px;height:48px;border-radius:50%;object-fit:cover;border:1px solid var(--line)}
-h1{text-wrap:balance;font-weight:600;font-size:clamp(2rem,5.5vw,3.25rem);line-height:1;letter-spacing:-.05em;margin:24px 0}
-h1 .l{display:block}
-h1 .l2{color:var(--mute)}
-p.sub{color:var(--mute);font-size:17px}
-.btns{display:flex;gap:12px;margin-top:36px;flex-wrap:wrap;justify-content:center}
+.route{display:contents}
+section.home{flex:none;min-height:calc(100dvh - 67px);display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:48px 24px 8px}
+.eyebrow{font-family:'JetBrains Mono',ui-monospace,monospace;font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--mute);margin:0 0 28px}
+section.home h1{text-wrap:balance;font-weight:300;font-size:clamp(2rem,4.6vw,2.9rem);line-height:1.15;letter-spacing:-.035em;max-width:760px;margin:0}
+h1 .w{display:inline-block;white-space:pre}
+h1 .dim{color:var(--mute)}
+p.sub{color:var(--mute);font-size:16px;max-width:520px;margin:26px 0 0}
+.by{display:flex;align-items:center;gap:10px;margin:34px 0 0;font-size:14px}
+.by b{font-weight:500}
+.avatar{width:28px;height:28px;border-radius:50%;object-fit:cover;border:1px solid var(--line)}
 .btn{width:170px;text-align:center;padding:14px 0;border-radius:99px;font-weight:500;border:1px solid var(--btn);transition:opacity .2s,transform .2s}
 .btn:hover{opacity:.85;transform:translateY(-1px)}
-.btn.primary{background:var(--btn);color:var(--btn-fg)}
-.btns .btn:not(.primary):hover{opacity:1}
 .links{list-style:none;padding:0;width:min(680px,100%);margin-top:56px;text-align:left}
 .links li{border-bottom:1px solid var(--line)}
 .links li:first-child{border-top:1px solid var(--line)}
@@ -70,10 +68,11 @@ footer a{transition:color .2s}footer a:hover{color:var(--fg)}
 .gallery.flex>li{width:calc((100% - 4rem)/3)}
 .head{text-align:center}
 .head .summary{max-width:50ch;margin:0 auto 4rem;font-size:1rem}
-.head .title:last-child{margin-bottom:4rem} /* sem subtítulo, a frase já respira antes do conteúdo */
-.gallery.certs{gap:0 2rem;align-items:start;margin-bottom:-3rem}
+.head .title:last-child{margin-bottom:4rem}
+.head .eyebrow:last-child{margin-bottom:2.2rem} /* sem subtítulo, a frase já respira antes do conteúdo */
+.gallery.certs,.gallery.tight{gap:0 2rem;align-items:start;margin-bottom:-3rem}
 .card{display:flex;flex-direction:column;gap:.35rem;width:100%;padding:0;border:0;background:none;color:inherit;text-align:left;text-decoration:none;cursor:pointer;font:inherit}
-.gallery.certs .card{margin-bottom:3rem} /* margin e não gap: uma linha recolhida não ocupa espaço */
+.gallery.certs .card,.gallery.tight .card{margin-bottom:3rem} /* margin e não gap: uma linha recolhida não ocupa espaço */
 .media{display:flex;align-items:center;justify-content:center;aspect-ratio:4/3;margin-bottom:.75rem;border:1px solid var(--border);padding:1rem;border-radius:10px;background:var(--term-bg);overflow:hidden;transition:transform .3s ease}
 .certs .media{padding:0}
 .card:hover .media,.card:focus-visible .media{transform:translateY(-4px)}
@@ -148,21 +147,13 @@ footer a{transition:color .2s}footer a:hover{color:var(--fg)}
 /* entrada da home: cada bloco sobe e aparece em sequência */
 @keyframes rise{from{opacity:0;transform:translateY(18px)}to{opacity:1;transform:none}}
 @keyframes fade{from{opacity:0}to{opacity:1}}
-main.home>*,h1 .l{animation:rise .9s cubic-bezier(.16,1,.3,1) both;animation-delay:calc(var(--i,0)*.12s)}
-main.home>h1{animation:none}
-main.home>:nth-child(1){--i:0}
-main.home>:nth-child(2){--i:1}
-main.home>:nth-child(3){--i:3}
-main.home>:nth-child(4){--i:4}
-main.home>:nth-child(5){--i:5}
-main.home>:nth-child(6){--i:6}
-main.home>:nth-child(7){--i:7}
-h1 .l{animation-duration:1s}
-h1 .l:first-child{--i:1}
-h1 .l2{--i:2}
-main.home .avatar{animation:fade 1.2s ease both}
+section.home>:not(h1){animation:rise .9s cubic-bezier(.16,1,.3,1) both;animation-delay:calc(var(--d,0)*.12s)}
+section.home>.sub{--d:6}
+section.home>.by{--d:8}
+section.home>.chips{--d:9}
+h1.intro .w{animation:rise 1s cubic-bezier(.16,1,.3,1) both;animation-delay:calc(.2s + var(--i)*.09s)}
 #root>.top,footer{animation:fade 1s ease .2s both}
-@media(prefers-reduced-motion:reduce){main.home>*,h1 .l,main.home .avatar,#root>.top,footer{animation:none}}
+@media(prefers-reduced-motion:reduce){section.home>*,h1.intro .w,#root>.top,footer{animation:none}}
 
 /* timeline da home: linha que enche ao rolar + pontos que aparecem em cada entrada */
 .tl{width:min(680px,100%);margin-top:56px;text-align:left}
@@ -210,9 +201,6 @@ main.home .avatar{animation:fade 1.2s ease both}
 .tl .chips{justify-content:flex-start;max-width:none;margin:0}
 .tl .chip{border-color:var(--border)}
 
-/* três botões na home: no celular ficam empilhados e ocupam a largura toda */
-@media(max-width:560px){.btns{width:100%;flex-direction:column;align-items:stretch}.btns .btn{width:100%;padding:17px 0;font-size:1.05rem}}
-
 /* entrada da página Sobre: cada bloco sobe em sequência, como na home */
 .about>*{animation:rise .9s cubic-bezier(.16,1,.3,1) both;animation-delay:calc(var(--i,0)*.12s)}
 .about>:nth-child(2){--i:1}
@@ -241,36 +229,26 @@ main.home .avatar{animation:fade 1.2s ease both}
 .back:hover span{transform:translateX(-3px)}
 .back + .pmeta{margin-top:22px}
 
-/* home no celular: título, textos, badges e os 3 botões cabem em uma tela, sem rolar */
+/* home no celular: tudo cabe em uma tela, sem rolar */
 @media(max-width:560px){
   .top{padding:12px 0}
-  main.home{padding:12px 24px 20px}
-  .who{margin-bottom:0}
-  h1{font-size:clamp(1.7rem,8.4vw,2.1rem);margin:14px 0}
-  p.sub{font-size:15px;line-height:1.45}
-  .chips{gap:.35rem;margin-top:14px}
+  section.home{padding:12px 24px 32px}
+  .eyebrow{margin-bottom:18px}
+  section.home h1{font-size:clamp(1.65rem,8vw,2.05rem)}
+  p.sub{font-size:15px;line-height:1.45;margin-top:18px}
+  .by{margin-top:22px}
+  .chips{gap:.35rem;margin-top:20px}
   .chip{padding:.18rem .62rem;font-size:.76rem}
-  .btns{gap:10px;margin-top:20px}
-  .btns .btn{padding:13px 0;font-size:1rem}
 }
-/* telas baixas (ex.: 360x640): mais um passo de compactação */
+/* telas baixas (ex.: 360x640 e 320x568) */
 @media(max-width:560px) and (max-height:700px){
-  h1{margin:10px 0}
-  .chips{margin-top:10px}
-  .btns{margin-top:16px;gap:8px}
-  .btns .btn{padding:11px 0}
-}
-
-/* telas muito baixas (ex.: 320x568) */
-@media(max-width:560px) and (max-height:600px){
-  main.home{padding:6px 24px 10px}
-  .avatar{width:40px;height:40px}
-  h1{font-size:1.5rem;margin:8px 0}
-  p.sub{font-size:14px}
-  .chips{margin-top:8px;gap:.3rem}
+  section.home{padding:6px 24px 16px}
+  .eyebrow{margin-bottom:12px}
+  section.home h1{font-size:1.6rem}
+  p.sub{font-size:14px;margin-top:12px}
+  .by{margin-top:14px}
+  .chips{margin-top:12px;gap:.3rem}
   .chip{font-size:.72rem;padding:.14rem .55rem}
-  .btns{margin-top:12px;gap:7px}
-  .btns .btn{padding:9px 0;font-size:.95rem}
   footer{padding:12px 0}
 }
 
@@ -339,3 +317,22 @@ main.home .avatar{animation:fade 1.2s ease both}
 .top{transition:box-shadow .25s ease}
 .top.scrolled{box-shadow:0 1px 0 rgba(0,0,0,.05),0 10px 24px -14px rgba(0,0,0,.28)}
 [data-theme=dark] .top.scrolled{box-shadow:0 1px 0 rgba(255,255,255,.05),0 12px 26px -12px rgba(0,0,0,.75)}
+
+/* leituras na home: rótulo centralizado como os de projetos e certificados */
+.shelfhome .label{display:flex;justify-content:center;gap:.6rem;margin:clamp(44px,8vw,72px) 0 2.2rem;font:.72rem 'JetBrains Mono',monospace;letter-spacing:.22em}
+.shelfhome .bshelf{justify-content:center}
+section.home+.page .eyebrow{margin-top:24px}
+.shelfhome{padding-bottom:72px}
+@media(max-width:640px){.gallery.certs,.gallery.tight{gap:0}}
+
+/* projetos e certificados na home: grade 2x2 mais estreita, para os cards não ficarem enormes */
+.gallery.tight,.gallery.certs.two{max-width:720px;margin-left:auto;margin-right:auto;column-gap:1.5rem}
+.gallery.tight .name,.gallery.certs.two .name{font-size:.95rem}
+.gallery.tight .desc,.gallery.certs.two .issuer{font-size:.85rem}
+.gallery.tight .media{aspect-ratio:16/10;margin-bottom:.6rem}
+
+/* "ver todos" na home: link discreto, no mesmo tom dos rótulos de seção */
+.viewall{display:inline-flex;align-items:center;gap:.5rem;color:var(--muted);font:.72rem 'JetBrains Mono',monospace;letter-spacing:.14em;text-transform:uppercase;transition:color .2s}
+.viewall span{transition:transform .2s}
+.viewall:hover{color:var(--fg)}
+.viewall:hover span{transform:translateX(3px)}

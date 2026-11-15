@@ -1,20 +1,29 @@
+import { Link } from '../components/Link'
 import { ProjectCard } from '../components/ProjectCard'
 import { useApp } from '../context/AppContext'
 import { projects } from '../data'
 
-export function Projects() {
+const COMPACT = 4 // na home: 2x2 e um "Ver todos" para a página completa
+
+export function Projects({ compact = false }: { compact?: boolean }) {
   const { t } = useApp()
+  const list = compact ? projects.slice(0, COMPACT) : projects
   return (
     <div className="page">
-      <main>
+      <section>
         <div className="head">
           <span className="eyebrow">{t.projects} · {projects.length}</span>
-          <h1 className="title">{t.pTitle}</h1>
+          {!compact && <h1 className="title">{t.pTitle}</h1>}
         </div>
-        <ul className="gallery flex">
-          {projects.map((p, i) => <ProjectCard key={p.id} project={p} index={i} />)}
+        <ul className={compact ? 'gallery two tight' : 'gallery flex'}>
+          {list.map((p, i) => <ProjectCard key={p.id} project={p} index={i} />)}
         </ul>
-      </main>
+        {compact && (
+          <div className="showmore">
+            <Link to="/projetos" className="viewall">{t.viewAll} <span aria-hidden="true">→</span></Link>
+          </div>
+        )}
+      </section>
     </div>
   )
 }

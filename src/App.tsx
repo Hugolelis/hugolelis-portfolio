@@ -18,7 +18,7 @@ export default function App() {
   return (
     <>
       <Top />
-      {page}
+      <main className="route">{page}</main>
       <Footer />
     </>
   )

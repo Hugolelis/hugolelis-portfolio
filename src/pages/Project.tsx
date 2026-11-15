@@ -34,7 +34,7 @@ export function Project({ slug }: { slug: string }) {
 
   return (
     <div className="page">
-      <main className="narrow">
+      <section className="narrow">
         {/* topo da página: entra em sequência ao abrir; as seções de baixo animam ao rolar */}
         <div className="rise">
           <Link to="/projetos" className="back"><span aria-hidden="true">←</span> {t.back}</Link>
@@ -83,7 +83,7 @@ export function Project({ slug }: { slug: string }) {
             {others.map((p, i) => <ProjectCard key={p.id} project={p} index={i} />)}
           </ul>
         </section>
-      </main>
+      </section>
     </div>
   )
 }
