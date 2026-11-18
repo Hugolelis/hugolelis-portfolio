@@ -6,7 +6,7 @@ import { books } from '../data'
 // Estante com os livros de lombada para fora. Clique para puxar um livro (ele gira e mostra a capa),
 // clique de novo para guardar. Ao entrar na tela os livros sobem um a um e o primeiro é puxado; ao sair, voltam a se esconder. Setas navegam entre os livros e Esc guarda.
 export function Books() {
-  const { t } = useApp()
+  const { t, lang } = useApp()
   const { ref, inView } = useInView<HTMLElement>(0.35)
   const [open, setOpen] = useState<number | null>(null)
   const [prev, setPrev] = useState(false)
@@ -66,10 +66,10 @@ export function Books() {
               <h3>{book.title}</h3>
               <span className="bcount">{String((open ?? 0) + 1).padStart(2, '0')} / {String(books.length).padStart(2, '0')}</span>
             </div>
-            <p className="bsub">{book.subtitle}</p>
+            <p className="bsub">{book.subtitle[lang]}</p>
             <p className="bmeta">
               <span className="bauthor">{book.author}</span>
-              <span className="btag">{book.tag}</span>
+              <span className="btag">{book.tag[lang]}</span>
             </p>
           </div>
         ) : (
