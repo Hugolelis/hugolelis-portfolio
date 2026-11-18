@@ -20,10 +20,12 @@ export function Certificates({ compact = false }: { compact?: boolean }) {
   return (
     <div className="page">
       <section>
-        <div className="head">
-          <span className="eyebrow">{t.certs} · {certificates.length}</span>
-          {!compact && <h1 className="title">{t.cTitle}</h1>}
-        </div>
+        <Reveal>
+          <div className="head">
+            <span className="eyebrow">{t.certs} · {certificates.length}</span>
+            {!compact && <h1 className="title">{t.cTitle}</h1>}
+          </div>
+        </Reveal>
         <div className={compact ? 'gallery certs two' : 'gallery certs'}>
           {list.map((c, i) => {
             const card = (
@@ -44,9 +46,11 @@ export function Certificates({ compact = false }: { compact?: boolean }) {
           })}
         </div>
         {compact ? (
-          <div className="showmore">
-            <Link to="/certificados" className="viewall">{t.viewAll} <span aria-hidden="true">→</span></Link>
-          </div>
+          <Reveal>
+            <div className="showmore">
+              <Link to="/certificados" className="viewall">{t.viewAll} <span aria-hidden="true">→</span></Link>
+            </div>
+          </Reveal>
         ) : remaining > 0 && (
           <div className="showmore">
             <button className="btn ghost" onClick={() => setExpanded(e => !e)}>
