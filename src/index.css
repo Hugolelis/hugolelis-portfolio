@@ -162,25 +162,21 @@ h1.intro .w{animation:rise 1s cubic-bezier(.16,1,.3,1) both;animation-delay:calc
 @media(prefers-reduced-motion:reduce){.shelf .bslot,.shelf .label,.shelf .binfo,.shelf .bhint{opacity:1;transform:none;transition:none}}
 @media(prefers-reduced-motion:reduce){section.home>*,h1.intro .w,#root>.top,footer{animation:none}}
 
-/* timeline da home: linha que enche ao rolar + pontos que aparecem em cada entrada */
+/* experiências: fios finos como na lista de links; período à esquerda, texto à direita */
 .tl{width:min(680px,100%);margin-top:56px;text-align:left}
 .tl .label{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:1.5rem;color:var(--fg);font:600 1.05rem Inter,system-ui,sans-serif;letter-spacing:-.02em;text-transform:none}
 .tl .label .n{color:var(--muted);font:400 .75rem 'JetBrains Mono',monospace;letter-spacing:.04em}
-.tl-list{display:flex;flex-direction:column;gap:2.5rem;position:relative}
-/* linha fixa e preta: cada item liga o seu ponto ao do próximo, sem JS e sem animação */
-.tl-item:not(:last-child)::before{content:'';position:absolute;left:12px;top:13px;width:2px;height:calc(100% + 2.5rem);background:var(--fg)}
-.tl-item{display:flex;align-items:flex-start;gap:1rem;position:relative}
-.tl-dot{z-index:1;width:26px;height:26px;flex-shrink:0;display:flex;align-items:center;justify-content:center;border-radius:50%;background:var(--surface);border:2px solid var(--muted);color:var(--muted)}
-.tl-dot.current{background:var(--accent);border-color:var(--accent);color:var(--bg)}
-.tl-text{flex:1 1 auto;min-width:0;max-width:62ch}
-.tl-period{display:block;font:.75rem 'JetBrains Mono',monospace;color:var(--accent);letter-spacing:.04em}
-.tl-org{font-size:1.05rem;font-weight:500;letter-spacing:-.01em;margin:.2rem 0 .15rem}
+.tl-list{border-top:1px solid var(--line)}
+.tl-item{display:grid;grid-template-columns:132px 1fr;gap:1.5rem;padding:1.5rem 0;border-bottom:1px solid var(--line)}
+.tl-period{display:block;align-self:start;padding-top:.3rem;font:.75rem 'JetBrains Mono',monospace;letter-spacing:.04em;color:var(--muted)}
+.tl-period b{display:block;margin-top:.2rem;font-weight:400;font-size:.68rem;letter-spacing:.05em;text-transform:uppercase}
+.tl-period.current{color:var(--fg)}
+.tl-text{min-width:0;max-width:62ch}
+.tl-org{font-size:1.05rem;font-weight:500;letter-spacing:-.01em;margin:0 0 .15rem}
 .tl-role{display:block;font:.76rem 'JetBrains Mono',monospace;color:var(--muted);margin-bottom:.6rem}
-.tl-desc{display:flex;flex-direction:column;gap:.35rem;list-style:none;padding:0}
-.tl-desc li{position:relative;padding-left:1rem;color:var(--muted);font-size:.84rem;line-height:1.5}
-.tl-desc li::before{content:'•';position:absolute;left:0}
-.tl-status{display:block;margin-top:.6rem;font:.68rem 'JetBrains Mono',monospace;letter-spacing:.05em;text-transform:uppercase;color:var(--muted)}
-.tl-status.current{color:var(--accent)}
+.tl-desc{list-style:none;padding:0;margin:0;color:var(--muted);font-size:.86rem;line-height:1.55}
+.tl-desc li+li{margin-top:.35rem}
+@media(max-width:560px){.tl-item{grid-template-columns:1fr;gap:.5rem}}
 
 /* badges de tecnologias, logo abaixo da frase da home */
 .chips{display:flex;flex-wrap:wrap;justify-content:center;gap:.5rem;max-width:520px;margin:22px 0 0;padding:0;list-style:none}
