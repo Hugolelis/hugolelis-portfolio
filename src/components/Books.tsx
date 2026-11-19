@@ -36,12 +36,12 @@ export function Books() {
       <div className="bshelf" onKeyDown={onKeyDown}>
         {books.map((b, i) => (
           <button
-            key={b.title}
+            key={b.cover}
             ref={el => { refs.current[i] = el }}
             type="button"
             className={`bslot${open === i ? ' open' : ''}`}
             aria-pressed={open === i}
-            aria-label={`${b.title}, ${b.author}`}
+            aria-label={`${b.title[lang]}, ${b.author}`}
             style={{ '--c': b.color, '--i': i } as CSSProperties}
             onClick={() => setOpen(o => (o === i ? null : i))}
           >
@@ -51,7 +51,7 @@ export function Books() {
               </span>
               <span className="bk-spine">
                 <span className="bk-band" />
-                <span className="bk-stitle">{b.title}</span>
+                <span className="bk-stitle">{b.title[lang]}</span>
                 <span className="bk-dot" />
               </span>
               <span className="bk-pages" />
@@ -61,9 +61,9 @@ export function Books() {
       </div>
       <div className="binfo" aria-live="polite">
         {book ? (
-          <div key={book.title} className="binfo-in">
+          <div key={book.cover} className="binfo-in">
             <div className="brow">
-              <h3>{book.title}</h3>
+              <h3>{book.title[lang]}</h3>
               <span className="bcount">{String((open ?? 0) + 1).padStart(2, '0')} / {String(books.length).padStart(2, '0')}</span>
             </div>
             <p className="bsub">{book.subtitle[lang]}</p>
