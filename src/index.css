@@ -288,8 +288,9 @@ h1.intro .w{animation:rise 1s cubic-bezier(.16,1,.3,1) both;animation-delay:calc
 /* miolo (lado das páginas) */
 .bk-pages{left:calc((var(--W) - var(--D)) / 2);width:var(--D);transform:rotateY(90deg) translateZ(calc(var(--W) / 2));background:repeating-linear-gradient(90deg,#fff 0 2px,#e6e5e0 2px 3px)}
 /* detalhes do livro escolhido */
-.binfo{min-height:108px;padding-top:24px;text-align:center}
-.binfo-in{animation:rise .5s cubic-bezier(.16,1,.3,1) both}
+.binfo{display:grid;padding-top:24px;text-align:center}
+.binfo-slot{grid-area:1/1;visibility:hidden}
+.binfo-slot.on{visibility:visible;animation:rise .5s cubic-bezier(.16,1,.3,1) both}
 .brow{display:flex;align-items:baseline;justify-content:space-between;gap:16px}
 .binfo h3{font-size:1.4rem;font-weight:600;letter-spacing:-.03em;line-height:1.15}
 .bcount{flex:none;font:.72rem 'JetBrains Mono',monospace;letter-spacing:.06em;color:var(--muted)}
@@ -300,7 +301,7 @@ h1.intro .w{animation:rise 1s cubic-bezier(.16,1,.3,1) both;animation-delay:calc
 .bhint{margin-top:18px;display:flex;flex-wrap:wrap;align-items:center;gap:6px;font-size:.78rem;color:var(--muted)}
 .bhint kbd{padding:1px 7px;border:1px solid var(--line);border-bottom-width:2px;border-radius:6px;font:.68rem 'JetBrains Mono',monospace;color:var(--muted);background:var(--surface)}
 @media(max-width:560px){.bshelf{--W:118px;--H:157px;--D:24px;gap:3px}.bslot.open{width:calc(var(--W) + 38px)}.bk-stitle{font-size:10px}}
-@media(prefers-reduced-motion:reduce){.bslot,.bk{transition:none}.binfo-in{animation:none}}
+@media(prefers-reduced-motion:reduce){.bslot,.bk{transition:none}.binfo-slot.on{animation:none}}
 @media(pointer:coarse),(hover:none),(max-width:1024px){.bhint{display:none}} /* celular e tablet não têm setas nem Esc */
 
 /* página Sobre: título e etiqueta centralizados; texto, seções e livros à esquerda, com espaçamento regular */

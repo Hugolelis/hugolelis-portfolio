@@ -59,22 +59,22 @@ export function Books() {
           </button>
         ))}
       </div>
+      {/* todos os textos ficam empilhados na mesma célula: a caixa tem sempre a altura do maior, então a página não pula ao trocar de livro */}
       <div className="binfo" aria-live="polite">
-        {book ? (
-          <div key={book.cover} className="binfo-in">
+        <p className={`bsub binfo-slot${book ? '' : ' on'}`}>{t.booksPick}</p>
+        {books.map((b, i) => (
+          <div key={b.cover} className={`binfo-slot${open === i ? ' on' : ''}`}>
             <div className="brow">
-              <h3>{book.title[lang]}</h3>
-              <span className="bcount">{String((open ?? 0) + 1).padStart(2, '0')} / {String(books.length).padStart(2, '0')}</span>
+              <h3>{b.title[lang]}</h3>
+              <span className="bcount">{String(i + 1).padStart(2, '0')} / {String(books.length).padStart(2, '0')}</span>
             </div>
-            <p className="bsub">{book.subtitle[lang]}</p>
+            <p className="bsub">{b.subtitle[lang]}</p>
             <p className="bmeta">
-              <span className="bauthor">{book.author}</span>
-              <span className="btag">{book.tag[lang]}</span>
+              <span className="bauthor">{b.author}</span>
+              <span className="btag">{b.tag[lang]}</span>
             </p>
           </div>
-        ) : (
-          <p className="bsub">{t.booksPick}</p>
-        )}
+        ))}
       </div>
       <p className="bhint">
         <kbd>←</kbd><kbd>→</kbd> {t.booksNav} <span aria-hidden="true">·</span> <kbd>Esc</kbd> {t.booksPut}
