@@ -23,8 +23,8 @@ export function Home() {
       <h1 className={intro ? 'intro' : undefined} aria-label={`${t.h1a} ${t.h1b}`}>
         <span aria-hidden="true">{words(t.h1a)}{words(t.h1b, 'dim')}</span>
       </h1>
+      <p className="by">Hugo Lelis</p>
       <p className="sub">{t.sub}</p>
-      <p className="by"><img className="avatar" src="/avatar.jpg" alt="" /><b>Hugo Lelis</b></p>
       <ul className="chips">
         {techs.map(x => <li key={x} className="chip">{x}</li>)}
       </ul>

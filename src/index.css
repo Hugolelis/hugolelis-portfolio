@@ -26,10 +26,10 @@ section.home{flex:none;min-height:calc(100dvh - 67px);display:flex;flex-directio
 section.home h1{text-wrap:balance;font-weight:300;font-size:clamp(2rem,4.6vw,2.9rem);line-height:1.15;letter-spacing:-.035em;max-width:760px;margin:0}
 h1 .w{display:inline-block;white-space:pre}
 h1 .dim{color:var(--mute)}
+.by{margin:26px 0 0;font-size:14px;font-weight:500}
+.by+.sub{margin-top:6px}
 p.sub{color:var(--mute);font-size:16px;max-width:520px;margin:26px 0 0}
-.by{display:flex;align-items:center;gap:10px;margin:34px 0 0;font-size:14px}
-.by b{font-weight:500}
-.avatar{width:28px;height:28px;border-radius:50%;object-fit:cover;border:1px solid var(--line)}
+.avatar{flex:none;width:96px;height:96px;border-radius:50%;object-fit:cover;border:1px solid var(--line)}
 .btn{width:170px;text-align:center;padding:14px 0;border-radius:99px;font-weight:500;border:1px solid var(--btn);transition:opacity .2s,transform .2s}
 .btn:hover{opacity:.85;transform:translateY(-1px)}
 .links{list-style:none;padding:0;width:min(680px,100%);margin-top:56px;text-align:left}
@@ -148,9 +148,9 @@ footer a{transition:color .2s}footer a:hover{color:var(--fg)}
 @keyframes rise{from{opacity:0;transform:translateY(18px)}to{opacity:1;transform:none}}
 @keyframes fade{from{opacity:0}to{opacity:1}}
 section.home>:not(h1){animation:rise .9s cubic-bezier(.16,1,.3,1) both;animation-delay:calc(var(--d,0)*.12s)}
-section.home>.sub{--d:6}
-section.home>.by{--d:8}
-section.home>.chips{--d:9}
+section.home>.by{--d:6}
+section.home>.sub{--d:7}
+section.home>.chips{--d:8}
 h1.intro .w{animation:rise 1s cubic-bezier(.16,1,.3,1) both;animation-delay:calc(.2s + var(--i)*.09s)}
 #root>.top,footer{animation:fade 1s ease .2s both}
 /* estante: os livros sobem um a um ao entrar na tela e descem ao sair; o texto aparece depois */
@@ -239,7 +239,6 @@ h1.intro .w{animation:rise 1s cubic-bezier(.16,1,.3,1) both;animation-delay:calc
   .eyebrow{margin-bottom:18px}
   section.home h1{font-size:clamp(1.65rem,8vw,2.05rem)}
   p.sub{font-size:15px;line-height:1.45;margin-top:18px}
-  .by{margin-top:22px}
   .chips{gap:.35rem;margin-top:20px}
   .chip{padding:.18rem .62rem;font-size:.76rem}
 }
@@ -249,7 +248,6 @@ h1.intro .w{animation:rise 1s cubic-bezier(.16,1,.3,1) both;animation-delay:calc
   .eyebrow{margin-bottom:12px}
   section.home h1{font-size:1.6rem}
   p.sub{font-size:14px;margin-top:12px}
-  .by{margin-top:14px}
   .chips{margin-top:12px;gap:.3rem}
   .chip{font-size:.72rem;padding:.14rem .55rem}
   footer{padding:12px 0}
@@ -307,7 +305,9 @@ h1.intro .w{animation:rise 1s cubic-bezier(.16,1,.3,1) both;animation-delay:calc
 
 /* página Sobre: título e etiqueta centralizados; texto, seções e livros à esquerda, com espaçamento regular */
 .about .head .title{margin-bottom:2.75rem}
-.about .about-text{text-align:left;margin:0 0 4.5rem;max-width:60ch;font-size:1.02rem;line-height:1.8}
+.about-bio{display:flex;align-items:flex-start;gap:1.75rem;margin:0 0 4.5rem}
+@media(max-width:560px){.about-bio{flex-direction:column;gap:1.25rem}.about-bio .avatar{align-self:center}}
+.about .about-text{text-align:left;margin:0;max-width:60ch;font-size:1.02rem;line-height:1.8}
 .about .tl{margin-top:0;margin-bottom:4.5rem}
 .about .tl:last-child{margin-bottom:0}
 .about .tl .label{margin-bottom:1.5rem}

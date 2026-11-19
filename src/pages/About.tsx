@@ -12,7 +12,10 @@ export function About() {
           <span className="eyebrow">{t.about}</span>
           <h1 className="title">{t.aboutTitle}</h1>
         </div>
-        <p className="about-text">{t.aboutText}</p>
+        <div className="about-bio">
+          <img className="avatar" src="/avatar.jpg" alt="Hugo Lelis" />
+          <p className="about-text">{t.aboutText}</p>
+        </div>
         <section className="tl">
           <h2 className="label"><span>{t.interestsLabel}</span><span className="n">{list.length}</span></h2>
           <ul className="chips">
