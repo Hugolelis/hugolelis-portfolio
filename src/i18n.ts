@@ -75,7 +75,7 @@ const en: Dict = {
   contact: 'Get in touch',
   cv: 'Resume',
   cvd: 'View PDF',
-  pTitle: 'From problem to deploy, software I built from scratch.',
+  pTitle: 'From problem to deploy, softwares I built from scratch.',
   cTitle: 'Courses I completed to go deeper into what I build.',
   problem: 'Problem',
   decision: 'Decision',
