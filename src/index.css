@@ -357,8 +357,9 @@ section.home+.page .eyebrow{margin-top:24px}
 }
 
 /* certificado como cartão de texto: emissor e ano no topo, nome do curso em destaque e a ação embaixo (o PDF abre no modal) */
-.card.cert{justify-content:space-between;gap:1.25rem;aspect-ratio:16/10;padding:1.3rem 1.4rem;border:1px solid var(--border);border-radius:10px;background:var(--term-bg);transition:transform .3s ease,border-color .2s}
+.card.cert{justify-content:space-between;gap:1.25rem;aspect-ratio:4/3;padding:1.3rem 1.4rem;border:1px solid var(--border);border-radius:10px;background:var(--term-bg);transition:transform .3s ease,border-color .2s}
 .card.cert:hover,.card.cert:focus-visible{transform:translateY(-4px);border-color:var(--fg)}
+.gallery.certs.two .card.cert{aspect-ratio:16/10} /* mesma proporção da imagem dos projetos na home (.tight .media) */
 .cert-top{display:flex;justify-content:space-between;gap:1rem;color:var(--muted);font:.66rem/1.5 'JetBrains Mono',monospace;letter-spacing:.06em;text-transform:uppercase}
 .cert-name{color:var(--fg);font-size:1.3rem;font-weight:500;letter-spacing:-.02em;line-height:1.3}
 .cert-open{color:var(--muted);font:.72rem 'JetBrains Mono',monospace;letter-spacing:.05em;transition:color .2s}
