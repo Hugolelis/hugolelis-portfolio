@@ -1,11 +1,8 @@
 import { useEffect, useState } from 'react'
-import { stack } from '../data'
 import { Books } from '../components/Books'
 import { Certificates } from './Certificates'
 import { Projects } from './Projects'
 import { useApp } from '../context/AppContext'
-
-const techs = [...stack.languages, ...stack.databases, ...stack.infra]
 
 export function Home() {
   const { t } = useApp()
@@ -25,9 +22,6 @@ export function Home() {
       </h1>
       <p className="by">Hugo Lelis</p>
       <p className="sub">{t.sub}</p>
-      <ul className="chips">
-        {techs.map(x => <li key={x} className="chip">{x}</li>)}
-      </ul>
     </section>
     <Projects compact />
     <Certificates compact />

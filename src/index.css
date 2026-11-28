@@ -150,7 +150,6 @@ footer a{transition:color .2s}footer a:hover{color:var(--fg)}
 section.home>:not(h1){animation:rise .9s cubic-bezier(.16,1,.3,1) both;animation-delay:calc(var(--d,0)*.12s)}
 section.home>.by{--d:6}
 section.home>.sub{--d:7}
-section.home>.chips{--d:8}
 h1.intro .w{animation:rise 1s cubic-bezier(.16,1,.3,1) both;animation-delay:calc(.2s + var(--i)*.09s)}
 #root>.top,footer{animation:fade 1s ease .2s both}
 /* estante: os livros sobem um a um ao entrar na tela e descem ao sair; o texto aparece depois */
@@ -348,20 +347,11 @@ section.home+.page .eyebrow{margin-top:24px}
 .viewall:hover{color:var(--fg)}
 .viewall:hover span{transform:translateX(3px)}
 
-/* telas grandes: certificados em 2 colunas (e a home usa a largura toda), para o texto do diploma dar para ler no card */
-@media(min-width:641px){.gallery.certs{grid-template-columns:repeat(2,1fr);column-gap:3rem}.certs .media{aspect-ratio:1100/850}}
-@media(min-width:1100px){.gallery.certs.two{max-width:none;column-gap:3rem}.gallery.certs.two .name{font-size:1.05rem}.gallery.certs.two .issuer{font-size:.9rem}}
-
-/* hero em telas maiores: três blocos com ritmo claro (cargo + frase / nome e subtítulo / tecnologias), o nome como assinatura sob um fio curto */
+/* hero em telas maiores: blocos com ritmo claro (cargo + frase / nome e subtítulo), o nome como assinatura sob um fio curto */
 @media(min-width:561px){
   section.home .eyebrow{margin-bottom:34px}
   section.home h1{font-size:clamp(2.4rem,5.4vw,4.6rem);max-width:1000px;line-height:1.1}
   section.home .by{margin-top:52px;font-size:clamp(16px,1.3vw,19px);font-weight:600;letter-spacing:.02em}
   section.home .by::before{content:'';display:block;width:36px;height:1px;margin:0 auto 20px;background:var(--mute)}
   section.home .by+.sub{margin-top:8px;font-size:clamp(15px,1.25vw,18px);max-width:560px}
-  section.home .chips{margin-top:44px;max-width:540px}
 }
-
-/* projetos acompanham os certificados: 2 colunas na página própria e largura toda na home em telas grandes */
-@media(min-width:641px){.gallery.flex{column-gap:3rem}.gallery.flex>li{width:calc((100% - 3rem)/2)}}
-@media(min-width:1100px){.gallery.tight{max-width:none;column-gap:3rem}.gallery.tight .name{font-size:1.05rem}.gallery.tight .desc{font-size:.9rem}}
