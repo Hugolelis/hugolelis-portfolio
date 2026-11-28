@@ -8,7 +8,6 @@ import { certificates } from '../data'
 import type { Certificate } from '../types'
 
 const INITIAL = 6 // 2 linhas de 3; o que passar disso fica atrás de "Ver mais"
-const preview = (c: Certificate) => c.file.replace('/courses/', '/courses/previews/').replace('.pdf', '.webp')
 
 export function Certificates({ compact = false }: { compact?: boolean }) {
   const { t } = useApp()
@@ -30,13 +29,10 @@ export function Certificates({ compact = false }: { compact?: boolean }) {
           {list.map((c, i) => {
             const card = (
               <Reveal delay={(i % (compact ? 2 : 3)) * 0.12}>
-                <button className="card" onClick={() => setSelected(c)}>
-                  <span className="media"><img src={preview(c)} alt="" loading="lazy" /></span>
-                  <span className="meta">
-                    <span className="name">{c.name}</span>
-                    <span className="year">{c.year}</span>
-                  </span>
-                  <span className="issuer">{c.issuer}</span>
+                <button className="card cert" onClick={() => setSelected(c)}>
+                  <span className="cert-top"><span>{c.issuer}</span><span>{c.year}</span></span>
+                  <span className="cert-name">{c.name}</span>
+                  <span className="cert-open">{t.openPdf}</span>
                 </button>
               </Reveal>
             )

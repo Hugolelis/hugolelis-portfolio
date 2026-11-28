@@ -355,3 +355,12 @@ section.home+.page .eyebrow{margin-top:24px}
   section.home .by::before{content:'';display:block;width:36px;height:1px;margin:0 auto 20px;background:var(--mute)}
   section.home .by+.sub{margin-top:8px;font-size:clamp(15px,1.25vw,18px);max-width:560px}
 }
+
+/* certificado como cartão de texto: emissor e ano no topo, nome do curso em destaque e a ação embaixo (o PDF abre no modal) */
+.card.cert{justify-content:space-between;gap:1.25rem;aspect-ratio:16/10;padding:1.3rem 1.4rem;border:1px solid var(--border);border-radius:10px;background:var(--term-bg);transition:transform .3s ease,border-color .2s}
+.card.cert:hover,.card.cert:focus-visible{transform:translateY(-4px);border-color:var(--fg)}
+.cert-top{display:flex;justify-content:space-between;gap:1rem;color:var(--muted);font:.66rem/1.5 'JetBrains Mono',monospace;letter-spacing:.06em;text-transform:uppercase}
+.cert-name{color:var(--fg);font-size:1.3rem;font-weight:500;letter-spacing:-.02em;line-height:1.3}
+.cert-open{color:var(--muted);font:.72rem 'JetBrains Mono',monospace;letter-spacing:.05em;transition:color .2s}
+.card.cert:hover .cert-open{color:var(--fg)}
+@media(prefers-reduced-motion:reduce){.card.cert{transition:none}.card.cert:hover{transform:none}}
