@@ -27,8 +27,6 @@ section.home h1{text-wrap:balance;font-weight:300;font-size:clamp(2rem,4.6vw,2.9
 h1 .w{display:inline-block;white-space:pre}
 h1 .dim{color:var(--mute)}
 .by{margin:26px 0 0;font-size:14px;font-weight:500}
-.by+.sub{margin-top:6px}
-p.sub{color:var(--mute);font-size:16px;max-width:520px;margin:26px 0 0}
 .avatar{flex:none;width:96px;height:96px;border-radius:50%;object-fit:cover;border:1px solid var(--line)}
 .btn{width:170px;text-align:center;padding:14px 0;border-radius:99px;font-weight:500;border:1px solid var(--btn);transition:opacity .2s,transform .2s}
 .btn:hover{opacity:.85;transform:translateY(-1px)}
@@ -42,15 +40,21 @@ p.sub{color:var(--mute);font-size:16px;max-width:520px;margin:26px 0 0}
 .links small{color:var(--mute);font-size:15px}
 .links i{font-style:normal;color:var(--mute);transition:transform .2s,color .2s}
 .links a:hover i,.links button:hover i{transform:translate(2px,-2px);color:var(--fg)}
-footer{border-top:1px solid var(--line);padding:28px 0;display:grid;grid-template-columns:1fr auto 1fr;align-items:center;color:var(--mute);font-size:14px}
+footer{border-top:1px solid var(--line);padding:40px 0 24px;display:flex;flex-direction:column;gap:32px;color:var(--mute);font-size:14px}
+.f-main{display:grid;grid-template-columns:1fr auto 1fr;align-items:center;gap:24px}
+.f-brand{display:flex;flex-direction:column;gap:2px}
+.f-brand span{font:.7rem 'JetBrains Mono',monospace;letter-spacing:.06em;text-transform:uppercase}
+.f-nav{display:flex;gap:24px}
+.f-nav a{color:var(--mute)}
+.f-base{display:flex;justify-content:space-between;gap:16px;padding-top:20px;border-top:1px solid var(--line);font:.72rem 'JetBrains Mono',monospace;letter-spacing:.03em}
 footer b{color:var(--fg);letter-spacing:-.03em}
 /* ícones das redes no meio do rodapé */
-.social{display:flex;gap:20px}
+.social{display:flex;justify-content:flex-end;gap:20px}
 .social a{display:flex}
 .social svg{width:20px;height:20px}
-footer .year{justify-self:end}
 footer a{transition:color .2s}footer a:hover{color:var(--fg)}
-@media(max-width:560px){footer{padding:18px 0;font-size:13px}}
+@media(max-width:700px){.f-main{grid-template-columns:1fr;gap:20px}.f-nav{flex-wrap:wrap;gap:12px 20px}.social{justify-content:flex-start}}
+@media(max-width:560px){footer{padding:28px 0 18px;gap:24px;font-size:13px}.f-base{flex-direction:column;gap:6px}}
 
 /* ===== páginas de lista: cards portados do site atual (galeria), em 3 colunas ===== */
 :root{--border:var(--line);--term-bg:var(--surface);--text:var(--fg);--muted:var(--mute);--accent:var(--fg)}
@@ -149,16 +153,8 @@ footer a{transition:color .2s}footer a:hover{color:var(--fg)}
 @keyframes fade{from{opacity:0}to{opacity:1}}
 section.home>:not(h1){animation:rise .9s cubic-bezier(.16,1,.3,1) both;animation-delay:calc(var(--d,0)*.12s)}
 section.home>.by{--d:6}
-section.home>.sub{--d:7}
 h1.intro .w{animation:rise 1s cubic-bezier(.16,1,.3,1) both;animation-delay:calc(.2s + var(--i)*.09s)}
 #root>.top,footer{animation:fade 1s ease .2s both}
-/* estante: os livros sobem um a um ao entrar na tela e descem ao sair; o texto aparece depois */
-.shelf .bslot{opacity:0;transform:translateY(56px);transition:width 1s cubic-bezier(.16,1,.3,1),opacity .6s ease calc(var(--i)*.09s),transform .9s cubic-bezier(.16,1,.3,1) calc(var(--i)*.09s)}
-.shelf.in .bslot{opacity:1;transform:none}
-.shelf .label,.shelf .binfo,.shelf .bhint{opacity:0;transform:translateY(14px);transition:opacity .7s ease,transform .7s cubic-bezier(.16,1,.3,1)}
-.shelf.in .label{opacity:1;transform:none}
-.shelf.in .binfo,.shelf.in .bhint{opacity:1;transform:none;transition-delay:.7s}
-@media(prefers-reduced-motion:reduce){.shelf .bslot,.shelf .label,.shelf .binfo,.shelf .bhint{opacity:1;transform:none;transition:none}}
 @media(prefers-reduced-motion:reduce){section.home>*,h1.intro .w,#root>.top,footer{animation:none}}
 
 /* experiências: fios finos como na lista de links; período à esquerda, texto à direita */
@@ -244,7 +240,6 @@ h1.intro .w{animation:rise 1s cubic-bezier(.16,1,.3,1) both;animation-delay:calc
   section.home{padding:12px 24px 32px}
   .eyebrow{margin-bottom:18px}
   section.home h1{font-size:clamp(1.65rem,8vw,2.05rem)}
-  p.sub{font-size:15px;line-height:1.45;margin-top:18px}
   .chips{gap:.35rem;margin-top:20px}
   .chip{padding:.18rem .62rem;font-size:.76rem}
 }
@@ -253,10 +248,8 @@ h1.intro .w{animation:rise 1s cubic-bezier(.16,1,.3,1) both;animation-delay:calc
   section.home{padding:6px 24px 16px}
   .eyebrow{margin-bottom:12px}
   section.home h1{font-size:1.6rem}
-  p.sub{font-size:14px;margin-top:12px}
   .chips{margin-top:12px;gap:.3rem}
   .chip{font-size:.72rem;padding:.14rem .55rem}
-  footer{padding:12px 0}
 }
 
 /* topo convencional no desktop e notebook: logo à esquerda | links e ações à direita. Abaixo de 961px vale o menu hambúrguer */
@@ -347,13 +340,11 @@ section.home+.page .eyebrow{margin-top:24px}
 .viewall:hover{color:var(--fg)}
 .viewall:hover span{transform:translateX(3px)}
 
-/* hero em telas maiores: blocos com ritmo claro (cargo + frase / nome e subtítulo), o nome como assinatura sob um fio curto */
+/* hero em telas maiores: cargo, frase e o nome como assinatura, com mais respiro entre eles */
 @media(min-width:561px){
   section.home .eyebrow{margin-bottom:34px}
   section.home h1{font-size:clamp(2.4rem,5.4vw,4.6rem);max-width:1000px;line-height:1.1}
-  section.home .by{margin-top:52px;font-size:clamp(16px,1.3vw,19px);font-weight:600;letter-spacing:.02em}
-  section.home .by::before{content:'';display:block;width:36px;height:1px;margin:0 auto 20px;background:var(--mute)}
-  section.home .by+.sub{margin-top:8px;font-size:clamp(15px,1.25vw,18px);max-width:560px}
+  section.home .by{margin-top:36px;font-size:clamp(16px,1.3vw,19px);font-weight:600;letter-spacing:.02em}
 }
 
 /* certificado como cartão de texto: emissor e ano no topo, nome do curso em destaque e a ação embaixo (o PDF abre no modal) */
@@ -365,3 +356,8 @@ section.home+.page .eyebrow{margin-top:24px}
 .cert-open{color:var(--muted);font:.72rem 'JetBrains Mono',monospace;letter-spacing:.05em;transition:color .2s}
 .card.cert:hover .cert-open{color:var(--fg)}
 @media(prefers-reduced-motion:reduce){.card.cert{transition:none}.card.cert:hover{transform:none}}
+
+/* celular e tablet pequeno: sem animações de entrada (a home aparece pronta; o JS já deixa os blocos visíveis) */
+@media(max-width:768px){
+  section.home>:not(h1),h1.intro .w,#root>.top,footer,.binfo-slot.on{animation:none}
+}

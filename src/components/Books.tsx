@@ -1,21 +1,12 @@
-import { useEffect, useRef, useState, type CSSProperties, type KeyboardEvent } from 'react'
-import { useInView } from '../hooks/useInView'
+import { useRef, useState, type CSSProperties, type KeyboardEvent } from 'react'
 import { useApp } from '../context/AppContext'
 import { books } from '../data'
 
 // Estante com os livros de lombada para fora. Clique para puxar um livro (ele gira e mostra a capa),
-// clique de novo para guardar. Ao entrar na tela os livros sobem um a um e o primeiro é puxado; ao sair, voltam a se esconder. Setas navegam entre os livros e Esc guarda.
+// clique de novo para guardar. Setas navegam entre os livros e Esc guarda.
 export function Books() {
   const { t, lang } = useApp()
-  const { ref, inView } = useInView<HTMLElement>(0.35)
-  const [open, setOpen] = useState<number | null>(null)
-  const [prev, setPrev] = useState(false)
-  if (inView !== prev) { setPrev(inView); if (!inView) setOpen(null) }
-  useEffect(() => {
-    if (!inView) return
-    const id = setTimeout(() => setOpen(o => o ?? 0), 900)
-    return () => clearTimeout(id)
-  }, [inView])
+  const [open, setOpen] = useState<number | null>(0)
   const refs = useRef<(HTMLButtonElement | null)[]>([])
   const book = open === null ? null : books[open]
 
@@ -31,7 +22,7 @@ export function Books() {
   }
 
   return (
-    <section className={`tl shelf${inView ? ' in' : ''}`} ref={ref}>
+    <section className="tl">
       <h2 className="label"><span>{t.booksTitle}</span><span className="n">{books.length}</span></h2>
       <div className="bshelf" onKeyDown={onKeyDown}>
         {books.map((b, i) => (

@@ -21,7 +21,6 @@ export function Home() {
         <span aria-hidden="true">{words(t.h1a)}{words(t.h1b, 'dim')}</span>
       </h1>
       <p className="by">Hugo Lelis</p>
-      <p className="sub">{t.sub}</p>
     </section>
     <Projects compact />
     <Certificates compact />
