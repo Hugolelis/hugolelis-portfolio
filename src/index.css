@@ -356,3 +356,6 @@ section.home+.page .eyebrow{margin-top:24px}
 .cert-open{color:var(--muted);font:.72rem 'JetBrains Mono',monospace;letter-spacing:.05em;transition:color .2s}
 .card.cert:hover .cert-open{color:var(--fg)}
 @media(prefers-reduced-motion:reduce){.card.cert{transition:none}.card.cert:hover{transform:none}}
+
+/* home no celular: só o hero anima; os blocos de baixo já aparecem prontos */
+@media(max-width:768px){.route:has(>section.home) .reveal{opacity:1;transform:none;transition:none}}
