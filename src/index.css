@@ -356,8 +356,3 @@ section.home+.page .eyebrow{margin-top:24px}
 .cert-open{color:var(--muted);font:.72rem 'JetBrains Mono',monospace;letter-spacing:.05em;transition:color .2s}
 .card.cert:hover .cert-open{color:var(--fg)}
 @media(prefers-reduced-motion:reduce){.card.cert{transition:none}.card.cert:hover{transform:none}}
-
-/* celular e tablet pequeno: sem animações de entrada (a home aparece pronta; o JS já deixa os blocos visíveis) */
-@media(max-width:768px){
-  section.home>:not(h1),h1.intro .w,#root>.top,footer,.binfo-slot.on{animation:none}
-}
