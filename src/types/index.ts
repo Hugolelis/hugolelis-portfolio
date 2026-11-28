@@ -44,6 +44,9 @@ export interface TimelineEntry {
   period: LocalizedText
   current?: boolean
   description: LocalizedList
+  /** shown under "view details": what was done, in more depth */
+  details?: LocalizedList
+  skills?: string[]
   category: TimelineCategory
 }
 

@@ -176,6 +176,13 @@ h1.intro .w{animation:rise 1s cubic-bezier(.16,1,.3,1) both;animation-delay:calc
 .tl-role{display:block;font:.76rem 'JetBrains Mono',monospace;color:var(--muted);margin-bottom:.6rem}
 .tl-desc{list-style:none;padding:0;margin:0;color:var(--muted);font-size:.86rem;line-height:1.55}
 .tl-desc li+li{margin-top:.35rem}
+.tl-more{list-style:none;padding:0;margin:.9rem 0 0;display:flex;flex-direction:column;gap:.5rem;color:var(--muted);font-size:.86rem;line-height:1.55}
+.tl-more li{position:relative;padding-left:1rem}
+.tl-more li::before{content:'–';position:absolute;left:0}
+.tl-skills{display:flex;flex-wrap:wrap;gap:.4rem;list-style:none;padding:0;margin:1rem 0 .2rem}
+.tl-skills .chip{padding:.15rem .6rem;font-size:.74rem;color:var(--muted)}
+.tl-toggle{display:inline-flex;align-items:center;gap:.4rem;margin-top:.8rem;padding:0;border:0;background:none;color:var(--muted);font:.72rem 'JetBrains Mono',monospace;letter-spacing:.05em;text-transform:uppercase;cursor:pointer;transition:color .2s}
+.tl-toggle:hover,.tl-toggle:focus-visible{color:var(--fg)}
 @media(max-width:560px){.tl-item{grid-template-columns:1fr;gap:.5rem}}
 
 /* badges de tecnologias, logo abaixo da frase da home */
@@ -340,3 +347,21 @@ section.home+.page .eyebrow{margin-top:24px}
 .viewall span{transition:transform .2s}
 .viewall:hover{color:var(--fg)}
 .viewall:hover span{transform:translateX(3px)}
+
+/* telas grandes: certificados em 2 colunas (e a home usa a largura toda), para o texto do diploma dar para ler no card */
+@media(min-width:641px){.gallery.certs{grid-template-columns:repeat(2,1fr);column-gap:3rem}.certs .media{aspect-ratio:1100/850}}
+@media(min-width:1100px){.gallery.certs.two{max-width:none;column-gap:3rem}.gallery.certs.two .name{font-size:1.05rem}.gallery.certs.two .issuer{font-size:.9rem}}
+
+/* hero em telas maiores: três blocos com ritmo claro (cargo + frase / nome e subtítulo / tecnologias), o nome como assinatura sob um fio curto */
+@media(min-width:561px){
+  section.home .eyebrow{margin-bottom:34px}
+  section.home h1{font-size:clamp(2.4rem,5.4vw,4.6rem);max-width:1000px;line-height:1.1}
+  section.home .by{margin-top:52px;font-size:clamp(16px,1.3vw,19px);font-weight:600;letter-spacing:.02em}
+  section.home .by::before{content:'';display:block;width:36px;height:1px;margin:0 auto 20px;background:var(--mute)}
+  section.home .by+.sub{margin-top:8px;font-size:clamp(15px,1.25vw,18px);max-width:560px}
+  section.home .chips{margin-top:44px;max-width:540px}
+}
+
+/* projetos acompanham os certificados: 2 colunas na página própria e largura toda na home em telas grandes */
+@media(min-width:641px){.gallery.flex{column-gap:3rem}.gallery.flex>li{width:calc((100% - 3rem)/2)}}
+@media(min-width:1100px){.gallery.tight{max-width:none;column-gap:3rem}.gallery.tight .name{font-size:1.05rem}.gallery.tight .desc{font-size:.9rem}}
